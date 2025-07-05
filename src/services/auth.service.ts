@@ -17,4 +17,10 @@ const useGetAuthMe = () =>
       api.get("/v1/auth/me").then((res) => res.data),
   });
 
-export { useAuthSignIn, useGetAuthMe };
+const useAuthSignOut = () =>
+  useMutation({
+    mutationFn: async (): Promise<IApiResponse<null>> =>
+      api.post("/v1/auth/sign-out").then((res) => res.data),
+  });
+
+export { useAuthSignIn, useGetAuthMe, useAuthSignOut };

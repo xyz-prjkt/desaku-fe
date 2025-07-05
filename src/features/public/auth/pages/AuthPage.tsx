@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Divider, Space } from "antd";
 import { Shield } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useAnt } from "@/hooks";
 import { cookies } from "@/libs/cookies";
 import { encryptObject } from "@/utils/secure-storage";
@@ -19,14 +19,15 @@ const AuthPage = () => {
     resolver: yupResolver(authSignIn),
   });
   const { message } = useAnt();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: ISignInRequest) => {
     await signIn(data)
       .then((res) => {
         if (res.success) {
-          message.success("Sign in successful");
+          message.success("Berhasil masuk ke dalam sistem");
           cookies.set("dsk-mddlwr", encryptObject("true", "dsk-mddlwr"));
-          window.location.reload();
+          navigate("/dashboard");
         }
       })
       .catch((err) => message.error((err as Error).message));

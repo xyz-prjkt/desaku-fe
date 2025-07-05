@@ -73,7 +73,11 @@ const VillagerDashboardPage = () => {
             className="bg-purple-100 lg:col-span-1"
           >
             <div className="flex flex-col gap-4">
-              <AvatarImage src={""} fallback={<UserOutlined />} size={64} />
+              <AvatarImage
+                src={""}
+                fallback={myProfile?.data?.name.slice(0, 1)}
+                size={64}
+              />
               <div className="w-full">
                 <Typography.P className="text-purple-800 font-medium text-xl">
                   {myProfile.data?.name}
