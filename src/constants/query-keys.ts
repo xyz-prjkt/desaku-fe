@@ -6,4 +6,8 @@ export const QUERY_KEYS = {
   AUTH: {
     ME: ["auth", "me"],
   },
+  SK: {
+    KEMATIAN: ["sk", "kematian"],
+    KEMATIAN_DETAIL: ["sk", "kematian", "detail"],
+  },
 } as const;

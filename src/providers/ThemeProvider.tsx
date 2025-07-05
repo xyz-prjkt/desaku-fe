@@ -1,8 +1,9 @@
 import {
   App as AntApp,
-  type ThemeConfig as ThemeConfigType,
   ConfigProvider as ThemeConfig,
+  type ThemeConfig as ThemeConfigType,
 } from "antd";
+import id_ID from "antd/locale/id_ID";
 import type { ReactNode } from "react";
 
 const ThemeProvider = ({
@@ -14,7 +15,9 @@ const ThemeProvider = ({
 }) => {
   return (
     <AntApp>
-      <ThemeConfig theme={themeConfig}>{children}</ThemeConfig>
+      <ThemeConfig theme={themeConfig} locale={id_ID}>
+        {children}
+      </ThemeConfig>
     </AntApp>
   );
 };

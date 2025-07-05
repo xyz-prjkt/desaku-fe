@@ -1,19 +1,19 @@
+import ApprovalsTag from "@/components/atoms/approvals-tag/ApprovalsTag";
+import { formatter } from "@/components/atoms/count-up";
 import { ContentPaper } from "@/components/atoms/paper";
 import { BaseTable } from "@/components/molecules/table";
 import { SK_TYPE_MAP } from "@/constants/sk-type-map";
-import { STATUS_COLOR_MAP } from "@/constants/status-color";
-import { STATUS_MAP } from "@/constants/status-map";
 import { useTableAsync } from "@/hooks";
 import { IUserSk } from "@/interfaces/services/dashboard";
 import {
   useGetDashboardStatusCount,
   useGetMySkList,
 } from "@/services/dashboard.service";
-import { Card, Space, Statistic, Tag } from "antd";
+import { Button, Card, Space, Statistic } from "antd";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import VillagerDashboardFilter from "../components/VillagerDashboardFilter";
-import { formatter } from "@/components/atoms/count-up";
+import { useNavigate } from "react-router";
 
 const VillagerDashboardPage = () => {
   const {
@@ -33,6 +33,8 @@ const VillagerDashboardPage = () => {
   const { data: userSkList, isLoading: userSkListIsLoading } =
     useGetMySkList(paginateRequest);
 
+  const navigate = useNavigate();
+
   const statusItems = [
     {
       title: "Menunggu Verifikasi",
@@ -50,7 +52,7 @@ const VillagerDashboardPage = () => {
       color: "#ff4d4f",
     },
     {
-      title: "Direvisi",
+      title: "Memerlukan Revisi",
       value: statusCount?.data?.revised || 0,
       color: "#1890ff",
     },
@@ -61,11 +63,7 @@ const VillagerDashboardPage = () => {
       <Space direction="vertical" size="large" className="w-full">
         <div className="flex flex-wrap gap-4">
           {statusItems.map((item, index) => (
-            <Card
-              key={index}
-              variant="borderless"
-              className="flex-1 min-w-[200px] max-w-[300px]"
-            >
+            <Card key={index} variant="borderless" className="flex-1">
               <Statistic
                 title={item.title}
                 value={item.value}
@@ -100,28 +98,9 @@ const VillagerDashboardPage = () => {
               },
               {
                 title: "Status",
-                render: (_, record) => {
-                  const approvals = record.user_approvers || [];
-
-                  if (approvals.length === 0) {
-                    return <Tag color="orange">Menunggu Verifikasi</Tag>;
-                  }
-
-                  return (
-                    <div className="flex flex-wrap flex-col gap-1">
-                      {approvals.map((approval, index) => (
-                        <Tag
-                          className="w-fit"
-                          key={index}
-                          color={STATUS_COLOR_MAP[approval.status] || "default"}
-                        >
-                          {approval.approver.name}:{" "}
-                          {STATUS_MAP[approval.status] || approval.status}
-                        </Tag>
-                      ))}
-                    </div>
-                  );
-                },
+                render: (_, record) => (
+                  <ApprovalsTag approvers={record.user_approvers} />
+                ),
               },
               {
                 title: "Tanggal Pengajuan",
@@ -131,6 +110,24 @@ const VillagerDashboardPage = () => {
                   format(new Date(value), "EEEE, dd MMMM yyyy, HH:mm", {
                     locale: id,
                   }),
+              },
+              {
+                render: (_, record) => (
+                  <Button
+                    type="link"
+                    onClick={() => {
+                      const skUrl =
+                        record.sk_type === "KEMATIAN"
+                          ? "kematian"
+                          : record.sk_type === "TIDAK_MAMPU"
+                          ? "tidak-mampu"
+                          : "";
+                      navigate(`/my-sk/${skUrl}/${record.id}/detail`);
+                    }}
+                  >
+                    Detail
+                  </Button>
+                ),
               },
             ]}
             withSearch
