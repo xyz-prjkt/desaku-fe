@@ -9,11 +9,15 @@ import {
   useGetDashboardStatusCount,
   useGetMySkList,
 } from "@/services/dashboard.service";
-import { Button, Card, Space, Statistic } from "antd";
+import { Button, Card, Space, Statistic, Tag } from "antd";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import VillagerDashboardFilter from "../components/VillagerDashboardFilter";
 import { useNavigate } from "react-router";
+import { Typography } from "@/components/atoms/typography";
+import { useGetAuthMe } from "@/services/auth.service";
+import { AvatarImage } from "@/components/atoms/avatar";
+import { UserOutlined } from "@ant-design/icons";
 
 const VillagerDashboardPage = () => {
   const {
@@ -26,6 +30,8 @@ const VillagerDashboardPage = () => {
     fromDate: string;
     toDate: string;
   }>({});
+
+  const { data: myProfile, isLoading: myProfileIsLoading } = useGetAuthMe();
 
   const { data: statusCount, isLoading: statusCountIsLoading } =
     useGetDashboardStatusCount();
@@ -61,18 +67,42 @@ const VillagerDashboardPage = () => {
   return (
     <ContentPaper title="Dashboard">
       <Space direction="vertical" size="large" className="w-full">
-        <div className="flex flex-wrap gap-4">
-          {statusItems.map((item, index) => (
-            <Card key={index} variant="borderless" className="flex-1">
-              <Statistic
-                title={item.title}
-                value={item.value}
-                valueStyle={{ color: item.color }}
-                loading={statusCountIsLoading}
-                formatter={formatter}
-              />
-            </Card>
-          ))}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <Card
+            loading={myProfileIsLoading}
+            className="bg-purple-100 lg:col-span-1"
+          >
+            <div className="flex flex-col gap-4">
+              <AvatarImage src={""} fallback={<UserOutlined />} size={64} />
+              <div className="w-full">
+                <Typography.P className="text-purple-800 font-medium text-xl">
+                  {myProfile.data?.name}
+                </Typography.P>
+                <Typography.P className="text-gray-600 mb-3">
+                  {myProfile.data?.email}
+                </Typography.P>
+                <div className="flex flex-wrap gap-1">
+                  {myProfile.data?.role.map((role) => (
+                    <Tag key={role.id}>{role.name}</Tag>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          <div className="grid grid-cols-2 gap-4 lg:col-span-2">
+            {statusItems.map((item, index) => (
+              <Card key={index} variant="borderless" className="h-full">
+                <Statistic
+                  title={item.title}
+                  value={item.value}
+                  valueStyle={{ color: item.color }}
+                  loading={statusCountIsLoading}
+                  formatter={formatter}
+                />
+              </Card>
+            ))}
+          </div>
         </div>
         <Card variant="borderless">
           <BaseTable<IUserSk>

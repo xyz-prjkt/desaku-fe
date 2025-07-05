@@ -1,10 +1,16 @@
 import { Avatar } from "antd";
 import { IAvatarImageProps } from "./interfaces";
 
-const AvatarImage = ({ src, fallback, size, shape }: IAvatarImageProps) => {
+const AvatarImage = ({
+  className,
+  src,
+  fallback,
+  size,
+  shape,
+}: IAvatarImageProps) => {
   if (!src) {
     return (
-      <Avatar size={size} shape={shape}>
+      <Avatar size={size} shape={shape} className={className}>
         {fallback}
       </Avatar>
     );
