@@ -73,11 +73,13 @@ const VillagerDashboardPage = () => {
             className="bg-purple-100 lg:col-span-1"
           >
             <div className="flex flex-col gap-4">
-              <AvatarImage
-                src={""}
-                fallback={myProfile?.data?.name.slice(0, 1)}
-                size={64}
-              />
+              <div className="p-1 w-fit rounded-full border-2 border-spacing-6 border-purple-500 border-dotted">
+                <AvatarImage
+                  src={""}
+                  fallback={myProfile?.data?.name.slice(0, 1)}
+                  size={64}
+                />
+              </div>
               <div className="w-full">
                 <Typography.P className="text-purple-800 font-medium text-xl">
                   {myProfile.data?.name}
@@ -93,7 +95,6 @@ const VillagerDashboardPage = () => {
               </div>
             </div>
           </Card>
-
           <div className="grid grid-cols-2 gap-4 lg:col-span-2">
             {statusItems.map((item, index) => (
               <Card key={index} variant="borderless" className="h-full">
