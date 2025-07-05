@@ -3,16 +3,15 @@ import { FormInput, PasswordInput } from "@/components/atoms/input";
 import { Typography } from "@/components/atoms/typography";
 import { ISignInRequest } from "@/interfaces/services/auth";
 import { useAuthSignIn } from "@/services/auth.service";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Divider, Space } from "antd";
 import { Shield } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
-import { yupResolver } from "@hookform/resolvers/yup";
-
-import { authSignIn } from "../schemas/auth.schemas";
 import { useAnt } from "@/hooks";
 import { cookies } from "@/libs/cookies";
 import { encryptObject } from "@/utils/secure-storage";
+import { authSignIn } from "../schemas/auth.schemas";
 
 const AuthPage = () => {
   const { mutateAsync: signIn, isPending: signInIsPending } = useAuthSignIn();

@@ -1,8 +1,14 @@
 import baseAxios from "axios";
 import { Mutex } from "async-mutex";
 import { getFormattedErrorMessage } from "@/utils/api-error-helper";
+import { cookies } from "@/libs/cookies";
 
 const mutex = new Mutex();
+
+const revokeAuthorization = () => {
+  cookies.remove("dsk-mddlwr");
+  window.location.replace("/401");
+};
 
 const createAxiosInstance = () => {
   const axios = baseAxios.create({
@@ -32,16 +38,11 @@ const createAxiosInstance = () => {
             await fetch("http://localhost:4056/v1/auth/refresh-token", {
               credentials: "include",
               method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
             })
               .then((res) => res.json())
               .then((data) => {
-                if (data.code === 200) {
-                  window.location.reload();
-                } else {
-                  window.location.replace("/401");
+                if (!data.success) {
+                  revokeAuthorization();
                 }
               });
           } finally {
@@ -50,12 +51,9 @@ const createAxiosInstance = () => {
         }
       }
 
-      const requestId = error.response?.data?.request_meta?.request_id ?? null;
       const errorMsg = getFormattedErrorMessage(error.response?.data?.message);
 
-      return Promise.reject(
-        new Error(`${errorMsg} | Request ID: ${requestId ?? "N/A"}`)
-      );
+      return Promise.reject(new Error(`${errorMsg}`));
     }
   );
   return axios;

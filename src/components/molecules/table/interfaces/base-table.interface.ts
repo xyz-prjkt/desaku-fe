@@ -1,7 +1,7 @@
-import { TablePaginationConfig, TableProps } from 'antd';
-import { ReactNode } from 'react';
+import { TablePaginationConfig, TableProps } from "antd";
+import { ReactNode } from "react";
 
-export type TSort = 'ASC' | 'DESC';
+export type TSort = "ASC" | "DESC";
 
 export interface IPaginateRequest {
   search?: string;
@@ -11,13 +11,13 @@ export interface IPaginateRequest {
   orderBy?: string;
 }
 
-export interface IBaseTableProps {
-  onPageChange?: TablePaginationConfig['onChange'];
-  onSizeChange?: TablePaginationConfig['onShowSizeChange'];
-  onTableChange?: TableProps<unknown>['onChange'];
+export interface IBaseTableProps<T = unknown> {
+  onPageChange?: TablePaginationConfig["onChange"];
+  onSizeChange?: TablePaginationConfig["onShowSizeChange"];
+  onTableChange?: TableProps<T>["onChange"];
   onSearchChange?: (v: string) => void;
-  columns: TableProps<unknown>['columns'];
-  data: TableProps<unknown>['dataSource'];
+  columns: TableProps<T>["columns"];
+  data: TableProps<T>["dataSource"];
   withSearch?: boolean;
   filterComponents?: ReactNode;
   actionComponent?: ReactNode;
@@ -32,6 +32,6 @@ export interface IBaseTableProps {
   pageSize?: number;
   onSortChange?: (
     orderBy: string | any,
-    orderDirection: 'descend' | 'ascend' | any
+    orderDirection: "descend" | "ascend" | any
   ) => void;
 }

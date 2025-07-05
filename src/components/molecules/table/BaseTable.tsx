@@ -1,15 +1,15 @@
-import { SearchOutlined } from '@ant-design/icons';
-import { Input, Table } from 'antd';
-import clsx from 'clsx';
-import { useMemo } from 'react';
-import { IBaseTableProps } from './interfaces';
+import { SearchOutlined } from "@ant-design/icons";
+import { Input, Table } from "antd";
+import clsx from "clsx";
+import { useMemo } from "react";
+import { IBaseTableProps } from "./interfaces";
 
 /**
  * Base Table
  * Component BaseTable ini digunakan sebagai reusable tabel pada seluruh project Gihon,
  * Component ini dapat diintergrasikan menjadi Async Table dengan kombinasi dengan useTableAsync hooks
  */
-const BaseTable = ({
+const BaseTable = <T = unknown,>({
   className,
   data,
   columns,
@@ -28,10 +28,10 @@ const BaseTable = ({
   filterComponents,
   currentPage = undefined,
   pageSize = undefined,
-  sort = 'DESC',
+  sort = "DESC",
   orderBy,
   onSortChange,
-}: IBaseTableProps) => {
+}: IBaseTableProps<T>) => {
   const enhancedColumns = useMemo(
     () =>
       columns?.map((column: any) => {
@@ -40,9 +40,9 @@ const BaseTable = ({
             ...column,
             sortOrder:
               column.dataIndex === orderBy
-                ? sort === 'ASC'
-                  ? 'ascend'
-                  : 'descend'
+                ? sort === "ASC"
+                  ? "ascend"
+                  : "descend"
                 : undefined,
           };
         }
@@ -67,7 +67,7 @@ const BaseTable = ({
         </div>
         {actionComponent}
       </div>
-      <Table
+      <Table<T>
         className={clsx(className)}
         dataSource={data}
         columns={enhancedColumns}
@@ -81,7 +81,7 @@ const BaseTable = ({
             onTableChange(pagination, filters, sorter, extra);
           }
         }}
-        scroll={{ x: 'max-content' }}
+        scroll={{ x: "max-content" }}
         loading={isLoading}
         pagination={{
           responsive: true,
