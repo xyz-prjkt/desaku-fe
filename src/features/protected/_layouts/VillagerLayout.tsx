@@ -1,9 +1,16 @@
 import { AppLayout } from "@/components/molecules/layout";
 import { SideBarMenu } from "@/components/molecules/sidebar";
-import { VILLAGER_ROUTE } from "@/routes/villager";
+import { PROTECTED_ROUTE } from "@/routes/protected";
+import { useGetAuthMe } from "@/services/auth.service";
+import routeMiddleware from "@/utils/route-middleware";
 import { Outlet } from "react-router";
 
-const VillagerLayout = () => {
+const ProtectedLayout = () => {
+  const { data: userProfile } = useGetAuthMe();
+  const { allowedRoutes } = routeMiddleware(
+    PROTECTED_ROUTE,
+    userProfile?.data?.permissions
+  );
   return (
     <AppLayout
       logo={<></>}
@@ -15,7 +22,7 @@ const VillagerLayout = () => {
           expandAllByDefault
           className="w-full mb-6"
           sidebarTheme="light"
-          routes={[...(VILLAGER_ROUTE.children ?? [])]}
+          routes={[...(allowedRoutes ?? [])]}
           defaultRouteId="Dashboard"
         />
       }
@@ -25,4 +32,4 @@ const VillagerLayout = () => {
   );
 };
 
-export default VillagerLayout;
+export default ProtectedLayout;

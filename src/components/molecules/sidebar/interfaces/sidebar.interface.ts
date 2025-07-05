@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
+import { JSX, ReactNode } from "react";
 
 interface IRoute {
   id?: string;
   parentId?: string;
   hidden?: boolean;
-  allowedPermission?: string;
+  allowedPermission?: string[];
   path?: string;
   element?: ReactNode;
   children?: IRoute[];

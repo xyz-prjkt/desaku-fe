@@ -1,10 +1,11 @@
 import { ReactNode } from "react";
+import { IPermissionName } from "../services/auth";
 
 interface IRoute {
   id?: string;
   parentId?: string;
   hidden?: boolean;
-  allowedPermission?: string;
+  allowedPermission?: IPermissionName[];
   path?: string;
   element?: ReactNode;
   children?: IRoute[];
@@ -20,4 +21,4 @@ interface IMenuItem {
   children?: IMenuItem[];
 }
 
-export type { IRoute, IMenuItem };
+export type { IMenuItem, IRoute };

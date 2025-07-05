@@ -1,18 +1,13 @@
 import { createBrowserRouter } from "react-router";
-import { ADMIN_ROUTE } from "./admin";
 import { PUBLIC_ROUTE } from "./public";
-import { VILLAGER_ROUTE } from "./villager";
+import { PROTECTED_ROUTE } from "./protected";
 import { FALLBACK_ROUTE } from "./fallback";
 
 export const router = createBrowserRouter(
   [
     {
       path: "/",
-      children: [PUBLIC_ROUTE, VILLAGER_ROUTE, FALLBACK_ROUTE],
-    },
-    {
-      path: "/admin",
-      children: [ADMIN_ROUTE],
+      children: [PUBLIC_ROUTE, PROTECTED_ROUTE, FALLBACK_ROUTE],
     },
   ],
   {
