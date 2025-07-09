@@ -9,7 +9,9 @@ export const FALLBACK_ROUTE: IRoute = {
   children: [
     {
       path: "403",
-      element: <Restricted403AccessPage logo={<></>} />,
+      element: (
+        <Restricted403AccessPage logo={<></>} dashboardUrl="/dashboard" />
+      ),
     },
     {
       path: "401",
@@ -17,7 +19,7 @@ export const FALLBACK_ROUTE: IRoute = {
     },
     {
       path: "*",
-      element: <NotFound404Page logo={<></>} />,
+      element: <NotFound404Page logo={<></>} dashboardUrl="/dashboard" />,
     },
   ],
 };

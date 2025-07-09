@@ -1,3 +1,4 @@
+import { FlickeringGrid } from "@/components/atoms/backgrounds";
 import { Layout } from "antd";
 import { ReactNode } from "react";
 import { Outlet } from "react-router";
@@ -12,6 +13,14 @@ const AppAuthLayout = ({ children }: IAppAuthLayout) => {
       <div className="bg-white p-8 border rounded-lg flex flex-col md:flex-row mx-6 md:mx-0 z-10">
         {children || <Outlet />}
       </div>
+      <FlickeringGrid
+        className="absolute h-screen w-screen"
+        color="#8B5CF6"
+        squareSize={6}
+        gridGap={18}
+        maxOpacity={0.8}
+        flickerChance={0.6}
+      />
     </Layout>
   );
 };

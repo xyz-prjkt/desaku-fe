@@ -32,8 +32,14 @@ const ProtectedLayout = () => {
 
   return (
     <AppLayout
-      logo={<></>}
+      logo={<p className="text-2xl font-bold text-purple-800">dk.</p>}
       appName={"Desaku"}
+      styles={{
+        contentBg: {
+          background:
+            "linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%)",
+        },
+      }}
       headerComponents={
         <Space wrap size={16}>
           <Dropdown

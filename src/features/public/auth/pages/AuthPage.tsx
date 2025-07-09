@@ -4,7 +4,7 @@ import { Typography } from "@/components/atoms/typography";
 import { ISignInRequest } from "@/interfaces/services/auth";
 import { useAuthSignIn } from "@/services/auth.service";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Divider, Space } from "antd";
+import { Button, Divider, Space, Tabs } from "antd";
 import { Shield } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
@@ -40,57 +40,64 @@ const AuthPage = () => {
           <Shield size={42} />
           <div>
             <Typography.P className="text-xl font-semibold text-purple-800">
-              Ngubalan Daring
+              Desaku Digital
             </Typography.P>
-            <Typography.P>Sign in to your account.</Typography.P>
+            <Typography.P>Authorisasi ke dalam sistem.</Typography.P>
           </div>
         </div>
-        <Space className="w-full" direction="vertical" size="middle">
-          <FormInput
-            name="email"
-            label="Email Address"
-            placeholder="name@example.com"
-          />
-          <div>
-            <PasswordInput
-              name="password"
-              label="Password"
-              placeholder="Enter Password"
-            />
+        <Tabs
+          items={[
+            {
+              label: "Masuk",
+              key: "sign-in",
+              children: (
+                <Space className="w-full" direction="vertical" size="middle">
+                  <FormInput
+                    name="email"
+                    label="Alamat Email"
+                    placeholder="nama@example.com"
+                  />
+                  <div>
+                    <PasswordInput
+                      name="password"
+                      label="Kata Sandi"
+                      placeholder="Masukkan Kata Sandi"
+                    />
 
-            <div className="w-full flex justify-between flex-row mt-2">
-              <Link className="justify-end" to="/sso/forgot-password">
-                Forgot your password?
-              </Link>
-            </div>
-          </div>
-          <Space.Compact direction="vertical" className="w-full">
-            <Button
-              variant="solid"
-              color="primary"
-              className="w-full"
-              htmlType="submit"
-              loading={signInIsPending}
-              onClick={formMethods.handleSubmit(onSubmit)}
-            >
-              Sign In
-            </Button>
-          </Space.Compact>
-        </Space>
+                    <div className="w-full flex justify-between flex-row mt-2">
+                      <Link className="justify-end" to="/sso/forgot-password">
+                        Lupa kata sandi?
+                      </Link>
+                    </div>
+                  </div>
+                  <Space.Compact direction="vertical" className="w-full">
+                    <Button
+                      variant="solid"
+                      color="primary"
+                      className="w-full"
+                      htmlType="submit"
+                      loading={signInIsPending}
+                      onClick={formMethods.handleSubmit(onSubmit)}
+                    >
+                      Masuk
+                    </Button>
+                  </Space.Compact>
+                </Space>
+              ),
+            },
+            {
+              label: "Pengguna Baru",
+              key: "sign-up",
+              children: <div>Sign Up</div>,
+            },
+          ]}
+        />
+
         <Divider />
         <div className="flex flex-col items-center gap-2">
           <Typography.P className="text-center">
             xyzscape © 2025 All rights reserved.
           </Typography.P>
-          <Space>
-            <Link to={"#"} className="text-blue-500">
-              Privacy Policy
-            </Link>
-            <Typography.P>•</Typography.P>
-            <Link to={"#"} className="text-blue-500">
-              User Notice
-            </Link>
-          </Space>
         </div>
       </Space>
     </FormProvider>
