@@ -1,3 +1,5 @@
+import { Gender } from "./gender";
+
 interface ISkKematian {
   id: string;
   name: string;
@@ -9,7 +11,7 @@ interface ISkKematianDetail extends ISkKematian {
   born_birth: string;
   born_place: string;
   nik: string;
-  gender: "MALE" | "FEMALE";
+  gender: Gender;
   religion: string;
   death_place: string;
   death_reason: string;
@@ -18,4 +20,17 @@ interface ISkKematianDetail extends ISkKematian {
   user_sk_id: string;
 }
 
-export { ISkKematian, ISkKematianDetail };
+interface ISkKematianCreate {
+  name: string;
+  address: string;
+  death_date: string;
+  born_birth: string;
+  born_place: string;
+  nik: string;
+  gender: Gender;
+  religion: string;
+  death_place: string;
+  death_reason: string;
+}
+
+export { ISkKematian, ISkKematianDetail, ISkKematianCreate };

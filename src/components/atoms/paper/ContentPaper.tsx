@@ -1,7 +1,7 @@
-import { Card, Skeleton, Spin } from 'antd';
-import { ReactNode } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Typography } from '../typography';
+import { PageContainer, ProCard } from "@ant-design/pro-components";
+import { Skeleton } from "antd";
+import { ReactNode } from "react";
+import { Helmet } from "react-helmet-async";
 
 type ContentPaperProps = {
   children: ReactNode;
@@ -12,37 +12,19 @@ type ContentPaperProps = {
   translucent?: boolean;
 };
 
-const ContentPaper = ({
-  children,
-  isLoading,
-  title,
-  hideTitle,
-  action,
-  translucent = true,
-}: ContentPaperProps) => {
+const ContentPaper = ({ children, isLoading, title }: ContentPaperProps) => {
   return (
     <>
       {title && (
         <Helmet>
-          <title>{isLoading ? 'Loading...' : title}</title>
+          <title>{isLoading ? "Loading..." : title}</title>
         </Helmet>
       )}
-      <Spin spinning={isLoading || false}>
-        <Card
-          variant="borderless"
-          className={`${
-            translucent ? 'bg-white/40 backdrop-blur-2xl' : 'bg-white/85'
-          }`}
-        >
-          {title && !hideTitle && (
-            <div className="flex md:flex-row flex-col justify-between  mb-3">
-              <Typography.H3>{isLoading ? 'Loading...' : title}</Typography.H3>
-              {action}
-            </div>
-          )}
+      <PageContainer>
+        <ProCard>
           {isLoading ? <Skeleton active paragraph={{ rows: 12 }} /> : children}
-        </Card>
-      </Spin>
+        </ProCard>
+      </PageContainer>
     </>
   );
 };

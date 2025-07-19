@@ -2,8 +2,10 @@ import { IPaginateRequest } from "@/components/molecules/table/interfaces";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import { IApiResponse } from "@/interfaces/services/api";
 import { IUserSk, IUserSkDetail } from "@/interfaces/services/dashboard";
+import { ISkKematianCreate } from "@/interfaces/services/sk-kematian";
 import { api } from "@/libs";
-import { useQuery } from "@tanstack/react-query";
+import { query } from "@/libs/query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetUserSkKematian = (paginateRequest: IPaginateRequest) =>
   useQuery({
@@ -22,4 +24,18 @@ const useGetSkKematianDetail = (id: string) =>
     enabled: !!id,
   });
 
-export { useGetSkKematianDetail, useGetUserSkKematian };
+const useCreateSkKematian = () =>
+  useMutation({
+    mutationFn: async (
+      data: ISkKematianCreate,
+    ): Promise<
+      IApiResponse<Pick<IUserSk, "id" | "user_id" | "createdAt" | "sk_type">>
+    > => api.post("/v1/sk/kematian", data).then((res) => res.data),
+    onSuccess: () => {
+      query.invalidateQueries({
+        queryKey: [QUERY_KEYS.SK.KEMATIAN],
+      });
+    },
+  });
+
+export { useCreateSkKematian, useGetSkKematianDetail, useGetUserSkKematian };

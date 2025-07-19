@@ -29,12 +29,6 @@ const ProtectedLayout = () => {
 
   return (
     <AppLayout
-      styles={{
-        contentBg: {
-          background:
-            "radial-gradient(at top right, rgba(255,255,255,1) 0%, rgba(240,235,255,0.8) 50%, rgba(230,225,250,0.6) 100%)",
-        },
-      }}
       sidebarRoute={allowedRoutes}
       settings={{
         title: "Desaku Digital Administration",
