@@ -1,23 +1,20 @@
-import { AvatarImage } from "@/components/atoms/avatar";
-import { Typography } from "@/components/atoms/typography";
 import { AppLayout } from "@/components/molecules/layout";
-import { SideBarMenu } from "@/components/molecules/sidebar";
 import { useAnt } from "@/hooks";
 import { cookies } from "@/libs/cookies";
 import { PROTECTED_ROUTE } from "@/routes/protected";
 import { useAuthSignOut, useGetAuthMe } from "@/services/auth.service";
 import routeMiddleware from "@/utils/route-middleware";
-import { Card, Dropdown, List, Space, Tag } from "antd";
+import { LandmarkIcon } from "lucide-react";
 import { Outlet, useNavigate } from "react-router";
 
 const ProtectedLayout = () => {
-  const { data: userProfile } = useGetAuthMe();
+  const { data: userProfile, isLoading: userProfileIsLoading } = useGetAuthMe();
   const { mutateAsync: signOut } = useAuthSignOut();
   const { message } = useAnt();
   const navigate = useNavigate();
   const { allowedRoutes } = routeMiddleware(
     PROTECTED_ROUTE,
-    userProfile?.data?.permissions
+    userProfile?.data?.permissions,
   );
 
   const handleSignOut = async () => {
@@ -32,82 +29,31 @@ const ProtectedLayout = () => {
 
   return (
     <AppLayout
-      logo={<p className="text-2xl font-bold text-purple-800">dk.</p>}
-      appName={"Desaku"}
       styles={{
         contentBg: {
           background:
-            "linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%)",
+            "radial-gradient(at top right, rgba(255,255,255,1) 0%, rgba(240,235,255,0.8) 50%, rgba(230,225,250,0.6) 100%)",
         },
       }}
-      headerComponents={
-        <Space wrap size={16}>
-          <Dropdown
-            trigger={["click"]}
-            dropdownRender={() => (
-              <Card className="max-w-80 min-w-72 shadow-2xl">
-                <Space
-                  className="items-center w-full"
-                  direction="vertical"
-                  size="middle"
-                >
-                  <div className="p-1 w-fit rounded-full border-2 border-blue-500 border-dotted">
-                    <AvatarImage
-                      size={72}
-                      src={""}
-                      fallback={userProfile?.data?.name?.slice(0, 1)}
-                    />
-                  </div>
-                  <Typography.H5
-                    className="text-center"
-                    classNameTitle="text-center"
-                    subtitle={userProfile?.data?.email}
-                  >
-                    {userProfile?.data?.name}
-                  </Typography.H5>
-                  <div className="flex items-center justify-center flex-wrap">
-                    {userProfile?.data?.role?.map((role) => (
-                      <Tag className="rounded-full mb-1" key={role.id}>
-                        {role.name}
-                      </Tag>
-                    ))}
-                  </div>
-                </Space>
-                <List bordered size="small" className="w-full mt-6">
-                  <List.Item className="w-full cursor-pointer">
-                    Pengaturan Akun
-                  </List.Item>
-                  <List.Item
-                    onClick={handleSignOut}
-                    className="w-full cursor-pointer"
-                  >
-                    Keluar Akun
-                  </List.Item>
-                </List>
-              </Card>
-            )}
-          >
-            <div>
-              <AvatarImage
-                size={36}
-                src={""}
-                fallback={userProfile?.data?.name.slice(0, 1)}
-              />
-            </div>
-          </Dropdown>
-        </Space>
+      sidebarRoute={allowedRoutes}
+      settings={{
+        title: "Desaku Digital Administration",
+        layout: "mix",
+        fixSiderbar: true,
+      }}
+      siderWidth={278}
+      logo={
+        <div className="h-6 w-6 flex items-center justify-center rounded-lg bg-purple-700 p-1">
+          <LandmarkIcon color="white" size={16} />
+        </div>
       }
-      sidebarTheme="light"
-      sidebarWidth={300}
-      sidebarMenu={
-        <SideBarMenu
-          expandAllByDefault
-          className="w-full mb-6"
-          sidebarTheme="light"
-          routes={[...(allowedRoutes ?? [])]}
-          defaultRouteId="Dashboard"
-        />
-      }
+      handleLogout={handleSignOut}
+      userIsLoading={userProfileIsLoading}
+      user={{
+        name: userProfile?.data?.name,
+        email: userProfile?.data?.email,
+        roles: userProfile?.data?.role,
+      }}
     >
       <Outlet />
     </AppLayout>

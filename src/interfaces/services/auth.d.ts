@@ -13,7 +13,9 @@ type IPermissionName =
   | "ADMIN_DASHBOARD"
   | "REQUEST_SK"
   | "VIEW_SK"
-  | "APPROVE_SK";
+  | "APPROVE_SK"
+  | "MANAGE_ROLES_PERMISSIONS"
+  | "MANAGE_USERS";
 
 interface IPermission {
   id: string;
