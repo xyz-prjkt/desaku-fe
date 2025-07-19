@@ -33,6 +33,11 @@ const MySKPages = lazy(
   () => import("@/features/protected/my-sk/pages/MySKPages"),
 );
 
+const RoleManagementPages = lazy(
+  () =>
+    import("@/features/protected/role-management/pages/RoleManagementPages"),
+);
+
 export const PROTECTED_ROUTE: IRoute = {
   element: (
     <AuthMiddleware>
@@ -129,6 +134,11 @@ export const PROTECTED_ROUTE: IRoute = {
           icon: <SecurityScanOutlined />,
           path: "role-management",
           allowedPermission: ["MANAGE_ROLES_PERMISSIONS"],
+          element: (
+            <Suspense>
+              <RoleManagementPages />
+            </Suspense>
+          ),
         },
       ],
     },
