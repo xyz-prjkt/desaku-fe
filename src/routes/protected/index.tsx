@@ -33,6 +33,50 @@ const MySKPages = lazy(
   () => import("@/features/protected/my-sk/pages/MySKPages"),
 );
 
+const SKKelahiranAnakPages = lazy(
+  () =>
+    import(
+      "@/features/protected/request-sk/sk-kelahiran-anak/pages/SKKelahiranAnakPages"
+    ),
+);
+
+const SKDomisiliPages = lazy(
+  () =>
+    import("@/features/protected/request-sk/sk-domisili/pages/SKDomisiliPages"),
+);
+
+const SKKehilanganPages = lazy(
+  () =>
+    import(
+      "@/features/protected/request-sk/sk-kehilangan/pages/SKKehilanganPages"
+    ),
+);
+
+const SKBedaNamaPages = lazy(
+  () =>
+    import(
+      "@/features/protected/request-sk/sk-beda-nama/pages/SKBedaNamaPages"
+    ),
+);
+
+const SKKTPSementaraPages = lazy(
+  () =>
+    import(
+      "@/features/protected/request-sk/sk-ktp-sementara/pages/SKKTPSementaraPages"
+    ),
+);
+
+const SKDispensasiPages = lazy(
+  () =>
+    import(
+      "@/features/protected/request-sk/sk-dispensasi/pages/SKDispensasiPages"
+    ),
+);
+
+const SKUsahaPages = lazy(
+  () => import("@/features/protected/request-sk/sk-usaha/pages/SKUsahaPages"),
+);
+
 const RoleManagementPages = lazy(
   () =>
     import("@/features/protected/role-management/pages/RoleManagementPages"),
@@ -101,6 +145,69 @@ export const PROTECTED_ROUTE: IRoute = {
               element: (
                 <Suspense>
                   <SKTidakMampuPages />
+                </Suspense>
+              ),
+            },
+            {
+              id: "Kelahiran & Anak",
+              path: "request-sk/kelahiran-anak",
+              element: (
+                <Suspense>
+                  <SKKelahiranAnakPages />
+                </Suspense>
+              ),
+            },
+            {
+              id: "Domisili",
+              path: "request-sk/domisili",
+              element: (
+                <Suspense>
+                  <SKDomisiliPages />
+                </Suspense>
+              ),
+            },
+            {
+              id: "Kehilangan",
+              path: "request-sk/kehilangan",
+              element: (
+                <Suspense>
+                  <SKKehilanganPages />
+                </Suspense>
+              ),
+            },
+            {
+              id: "Beda Nama",
+              path: "request-sk/beda-nama",
+              element: (
+                <Suspense>
+                  <SKBedaNamaPages />
+                </Suspense>
+              ),
+            },
+            {
+              id: "KTP Sementara",
+              path: "request-sk/ktp-sementara",
+              element: (
+                <Suspense>
+                  <SKKTPSementaraPages />
+                </Suspense>
+              ),
+            },
+            {
+              id: "Dispensasi",
+              path: "request-sk/dispensasi",
+              element: (
+                <Suspense>
+                  <SKDispensasiPages />
+                </Suspense>
+              ),
+            },
+            {
+              id: "Usaha",
+              path: "request-sk/usaha",
+              element: (
+                <Suspense>
+                  <SKUsahaPages />
                 </Suspense>
               ),
             },
