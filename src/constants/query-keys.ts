@@ -10,4 +10,9 @@ export const QUERY_KEYS = {
     KEMATIAN: ["sk", "kematian"],
     KEMATIAN_DETAIL: ["sk", "kematian", "detail"],
   },
+  ADMIN: {
+    ROLES: ["admin", "roles"],
+    ROLE_DETAIL: ["admin", "role", "detail"],
+    PERMISSIONS: ["admin", "permissions"],
+  },
 } as const;

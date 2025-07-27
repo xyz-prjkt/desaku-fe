@@ -6,9 +6,8 @@ import { useGetUserSkKematian } from "@/services/sk-kematian.service";
 import { Button, Card, Space } from "antd";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import MySKKematianFilter from "./MySKKematianFilter";
-import { EyeOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
+import MySKKematianFilter from "./MySKKematianFilter";
 
 const MySKKematianTable = () => {
   const {
