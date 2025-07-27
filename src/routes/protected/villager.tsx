@@ -9,67 +9,65 @@ import {
 import { lazy } from "react";
 
 const VillagerDashboardPage = lazy(
-  () => import("@/features/protected/dashboard/pages/VillagerDashboardPage"),
+  () => import("@/features/protected/dashboard/pages/VillagerDashboardPage")
 );
 
 const SKKematianPages = lazy(
   () =>
-    import("@/features/protected/request-sk/sk-kematian/pages/SKKematianPages"),
+    import("@/features/protected/request-sk/sk-kematian/pages/SKKematianPages")
 );
 
 const SKTidakMampuPages = lazy(
   () =>
     import(
       "@/features/protected/request-sk/sk-tidak-mampu/pages/SKTidakMampuPages"
-    ),
+    )
 );
 
 const MySKPages = lazy(
-  () => import("@/features/protected/my-sk/pages/MySKPages"),
+  () => import("@/features/protected/my-sk/pages/MySKPages")
 );
 
 const SKKelahiranAnakPages = lazy(
   () =>
     import(
       "@/features/protected/request-sk/sk-kelahiran-anak/pages/SKKelahiranAnakPages"
-    ),
+    )
 );
 
 const SKDomisiliPages = lazy(
   () =>
-    import("@/features/protected/request-sk/sk-domisili/pages/SKDomisiliPages"),
+    import("@/features/protected/request-sk/sk-domisili/pages/SKDomisiliPages")
 );
 
 const SKKehilanganPages = lazy(
   () =>
     import(
       "@/features/protected/request-sk/sk-kehilangan/pages/SKKehilanganPages"
-    ),
+    )
 );
 
 const SKBedaNamaPages = lazy(
   () =>
-    import(
-      "@/features/protected/request-sk/sk-beda-nama/pages/SKBedaNamaPages"
-    ),
+    import("@/features/protected/request-sk/sk-beda-nama/pages/SKBedaNamaPages")
 );
 
 const SKKTPSementaraPages = lazy(
   () =>
     import(
       "@/features/protected/request-sk/sk-ktp-sementara/pages/SKKTPSementaraPages"
-    ),
+    )
 );
 
 const SKDispensasiPages = lazy(
   () =>
     import(
       "@/features/protected/request-sk/sk-dispensasi/pages/SKDispensasiPages"
-    ),
+    )
 );
 
 const SKUsahaPages = lazy(
-  () => import("@/features/protected/request-sk/sk-usaha/pages/SKUsahaPages"),
+  () => import("@/features/protected/request-sk/sk-usaha/pages/SKUsahaPages")
 );
 
 export const VILLAGER_ROUTES: IRoute = {
@@ -79,7 +77,7 @@ export const VILLAGER_ROUTES: IRoute = {
       id: "Dashboard",
       icon: <DashboardOutlined />,
       path: "dashboard",
-      allowedPermission: ["USER_DASHBOARD"],
+      allowedPermission: "USER_DASHBOARD",
       element: (
         <Suspense>
           <VillagerDashboardPage />
@@ -90,7 +88,7 @@ export const VILLAGER_ROUTES: IRoute = {
       id: "Surat Keterangan Saya",
       icon: <FileOutlined />,
       path: "my-sk",
-      allowedPermission: ["VIEW_SK"],
+      allowedPermission: "VIEW_SK",
       element: (
         <Suspense>
           <MySKPages />
@@ -101,7 +99,7 @@ export const VILLAGER_ROUTES: IRoute = {
       id: "Detail SK Kematian",
       hidden: true,
       path: "my-sk/kematian/:id/detail",
-      allowedPermission: ["VIEW_SK"],
+      allowedPermission: "VIEW_SK",
       element: (
         <Suspense>
           <SKKematianDetail />
@@ -111,11 +109,12 @@ export const VILLAGER_ROUTES: IRoute = {
     {
       id: "Permohonan SK",
       icon: <AuditOutlined />,
-      allowedPermission: ["REQUEST_SK"],
+      allowedPermission: "REQUEST_SK",
       children: [
         {
           id: "Kematian",
           path: "request-sk/kematian",
+          allowedPermission: "REQUEST_SK",
           element: (
             <Suspense>
               <SKKematianPages />
@@ -125,6 +124,7 @@ export const VILLAGER_ROUTES: IRoute = {
         {
           id: "Tidak Mampu",
           path: "request-sk/tidak-mampu",
+          allowedPermission: "REQUEST_SK",
           element: (
             <Suspense>
               <SKTidakMampuPages />
@@ -134,6 +134,7 @@ export const VILLAGER_ROUTES: IRoute = {
         {
           id: "Kelahiran & Anak",
           path: "request-sk/kelahiran-anak",
+          allowedPermission: "REQUEST_SK",
           element: (
             <Suspense>
               <SKKelahiranAnakPages />
@@ -143,6 +144,7 @@ export const VILLAGER_ROUTES: IRoute = {
         {
           id: "Domisili",
           path: "request-sk/domisili",
+          allowedPermission: "REQUEST_SK",
           element: (
             <Suspense>
               <SKDomisiliPages />
@@ -152,6 +154,7 @@ export const VILLAGER_ROUTES: IRoute = {
         {
           id: "Kehilangan",
           path: "request-sk/kehilangan",
+          allowedPermission: "REQUEST_SK",
           element: (
             <Suspense>
               <SKKehilanganPages />
@@ -161,6 +164,7 @@ export const VILLAGER_ROUTES: IRoute = {
         {
           id: "Beda Nama",
           path: "request-sk/beda-nama",
+          allowedPermission: "REQUEST_SK",
           element: (
             <Suspense>
               <SKBedaNamaPages />
@@ -170,6 +174,7 @@ export const VILLAGER_ROUTES: IRoute = {
         {
           id: "KTP Sementara",
           path: "request-sk/ktp-sementara",
+          allowedPermission: "REQUEST_SK",
           element: (
             <Suspense>
               <SKKTPSementaraPages />
@@ -179,6 +184,7 @@ export const VILLAGER_ROUTES: IRoute = {
         {
           id: "Dispensasi",
           path: "request-sk/dispensasi",
+          allowedPermission: "REQUEST_SK",
           element: (
             <Suspense>
               <SKDispensasiPages />
@@ -188,6 +194,7 @@ export const VILLAGER_ROUTES: IRoute = {
         {
           id: "Usaha",
           path: "request-sk/usaha",
+          allowedPermission: "REQUEST_SK",
           element: (
             <Suspense>
               <SKUsahaPages />

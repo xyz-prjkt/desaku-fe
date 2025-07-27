@@ -55,6 +55,9 @@ const useAssignRolePermission = () =>
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.ADMIN.ROLE_DETAIL],
       });
+      query.refetchQueries({
+        queryKey: [QUERY_KEYS.AUTH.ME],
+      });
     },
   });
 

@@ -23,19 +23,19 @@ export const ADMIN_ROUTES: IRoute = {
       id: "Dashboard Admin",
       icon: <DashboardOutlined />,
       path: "dashboard",
-      allowedPermission: ["ADMIN_DASHBOARD"],
+      allowedPermission: "ADMIN_DASHBOARD",
     },
     {
       id: "Review Permintaan SK",
       icon: <FileDoneOutlined />,
       path: "review-sk",
-      allowedPermission: ["APPROVE_SK"],
+      allowedPermission: "APPROVE_SK",
     },
     {
       id: "User Management",
       icon: <UsergroupAddOutlined />,
       path: "user-management",
-      allowedPermission: ["MANAGE_USERS"],
+      allowedPermission: "MANAGE_USERS",
       element: (
         <Suspense>
           <UserManagementPages />
@@ -46,7 +46,7 @@ export const ADMIN_ROUTES: IRoute = {
       id: "Role Management",
       icon: <SecurityScanOutlined />,
       path: "role-management",
-      allowedPermission: ["MANAGE_ROLES_PERMISSIONS"],
+      allowedPermission: "MANAGE_ROLES_PERMISSIONS",
       element: (
         <Suspense>
           <RoleManagementPages />

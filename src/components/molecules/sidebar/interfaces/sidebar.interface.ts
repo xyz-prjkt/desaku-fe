@@ -4,7 +4,7 @@ interface IRoute {
   id?: string;
   parentId?: string;
   hidden?: boolean;
-  allowedPermission?: string[];
+  allowedPermission?: string;
   path?: string;
   element?: ReactNode;
   children?: IRoute[];

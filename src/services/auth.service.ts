@@ -12,7 +12,7 @@ const useAuthSignIn = () =>
 
 const useGetAuthMe = () =>
   useQuery({
-    queryKey: QUERY_KEYS.AUTH.ME,
+    queryKey: [QUERY_KEYS.AUTH.ME],
     queryFn: async (): Promise<IApiResponse<IUserProfile>> =>
       api.get("/v1/auth/me").then((res) => res.data),
   });

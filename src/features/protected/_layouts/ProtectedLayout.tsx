@@ -14,7 +14,7 @@ const ProtectedLayout = () => {
   const navigate = useNavigate();
   const { allowedRoutes } = routeMiddleware(
     PROTECTED_ROUTE,
-    userProfile?.data?.permissions,
+    userProfile?.data?.permissions
   );
 
   const handleSignOut = async () => {

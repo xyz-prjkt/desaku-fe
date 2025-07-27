@@ -46,37 +46,28 @@ export const routeMiddleware = <T extends IPermission>(
     return `${normalizedBase}/${path.replace(/^\//, "")}`.replace(/\/+$/, "");
   };
 
-  const hasPermission = (routePermissions?: string[]): boolean => {
-    if (!routePermissions || routePermissions.length === 0) {
-      return true; // No permission required
-    }
-
-    // Check if user has ANY of the required permissions (OR logic)
-    return routePermissions.some((permission) =>
-      allowedPermissionsSet.has(permission)
-    );
-  };
-
   const filterRoutes = (routeList: IRoute[], currentBase: string): IRoute[] => {
     return routeList
       .map((route) => {
         const newBase = generateFullPath(currentBase, route.path);
-        const hasRequiredPermission = hasPermission(route.allowedPermission);
+        const hasPermission =
+          !route.allowedPermission ||
+          allowedPermissionsSet.has(route.allowedPermission);
         const children = route.children
           ? filterRoutes(route.children, newBase)
           : [];
-        if (hasRequiredPermission || children.length > 0) {
+        if (hasPermission || children.length > 0) {
           const filteredRoute: IRoute = {
             ...route,
             children: children.length > 0 ? children : undefined,
           };
-          if (hasRequiredPermission) {
+          if (hasPermission) {
             result.allowedRoutes.push(filteredRoute);
             result.allowedPaths.push(route.path);
             result.allowedFullPaths.add(
               processPathForPatterns(normalizePath(newBase))
             );
-            result.allowedPermissions.push(route.allowedPermission?.[0]);
+            result.allowedPermissions.push(route.allowedPermission);
           }
           return filteredRoute;
         }
