@@ -14,5 +14,7 @@ export const QUERY_KEYS = {
     ROLES: ["admin", "roles"],
     ROLE_DETAIL: ["admin", "role", "detail"],
     PERMISSIONS: ["admin", "permissions"],
+    USERS: ["admin", "users"],
+    USER_DETAIL: ["admin", "user", "detail"],
   },
 } as const;

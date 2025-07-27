@@ -9,8 +9,11 @@ import {
 import { lazy } from "react";
 
 const RoleManagementPages = lazy(
-  () =>
-    import("@/features/protected/role-management/pages/RoleManagementPages"),
+  () => import("@/features/protected/role-management/pages/RoleManagementPages")
+);
+
+const UserManagementPages = lazy(
+  () => import("@/features/protected/user-management/pages/UserManagementPages")
 );
 
 export const ADMIN_ROUTES: IRoute = {
@@ -33,6 +36,11 @@ export const ADMIN_ROUTES: IRoute = {
       icon: <UsergroupAddOutlined />,
       path: "user-management",
       allowedPermission: ["MANAGE_USERS"],
+      element: (
+        <Suspense>
+          <UserManagementPages />
+        </Suspense>
+      ),
     },
     {
       id: "Role Management",
