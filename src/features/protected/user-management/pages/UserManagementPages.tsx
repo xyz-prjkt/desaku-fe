@@ -1,7 +1,12 @@
-import UserManagementPage from "../index";
+import { ContentPaper } from "@/components/atoms/paper";
+import { UserTable } from "../components";
 
 const UserManagementPages = () => {
-  return <UserManagementPage />;
+  return (
+    <ContentPaper title="User Management">
+      <UserTable />
+    </ContentPaper>
+  );
 };
 
 export default UserManagementPages;

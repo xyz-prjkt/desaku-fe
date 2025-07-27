@@ -162,41 +162,6 @@ const EditUserModal = ({
       confirmLoading={isUpdating}
     >
       <FormProvider formMethods={formMethods} onSubmit={handleSubmit}>
-        {/* Current Roles and Permissions Display */}
-        <div className="mb-6">
-          <Title level={5}>Current Access</Title>
-
-          <div className="mb-4">
-            <Text strong className="block mb-2">
-              Assigned Roles:
-            </Text>
-            <Space wrap>
-              {userDetailData?.data?.user_roles?.map((userRole) => (
-                <Tag key={userRole.id} color="blue">
-                  {userRole.role.name}
-                </Tag>
-              )) || <Text type="secondary">No roles assigned</Text>}
-            </Space>
-          </div>
-
-          <div className="mb-4">
-            <Text strong className="block mb-2">
-              Direct Permissions:
-            </Text>
-            <Space wrap>
-              {userDetailData?.data?.user_permissions?.map((userPermission) => (
-                <Tag key={userPermission.id} color="green">
-                  {userPermission.permission.name}
-                </Tag>
-              )) || (
-                <Text type="secondary">No direct permissions assigned</Text>
-              )}
-            </Space>
-          </div>
-
-          <Divider />
-        </div>
-
         <div className="space-y-4">
           <Row gutter={16}>
             <Col span={12}>

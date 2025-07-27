@@ -23,8 +23,6 @@ const UserTable = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
-      render: (name: string) => <Tag color="blue">{name}</Tag>,
     },
     {
       title: "Email",
