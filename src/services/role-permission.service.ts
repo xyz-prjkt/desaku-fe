@@ -43,7 +43,7 @@ const useGetRoleDetail = (id: string) =>
 const useAssignRolePermission = () =>
   useMutation({
     mutationFn: async (
-      data: IAssignRolePermissionBody
+      data: IAssignRolePermissionBody,
     ): Promise<IApiResponse<null>> =>
       api
         .post("/v1/admin/assign-role-permission", data)
@@ -78,6 +78,9 @@ const useUpdateRole = () =>
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.ADMIN.ROLE_DETAIL],
       });
+      query.refetchQueries({
+        queryKey: [QUERY_KEYS.AUTH.ME],
+      });
     },
   });
 
@@ -103,13 +106,16 @@ const useDeleteRole = () =>
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.ADMIN.ROLE_DETAIL],
       });
+      query.refetchQueries({
+        queryKey: [QUERY_KEYS.AUTH.ME],
+      });
     },
   });
 
 const useAssignUserRole = () =>
   useMutation({
     mutationFn: async (
-      data: IAssignUserRoleBody
+      data: IAssignUserRoleBody,
     ): Promise<IApiResponse<null>> =>
       api.post("/v1/admin/assign-user-role", data).then((res) => res.data),
     onSuccess: () => {
@@ -122,7 +128,7 @@ const useAssignUserRole = () =>
 const useAssignUserPermission = () =>
   useMutation({
     mutationFn: async (
-      data: IAssignUserPermissionBody
+      data: IAssignUserPermissionBody,
     ): Promise<IApiResponse<null>> =>
       api
         .post("/v1/admin/assign-user-permission", data)
