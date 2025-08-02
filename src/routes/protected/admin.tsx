@@ -9,11 +9,17 @@ import {
 import { lazy } from "react";
 
 const RoleManagementPages = lazy(
-  () => import("@/features/protected/role-management/pages/RoleManagementPages")
+  () =>
+    import("@/features/protected/role-management/pages/RoleManagementPages"),
 );
 
 const UserManagementPages = lazy(
-  () => import("@/features/protected/user-management/pages/UserManagementPages")
+  () =>
+    import("@/features/protected/user-management/pages/UserManagementPages"),
+);
+
+const SkReviewPages = lazy(
+  () => import("@/features/protected/sk-review/pages/SkReviewPages"),
 );
 
 export const ADMIN_ROUTES: IRoute = {
@@ -30,6 +36,11 @@ export const ADMIN_ROUTES: IRoute = {
       icon: <FileDoneOutlined />,
       path: "review-sk",
       allowedPermission: "APPROVE_SK",
+      element: (
+        <Suspense>
+          <SkReviewPages />
+        </Suspense>
+      ),
     },
     {
       id: "User Management",

@@ -9,6 +9,7 @@ export const QUERY_KEYS = {
   SK: {
     KEMATIAN: ["sk", "kematian"],
     KEMATIAN_DETAIL: ["sk", "kematian", "detail"],
+    LIST: ["sk", "list"],
   },
   ADMIN: {
     ROLES: ["admin", "roles"],
