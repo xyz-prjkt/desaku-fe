@@ -1,14 +1,15 @@
-import { BaseSyntheticEvent, useCallback } from 'react';
+import { BaseSyntheticEvent, useCallback } from "react";
 
-import { Input } from 'antd';
-import { useController, useFormContext } from 'react-hook-form';
-import { IFormInputProps } from './interfaces';
+import { Input } from "antd";
+import { useController, useFormContext } from "react-hook-form";
+import { IFormInputProps } from "./interfaces";
 
 const FormInput = ({
   extraOnChange,
-  name = '',
+  name = "",
   label,
   type,
+  isRequired,
   ...rest
 }: IFormInputProps) => {
   const { control } = useFormContext();
@@ -22,14 +23,18 @@ const FormInput = ({
         extraOnChange(input);
       }
     },
-    [field, extraOnChange]
+    [field, extraOnChange],
   );
   return (
     <div className="w-full">
-      {label && <div className="text-xs mb-2">{label}</div>}
+      {label && (
+        <div className="text-xs mb-2">
+          {label} {isRequired && <span className="text-red-500">*</span>}
+        </div>
+      )}
       <Input
         {...rest}
-        status={error && 'error'}
+        status={error && "error"}
         onChange={handleCustomChange}
         type={type}
         name={field.name}

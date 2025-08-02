@@ -44,6 +44,9 @@ const useUpdateUser = () =>
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.ADMIN.USER_DETAIL],
       });
+      query.invalidateQueries({
+        queryKey: [QUERY_KEYS.AUTH.ME],
+      });
     },
   });
 

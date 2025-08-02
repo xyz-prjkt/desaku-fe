@@ -1,19 +1,21 @@
-import { Modal, Row, Col, Divider, Typography, Tag, Space } from "antd";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { IUpdateUserBody } from "@/interfaces/services/user";
+import { DatePicker } from "@/components/atoms/date-picker";
 import { FormProvider } from "@/components/atoms/form";
-import FormInput from "@/components/atoms/input/FormInput";
 import { FormInputArea } from "@/components/atoms/input";
+import FormInput from "@/components/atoms/input/FormInput";
 import { SelectInput } from "@/components/atoms/select";
 import { useAnt } from "@/hooks";
-import { useUpdateUser, useGetUserDetail } from "@/services/user.service";
+import { IUpdateUserBody } from "@/interfaces/services/user";
 import {
-  useGetAllRoles,
   useGetAllPermissions,
+  useGetAllRoles,
 } from "@/services/role-permission.service";
+import { useGetUserDetail, useUpdateUser } from "@/services/user.service";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Col, Modal, Row, Typography } from "antd";
+import { useForm } from "react-hook-form";
+import { updateUserSchema } from "../schemas/user";
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 interface EditUserModalProps {
   userId: string;
@@ -42,83 +44,37 @@ const EditUserModal = ({
   });
 
   const formMethods = useForm<IUpdateUserBody>({
-    defaultValues: {
-      name: "",
-      email: "",
-      born_birth: "",
-      born_place: "",
-      gender: undefined,
-      work: "",
-      marital_status: undefined,
-      nik: "",
-      religion: "",
-      address: "",
-      roleIds: [],
-      permissionIds: [],
+    values: {
+      name: userDetailData?.data?.name,
+      email: userDetailData?.data?.email,
+      born_birth: userDetailData?.data?.born_birth,
+      born_place: userDetailData?.data?.born_place,
+      gender: userDetailData?.data?.gender,
+      work: userDetailData?.data?.work,
+      marital_status: userDetailData?.data?.marital_status,
+      nik: userDetailData?.data?.nik,
+      religion: userDetailData?.data?.religion,
+      address: userDetailData?.data?.address,
+      roleIds: userDetailData?.data?.user_roles?.map((ur) => ur.role.id),
+      permissionIds: userDetailData?.data?.user_permissions?.map(
+        (up) => up.permission.id,
+      ),
     },
+    resolver: yupResolver(updateUserSchema),
   });
 
-  useEffect(() => {
-    if (open && userDetailData?.data) {
-      const userData = userDetailData.data;
-      formMethods.setValue("name", userData.name || "");
-      formMethods.setValue("email", userData.email || "");
-      formMethods.setValue(
-        "born_birth",
-        userData.born_birth ? userData.born_birth.split("T")[0] : ""
-      );
-      formMethods.setValue("born_place", userData.born_place || "");
-      formMethods.setValue("gender", userData.gender);
-      formMethods.setValue("work", userData.work || "");
-      formMethods.setValue("marital_status", userData.marital_status);
-      formMethods.setValue("nik", userData.nik || "");
-      formMethods.setValue("religion", userData.religion || "");
-      formMethods.setValue("address", userData.address || "");
-      formMethods.setValue(
-        "roleIds",
-        userData.user_roles?.map((ur) => ur.role.id) || []
-      );
-      formMethods.setValue(
-        "permissionIds",
-        userData.user_permissions?.map((up) => up.permission.id) || []
-      );
-    }
-  }, [open, userDetailData, formMethods]);
-
   const handleSubmit = async (data: IUpdateUserBody) => {
-    try {
-      // Remove empty strings and convert born_birth to ISO string if provided
-      const cleanedData = Object.entries(data).reduce((acc, [key, value]) => {
-        if (value !== "" && value !== null && value !== undefined) {
-          if (key === "born_birth" && value) {
-            // Handle date conversion properly
-            const dateValue =
-              typeof value === "string" ? value : value.toString();
-            acc[key] = new Date(dateValue).toISOString();
-          } else if (Array.isArray(value) && value.length > 0) {
-            // Only include arrays with content
-            acc[key] = value;
-          } else if (!Array.isArray(value)) {
-            // Include non-array values that are not empty
-            acc[key] = value;
-          }
+    await updateUser({
+      id: userId,
+      data,
+    })
+      .then((res) => {
+        if (res.success) {
+          message.success("User updated successfully");
+          onSuccess();
         }
-        return acc;
-      }, {} as any);
-
-      await updateUser({
-        id: userId,
-        data: cleanedData,
-      });
-      message.success("User updated successfully");
-      onSuccess();
-    } catch (error: any) {
-      if (error?.response?.data?.message) {
-        message.error(error.response.data.message);
-      } else {
-        message.error("Failed to update user");
-      }
-    }
+      })
+      .catch((err) => message.error((err as Error).message));
   };
 
   const handleCancel = () => {
@@ -126,36 +82,10 @@ const EditUserModal = ({
     onCancel();
   };
 
-  const roleOptions =
-    rolesData?.data?.map((role) => ({
-      label: role.name,
-      value: role.id,
-    })) || [];
-
-  const permissionOptions =
-    permissionsData?.data?.map((permission) => ({
-      label: permission.name,
-      value: permission.id,
-    })) || [];
-
-  const genderOptions = [
-    { label: "Male", value: "MALE" },
-    { label: "Female", value: "FEMALE" },
-  ];
-
-  const maritalStatusOptions = [
-    { label: "Single", value: "SINGLE" },
-    { label: "Married", value: "MARRIED" },
-    { label: "Divorced", value: "DIVORCED" },
-    { label: "Widowed", value: "WIDOWED" },
-    { label: "Separated", value: "SEPARATED" },
-    { label: "Siri", value: "SIRI" },
-  ];
-
   return (
     <Modal
       loading={isLoadingUserDetail}
-      title={`Edit User: ${userDetailData?.data?.name || "Loading..."}`}
+      title={`Edit User: ${userDetailData?.data?.name}`}
       open={open}
       onOk={formMethods.handleSubmit(handleSubmit)}
       onCancel={handleCancel}
@@ -166,6 +96,7 @@ const EditUserModal = ({
           <Row gutter={16}>
             <Col span={12}>
               <FormInput
+                isRequired
                 name="name"
                 label="Name"
                 placeholder="Enter full name"
@@ -173,6 +104,7 @@ const EditUserModal = ({
             </Col>
             <Col span={12}>
               <FormInput
+                isRequired
                 name="email"
                 label="Email"
                 type="email"
@@ -184,6 +116,7 @@ const EditUserModal = ({
           <Row gutter={16}>
             <Col span={12}>
               <FormInput
+                isRequired
                 name="nik"
                 label="NIK"
                 placeholder="Enter 16-digit NIK"
@@ -192,9 +125,13 @@ const EditUserModal = ({
             </Col>
             <Col span={12}>
               <SelectInput
+                isRequired
                 name="gender"
                 label="Gender"
-                options={genderOptions}
+                options={[
+                  { label: "Male", value: "MALE" },
+                  { label: "Female", value: "FEMALE" },
+                ]}
                 placeholder="Select gender"
               />
             </Col>
@@ -202,10 +139,16 @@ const EditUserModal = ({
 
           <Row gutter={16}>
             <Col span={12}>
-              <FormInput name="born_birth" label="Date of Birth" type="date" />
+              <DatePicker
+                isRequired
+                fullWidth
+                name="born_birth"
+                label="Date of Birth"
+              />
             </Col>
             <Col span={12}>
               <FormInput
+                isRequired
                 name="born_place"
                 label="Place of Birth"
                 placeholder="Enter place of birth"
@@ -216,6 +159,7 @@ const EditUserModal = ({
           <Row gutter={16}>
             <Col span={12}>
               <FormInput
+                isRequired
                 name="work"
                 label="Occupation"
                 placeholder="Enter occupation"
@@ -223,21 +167,31 @@ const EditUserModal = ({
             </Col>
             <Col span={12}>
               <SelectInput
+                isRequired
                 name="marital_status"
                 label="Marital Status"
-                options={maritalStatusOptions}
+                options={[
+                  { label: "Single", value: "SINGLE" },
+                  { label: "Married", value: "MARRIED" },
+                  { label: "Divorced", value: "DIVORCED" },
+                  { label: "Widowed", value: "WIDOWED" },
+                  { label: "Separated", value: "SEPARATED" },
+                  { label: "Siri", value: "SIRI" },
+                ]}
                 placeholder="Select marital status"
               />
             </Col>
           </Row>
 
           <FormInput
+            isRequired
             name="religion"
             label="Religion"
             placeholder="Enter religion"
           />
 
           <FormInputArea
+            isRequired
             name="address"
             label="Address"
             placeholder="Enter full address"
@@ -247,9 +201,15 @@ const EditUserModal = ({
           <Row gutter={16}>
             <Col span={12}>
               <SelectInput
+                isRequired
                 name="roleIds"
                 label="Roles"
-                options={roleOptions}
+                options={
+                  rolesData?.data?.map((role) => ({
+                    label: role.name,
+                    value: role.id,
+                  })) || []
+                }
                 placeholder="Select roles"
                 mode="multiple"
               />
@@ -259,9 +219,15 @@ const EditUserModal = ({
             </Col>
             <Col span={12}>
               <SelectInput
+                isRequired
                 name="permissionIds"
                 label="Direct Permissions"
-                options={permissionOptions}
+                options={
+                  permissionsData?.data?.map((permission) => ({
+                    label: permission.name,
+                    value: permission.id,
+                  })) || []
+                }
                 placeholder="Select permissions"
                 mode="multiple"
               />

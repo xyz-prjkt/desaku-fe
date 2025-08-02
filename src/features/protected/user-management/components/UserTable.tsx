@@ -1,5 +1,5 @@
 import { BaseTable } from "@/components/molecules/table";
-import { useDialog, useTableAsync, useAnt } from "@/hooks";
+import { useDialog, useTableAsync } from "@/hooks";
 import { IUser } from "@/interfaces/services/user";
 import { useGetAllUsers } from "@/services/user.service";
 import { Button, Popover, Space, Tag } from "antd";
@@ -8,7 +8,6 @@ import { EditIcon, UserIcon } from "lucide-react";
 import { EditUserModal } from "./index";
 
 const UserTable = () => {
-  const { message } = useAnt();
   const { paginateRequest, handlePageChange, handleSearchChange } =
     useTableAsync({
       initialSort: "DESC",

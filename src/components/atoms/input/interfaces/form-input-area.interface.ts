@@ -4,4 +4,5 @@ import { BaseSyntheticEvent } from "react";
 export interface IFormInputAreaProps extends TextAreaProps {
   extraOnChange?: (event: BaseSyntheticEvent) => void;
   label?: string;
+  isRequired?: boolean;
 }

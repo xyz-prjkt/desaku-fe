@@ -1,15 +1,16 @@
-import { BaseSyntheticEvent, useCallback } from 'react';
+import { BaseSyntheticEvent, useCallback } from "react";
 
-import { Input } from 'antd';
-import { useController, useFormContext } from 'react-hook-form';
-import { IFormInputAreaProps } from './interfaces';
+import { Input } from "antd";
+import { useController, useFormContext } from "react-hook-form";
+import { IFormInputAreaProps } from "./interfaces";
 
 const { TextArea } = Input;
 const FormInputArea = ({
   extraOnChange,
-  name = '',
+  name = "",
   label,
   rows = 4,
+  isRequired,
   ...rest
 }: IFormInputAreaProps) => {
   const { control } = useFormContext();
@@ -23,15 +24,19 @@ const FormInputArea = ({
         extraOnChange(input);
       }
     },
-    [field, extraOnChange]
+    [field, extraOnChange],
   );
   return (
     <div>
-      {label && <div className="text-xs mb-2">{label}</div>}
+      {label && (
+        <div className="text-xs mb-2">
+          {label} {isRequired && <span className="text-red-500">*</span>}
+        </div>
+      )}
       <TextArea
         {...rest}
         rows={rows}
-        status={error && 'error'}
+        status={error && "error"}
         onChange={handleCustomChange}
         name={field.name}
         ref={field.ref}

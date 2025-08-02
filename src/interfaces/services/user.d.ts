@@ -15,7 +15,6 @@ interface IUserApprover {
   approver: IApprover;
 }
 
-// User Management Interfaces
 interface IUser {
   id: string;
   name: string;
@@ -55,13 +54,7 @@ interface IUserDetail extends IUser {
   password?: string;
   born_birth?: string;
   born_place?: string;
-  marital_status?:
-    | "SINGLE"
-    | "MARRIED"
-    | "DIVORCED"
-    | "WIDOWED"
-    | "SEPARATED"
-    | "SIRI";
+  marital_status?: string;
   religion?: string;
   address?: string;
   user_roles: IUserRole[];
@@ -69,24 +62,18 @@ interface IUserDetail extends IUser {
 }
 
 interface IUpdateUserBody {
-  name?: string;
-  email?: string;
-  born_birth?: string;
-  born_place?: string;
-  gender?: "MALE" | "FEMALE";
-  work?: string;
-  marital_status?:
-    | "SINGLE"
-    | "MARRIED"
-    | "DIVORCED"
-    | "WIDOWED"
-    | "SEPARATED"
-    | "SIRI";
-  nik?: string;
-  religion?: string;
-  address?: string;
-  roleIds?: string[];
-  permissionIds?: string[];
+  name: string;
+  email: string;
+  born_birth: string;
+  born_place: string;
+  gender: string;
+  work: string;
+  marital_status: string;
+  nik: string;
+  religion: string;
+  address: string;
+  roleIds: string[];
+  permissionIds: string[];
 }
 
 export {
