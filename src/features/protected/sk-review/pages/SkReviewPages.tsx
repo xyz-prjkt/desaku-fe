@@ -3,29 +3,29 @@ import { ContentPaper } from "@/components/atoms/paper";
 import { BaseTable } from "@/components/molecules/table";
 import { useTableAsync } from "@/hooks";
 import { useDialog } from "@/hooks/useDialog";
-import { ISkListItem } from "@/interfaces/services/sk-list";
-import { useGetSkList } from "@/services/sk-review.service";
+import { ISkReviewListResponse } from "@/interfaces/services/sk-review";
+import { useGetSkReviewList } from "@/services/sk-review.service";
 import { EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Card, Space } from "antd";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import UpdateStatusModal from "../components/UpdateStatusModal";
 import { Link } from "react-router";
+import UpdateStatusModal from "../components/UpdateStatusModal";
 
 const SkReviewPages = () => {
   const { paginateRequest, handleSearchChange, handlePageChange } =
     useTableAsync({});
 
   const { data: skList, isLoading: skListIsLoading } =
-    useGetSkList(paginateRequest);
+    useGetSkReviewList(paginateRequest);
 
-  const { open, data, handleClickOpen, handleClose } = useDialog<ISkListItem>();
+  const updateSk = useDialog<string>();
 
   return (
     <>
       <ContentPaper title="Review Permintaan Surat Keterangan">
         <Card>
-          <BaseTable<ISkListItem>
+          <BaseTable<ISkReviewListResponse>
             columns={[
               {
                 title: "Pemohon",
@@ -74,7 +74,7 @@ const SkReviewPages = () => {
                   <Space>
                     <EditOutlined
                       className="text-orange-500"
-                      onClick={() => handleClickOpen(record)}
+                      onClick={() => updateSk.handleClickOpen(record.id)}
                     >
                       Change Status
                     </EditOutlined>
@@ -104,7 +104,13 @@ const SkReviewPages = () => {
         </Card>
       </ContentPaper>
 
-      <UpdateStatusModal open={open} onClose={handleClose} data={data} />
+      {updateSk.open && (
+        <UpdateStatusModal
+          open={updateSk.open}
+          onClose={updateSk.handleClose}
+          skId={updateSk.data}
+        />
+      )}
     </>
   );
 };
