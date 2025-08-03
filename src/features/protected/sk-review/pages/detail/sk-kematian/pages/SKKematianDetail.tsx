@@ -5,7 +5,7 @@ import { FileWordFilled } from "@ant-design/icons";
 import { Button, Space } from "antd";
 import { useParams } from "react-router";
 
-const SKKematianDetail = () => {
+const SKReviewKematianDetail = () => {
   const { id } = useParams();
   const { data: skKematianDetail, isLoading: skKematianDetailIsLoading } =
     useGetSkKematianDetail(id);
@@ -27,4 +27,4 @@ const SKKematianDetail = () => {
   );
 };
 
-export default SKKematianDetail;
+export default SKReviewKematianDetail;

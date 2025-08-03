@@ -1,10 +1,13 @@
 import ApprovalsTag from "@/components/atoms/approvals-tag/ApprovalsTag";
+import { AvatarImage } from "@/components/atoms/avatar";
 import { formatter } from "@/components/atoms/count-up";
 import { ContentPaper } from "@/components/atoms/paper";
+import { Typography } from "@/components/atoms/typography";
 import { BaseTable } from "@/components/molecules/table";
 import { SK_TYPE_MAP } from "@/constants/sk-type-map";
 import { useTableAsync } from "@/hooks";
-import { IUserSk } from "@/interfaces/services/dashboard";
+import { ISuratKeterangan } from "@/interfaces/services/sk";
+import { useGetAuthMe } from "@/services/auth.service";
 import {
   useGetDashboardStatusCount,
   useGetMySkList,
@@ -12,12 +15,8 @@ import {
 import { Button, Card, Space, Statistic, Tag } from "antd";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import VillagerDashboardFilter from "../components/VillagerDashboardFilter";
 import { useNavigate } from "react-router";
-import { Typography } from "@/components/atoms/typography";
-import { useGetAuthMe } from "@/services/auth.service";
-import { AvatarImage } from "@/components/atoms/avatar";
-import { UserOutlined } from "@ant-design/icons";
+import VillagerDashboardFilter from "../components/VillagerDashboardFilter";
 
 const VillagerDashboardPage = () => {
   const {
@@ -110,7 +109,7 @@ const VillagerDashboardPage = () => {
           </div>
         </div>
         <Card variant="borderless">
-          <BaseTable<IUserSk>
+          <BaseTable<ISuratKeterangan>
             isLoading={userSkListIsLoading}
             columns={[
               {
@@ -127,7 +126,7 @@ const VillagerDashboardPage = () => {
                   } else if (record.sk_type === "TIDAK_MAMPU") {
                     return record.sk_tidak_mampu.name;
                   } else {
-                    ("-");
+                    return "-";
                   }
                 },
               },
@@ -155,8 +154,8 @@ const VillagerDashboardPage = () => {
                         record.sk_type === "KEMATIAN"
                           ? "kematian"
                           : record.sk_type === "TIDAK_MAMPU"
-                          ? "tidak-mampu"
-                          : "";
+                            ? "tidak-mampu"
+                            : "";
                       navigate(`/my-sk/${skUrl}/${record.id}/detail`);
                     }}
                   >

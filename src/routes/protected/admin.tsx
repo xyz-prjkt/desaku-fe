@@ -1,4 +1,5 @@
 import { Suspense } from "@/components/atoms/suspense";
+import SKReviewKematianDetail from "@/features/protected/sk-review/pages/detail/sk-kematian/pages/SKKematianDetail";
 import { IRoute } from "@/interfaces/components/route";
 import {
   DashboardOutlined,
@@ -39,6 +40,16 @@ export const ADMIN_ROUTES: IRoute = {
       element: (
         <Suspense>
           <SkReviewPages />
+        </Suspense>
+      ),
+    },
+    {
+      hidden: true,
+      path: "review-sk/kematian/:id/detail",
+      allowedPermission: "APPROVE_SK",
+      element: (
+        <Suspense>
+          <SKReviewKematianDetail />
         </Suspense>
       ),
     },
