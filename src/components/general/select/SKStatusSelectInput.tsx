@@ -6,7 +6,6 @@ const SKStatusSelectInput = ({ ...props }: ISelectInputProps) => {
     { label: "Approved", value: "APPROVED" },
     { label: "Rejected", value: "REJECTED" },
     { label: "Revised", value: "REVISED" },
-    { label: "Pending", value: "PENDING" },
   ];
   return <SelectInput options={options} fullWidth {...props} />;
 };

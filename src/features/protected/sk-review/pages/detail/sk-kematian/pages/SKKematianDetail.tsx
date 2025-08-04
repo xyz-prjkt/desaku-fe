@@ -1,9 +1,10 @@
 import { ContentPaper } from "@/components/atoms/paper";
+import SKKematianDownloadButton from "@/components/general/buttons/SKKematianDownloadButton";
 import SKKematianDescriptions from "@/components/general/views/SKKematianDescriptions";
 import UpdateStatusModal from "@/features/protected/sk-review/components/UpdateStatusModal";
 import { useDialog } from "@/hooks";
 import { useGetSkKematianDetail } from "@/services/sk-kematian.service";
-import { EditOutlined, FileWordFilled } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { Button, Space } from "antd";
 import { useParams } from "react-router";
 
@@ -11,6 +12,7 @@ const SKReviewKematianDetail = () => {
   const { id } = useParams();
   const { data: skKematianDetail, isLoading: skKematianDetailIsLoading } =
     useGetSkKematianDetail(id);
+
   const updateSk = useDialog<string>();
 
   return (
@@ -25,9 +27,13 @@ const SKReviewKematianDetail = () => {
           >
             Ubah Status
           </Button>
-          <Button icon={<FileWordFilled />} color="blue" variant="solid">
-            Unduh SK
-          </Button>
+          <SKKematianDownloadButton
+            id={id}
+            isAdmin={true}
+            disabled={skKematianDetail?.data?.user_approvers?.every(
+              (approver) => approver.status !== "APPROVED",
+            )}
+          />
         </Space.Compact>
       }
     >

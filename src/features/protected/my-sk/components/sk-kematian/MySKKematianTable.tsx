@@ -1,7 +1,7 @@
 import ApprovalsTag from "@/components/atoms/approvals-tag/ApprovalsTag";
 import { BaseTable } from "@/components/molecules/table";
 import { useTableAsync } from "@/hooks";
-import { IUserSk } from "@/interfaces/services/dashboard";
+import { ISuratKeterangan } from "@/interfaces/services/sk";
 import { useGetUserSkKematian } from "@/services/sk-kematian.service";
 import { Button, Card, Space } from "antd";
 import { format } from "date-fns";
@@ -26,7 +26,7 @@ const MySKKematianTable = () => {
 
   return (
     <Card>
-      <BaseTable<IUserSk>
+      <BaseTable<ISuratKeterangan>
         columns={[
           {
             title: "Nama Mendiang",

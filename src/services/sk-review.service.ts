@@ -34,6 +34,9 @@ const useChangeSKReviewStatus = () =>
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.SK.LIST],
       });
+      query.invalidateQueries({
+        queryKey: [QUERY_KEYS.SK.KEMATIAN],
+      });
     },
   });
 

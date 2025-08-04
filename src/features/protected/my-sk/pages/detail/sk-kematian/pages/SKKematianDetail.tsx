@@ -1,8 +1,8 @@
 import { ContentPaper } from "@/components/atoms/paper";
+import SKKematianDownloadButton from "@/components/general/buttons/SKKematianDownloadButton";
 import SKKematianDescriptions from "@/components/general/views/SKKematianDescriptions";
 import { useGetSkKematianDetail } from "@/services/sk-kematian.service";
-import { FileWordFilled } from "@ant-design/icons";
-import { Button, Space } from "antd";
+import { Space } from "antd";
 import { useParams } from "react-router";
 
 const SKKematianDetail = () => {
@@ -16,9 +16,13 @@ const SKKematianDetail = () => {
       isLoading={skKematianDetailIsLoading}
       action={
         <Space>
-          <Button icon={<FileWordFilled />} color="blue" variant="solid">
-            Download Surat Keterangan
-          </Button>
+          <SKKematianDownloadButton
+            id={id}
+            isAdmin={false}
+            disabled={skKematianDetail?.data?.user_approvers?.every(
+              (approver) => approver.status !== "APPROVED",
+            )}
+          />
         </Space>
       }
     >

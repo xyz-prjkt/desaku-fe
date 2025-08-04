@@ -1,3 +1,5 @@
+import { IUserApprover } from "./user";
+
 interface ISuratKeterangan {
   id: string;
   user_id: string;

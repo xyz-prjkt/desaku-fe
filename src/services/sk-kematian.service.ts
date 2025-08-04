@@ -5,6 +5,7 @@ import { ISuratKeterangan } from "@/interfaces/services/sk";
 import { ISkKematianCreate } from "@/interfaces/services/sk-kematian";
 import { api } from "@/libs";
 import { query } from "@/libs/query";
+import { downloadBlobFromResponse } from "@/utils/download-blob";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetUserSkKematian = (paginateRequest: IPaginateRequest) =>
@@ -40,4 +41,25 @@ const useCreateSkKematian = () =>
     },
   });
 
-export { useCreateSkKematian, useGetSkKematianDetail, useGetUserSkKematian };
+const useDownloadSkKematian = (id: string, isAdmin?: boolean) =>
+  useMutation({
+    mutationFn: async (): Promise<Blob> => {
+      const res = await api.get(
+        isAdmin
+          ? `/v1/admin/sk-download/kematian/${id}/download`
+          : `/v1/sk/kematian/${id}/download`,
+        {
+          responseType: "blob",
+        },
+      );
+      await downloadBlobFromResponse(res.data, `sk-kematian-${id}.docx`);
+      return res.data;
+    },
+  });
+
+export {
+  useCreateSkKematian,
+  useGetSkKematianDetail,
+  useGetUserSkKematian,
+  useDownloadSkKematian,
+};
