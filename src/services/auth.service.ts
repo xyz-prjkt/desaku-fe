@@ -1,6 +1,10 @@
 import { QUERY_KEYS } from "@/constants/query-keys";
 import { IApiResponse } from "@/interfaces/services/api";
-import { ISignInRequest, IUserProfile } from "@/interfaces/services/auth";
+import {
+  ISignInRequest,
+  ISignUpRequest,
+  IUserProfile,
+} from "@/interfaces/services/auth";
 import { api } from "@/libs";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -8,6 +12,12 @@ const useAuthSignIn = () =>
   useMutation({
     mutationFn: async (data: ISignInRequest): Promise<IApiResponse<null>> =>
       api.post("/auth/sign-in", data).then((res) => res.data),
+  });
+
+const useAuthSignUp = () =>
+  useMutation({
+    mutationFn: async (data: ISignUpRequest): Promise<IApiResponse<null>> =>
+      api.post("/auth/sign-up", data).then((res) => res.data),
   });
 
 const useGetAuthMe = () =>
@@ -23,4 +33,4 @@ const useAuthSignOut = () =>
       api.post("/auth/sign-out").then((res) => res.data),
   });
 
-export { useAuthSignIn, useGetAuthMe, useAuthSignOut };
+export { useAuthSignIn, useAuthSignOut, useAuthSignUp, useGetAuthMe };

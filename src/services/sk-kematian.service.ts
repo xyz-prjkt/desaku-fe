@@ -17,11 +17,13 @@ const useGetUserSkKematian = (paginateRequest: IPaginateRequest) =>
         .then((res) => res.data),
   });
 
-const useGetSkKematianDetail = (id: string) =>
+const useGetSkKematianDetail = (id: string, isAdmin?: boolean) =>
   useQuery({
     queryKey: [QUERY_KEYS.SK.KEMATIAN_DETAIL, id],
     queryFn: async (): Promise<IApiResponse<ISuratKeterangan>> =>
-      api.get(`/sk/kematian/${id}`).then((res) => res.data),
+      api
+        .get(isAdmin ? `/admin/sk-detail/kematian/${id}` : `/sk/kematian/${id}`)
+        .then((res) => res.data),
     enabled: !!id,
   });
 

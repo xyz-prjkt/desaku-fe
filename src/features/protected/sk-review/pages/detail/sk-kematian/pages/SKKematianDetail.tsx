@@ -11,7 +11,7 @@ import { useParams } from "react-router";
 const SKReviewKematianDetail = () => {
   const { id } = useParams();
   const { data: skKematianDetail, isLoading: skKematianDetailIsLoading } =
-    useGetSkKematianDetail(id);
+    useGetSkKematianDetail(id, true);
 
   const updateSk = useDialog<string>();
 
@@ -31,7 +31,7 @@ const SKReviewKematianDetail = () => {
             id={id}
             isAdmin={true}
             disabled={skKematianDetail?.data?.user_approvers?.every(
-              (approver) => approver.status !== "APPROVED",
+              (approver) => approver.status !== "APPROVED"
             )}
           />
         </Space.Compact>

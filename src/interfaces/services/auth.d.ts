@@ -3,6 +3,12 @@ interface ISignInRequest {
   password: string;
 }
 
+interface ISignUpRequest {
+  name: string;
+  email: string;
+  password: string;
+}
+
 interface IRole {
   id: string;
   name: string;
@@ -32,4 +38,11 @@ interface IUserProfile {
   permissions: IPermission[];
 }
 
-export { ISignInRequest, IUserProfile, IRole, IPermission, IPermissionName };
+export {
+  ISignInRequest,
+  ISignUpRequest,
+  IUserProfile,
+  IRole,
+  IPermission,
+  IPermissionName,
+};
