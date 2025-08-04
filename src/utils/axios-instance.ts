@@ -35,7 +35,7 @@ const createAxiosInstance = () => {
         if (!mutex.isLocked()) {
           const release = await mutex.acquire();
           try {
-            await fetch("http://localhost:4056/v1/auth/refresh-token", {
+            await fetch("http://localhost:4056/auth/refresh-token", {
               credentials: "include",
               method: "POST",
             })

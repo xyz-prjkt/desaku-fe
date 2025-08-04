@@ -19,7 +19,7 @@ const useGetAllRoles = (paginateRequest: IPaginateRequest) =>
     queryKey: [QUERY_KEYS.ADMIN.ROLES, paginateRequest],
     queryFn: async (): Promise<IApiResponse<IRoleResponse[]>> =>
       api
-        .get("/v1/admin/roles", { params: paginateRequest })
+        .get("/admin/roles", { params: paginateRequest })
         .then((res) => res.data),
   });
 
@@ -28,7 +28,7 @@ const useGetAllPermissions = (paginateRequest: IPaginateRequest) =>
     queryKey: [QUERY_KEYS.ADMIN.PERMISSIONS, paginateRequest],
     queryFn: async (): Promise<IApiResponse<IPermissionResponse[]>> =>
       api
-        .get("/v1/admin/permissions", { params: paginateRequest })
+        .get("/admin/permissions", { params: paginateRequest })
         .then((res) => res.data),
   });
 
@@ -36,18 +36,16 @@ const useGetRoleDetail = (id: string) =>
   useQuery({
     queryKey: [QUERY_KEYS.ADMIN.ROLE_DETAIL, id],
     queryFn: async (): Promise<IApiResponse<IRoleDetailResponse>> =>
-      api.get(`/v1/admin/roles/${id}`).then((res) => res.data),
+      api.get(`/admin/roles/${id}`).then((res) => res.data),
     enabled: !!id,
   });
 
 const useAssignRolePermission = () =>
   useMutation({
     mutationFn: async (
-      data: IAssignRolePermissionBody,
+      data: IAssignRolePermissionBody
     ): Promise<IApiResponse<null>> =>
-      api
-        .post("/v1/admin/assign-role-permission", data)
-        .then((res) => res.data),
+      api.post("/admin/assign-role-permission", data).then((res) => res.data),
     onSuccess: () => {
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.ADMIN.ROLES],
@@ -70,7 +68,7 @@ const useUpdateRole = () =>
       id: string;
       data: IRoleBody;
     }): Promise<IApiResponse<IRoleResponse>> =>
-      api.patch(`/v1/admin/roles/${id}`, data).then((res) => res.data),
+      api.patch(`/admin/roles/${id}`, data).then((res) => res.data),
     onSuccess: () => {
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.ADMIN.ROLES],
@@ -87,7 +85,7 @@ const useUpdateRole = () =>
 const useCreateRole = () =>
   useMutation({
     mutationFn: async (data: IRoleBody): Promise<IApiResponse<IRoleResponse>> =>
-      api.post("/v1/admin/roles", data).then((res) => res.data),
+      api.post("/admin/roles", data).then((res) => res.data),
     onSuccess: () => {
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.ADMIN.ROLES],
@@ -98,7 +96,7 @@ const useCreateRole = () =>
 const useDeleteRole = () =>
   useMutation({
     mutationFn: async (id: string): Promise<IApiResponse<null>> =>
-      api.delete(`/v1/admin/roles/${id}`).then((res) => res.data),
+      api.delete(`/admin/roles/${id}`).then((res) => res.data),
     onSuccess: () => {
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.ADMIN.ROLES],
@@ -115,9 +113,9 @@ const useDeleteRole = () =>
 const useAssignUserRole = () =>
   useMutation({
     mutationFn: async (
-      data: IAssignUserRoleBody,
+      data: IAssignUserRoleBody
     ): Promise<IApiResponse<null>> =>
-      api.post("/v1/admin/assign-user-role", data).then((res) => res.data),
+      api.post("/admin/assign-user-role", data).then((res) => res.data),
     onSuccess: () => {
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.AUTH.ME],
@@ -128,11 +126,9 @@ const useAssignUserRole = () =>
 const useAssignUserPermission = () =>
   useMutation({
     mutationFn: async (
-      data: IAssignUserPermissionBody,
+      data: IAssignUserPermissionBody
     ): Promise<IApiResponse<null>> =>
-      api
-        .post("/v1/admin/assign-user-permission", data)
-        .then((res) => res.data),
+      api.post("/admin/assign-user-permission", data).then((res) => res.data),
     onSuccess: () => {
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.AUTH.ME],

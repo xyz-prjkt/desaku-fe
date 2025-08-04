@@ -13,7 +13,7 @@ const useGetUserSkKematian = (paginateRequest: IPaginateRequest) =>
     queryKey: [QUERY_KEYS.SK.KEMATIAN, paginateRequest],
     queryFn: async (): Promise<IApiResponse<ISuratKeterangan[]>> =>
       api
-        .get("/v1/sk/kematian", { params: paginateRequest })
+        .get("/sk/kematian", { params: paginateRequest })
         .then((res) => res.data),
   });
 
@@ -21,19 +21,19 @@ const useGetSkKematianDetail = (id: string) =>
   useQuery({
     queryKey: [QUERY_KEYS.SK.KEMATIAN_DETAIL, id],
     queryFn: async (): Promise<IApiResponse<ISuratKeterangan>> =>
-      api.get(`/v1/sk/kematian/${id}`).then((res) => res.data),
+      api.get(`/sk/kematian/${id}`).then((res) => res.data),
     enabled: !!id,
   });
 
 const useCreateSkKematian = () =>
   useMutation({
     mutationFn: async (
-      data: ISkKematianCreate,
+      data: ISkKematianCreate
     ): Promise<
       IApiResponse<
         Pick<ISuratKeterangan, "id" | "user_id" | "createdAt" | "sk_type">
       >
-    > => api.post("/v1/sk/kematian", data).then((res) => res.data),
+    > => api.post("/sk/kematian", data).then((res) => res.data),
     onSuccess: () => {
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.SK.KEMATIAN],
@@ -46,11 +46,11 @@ const useDownloadSkKematian = (id: string, isAdmin?: boolean) =>
     mutationFn: async (): Promise<Blob> => {
       const res = await api.get(
         isAdmin
-          ? `/v1/admin/sk-download/kematian/${id}/download`
-          : `/v1/sk/kematian/${id}/download`,
+          ? `/admin/sk-download/kematian/${id}/download`
+          : `/sk/kematian/${id}/download`,
         {
           responseType: "blob",
-        },
+        }
       );
       await downloadBlobFromResponse(res.data, `sk-kematian-${id}.docx`);
       return res.data;

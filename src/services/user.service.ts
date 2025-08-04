@@ -15,7 +15,7 @@ const useGetAllUsers = (paginateRequest: IPaginateRequest) =>
     queryKey: [QUERY_KEYS.ADMIN.USERS, paginateRequest],
     queryFn: async (): Promise<IApiResponse<IUser[]>> =>
       api
-        .get("/v1/admin/users", { params: paginateRequest })
+        .get("/admin/users", { params: paginateRequest })
         .then((res) => res.data),
   });
 
@@ -23,7 +23,7 @@ const useGetUserDetail = (id: string) =>
   useQuery({
     queryKey: [QUERY_KEYS.ADMIN.USER_DETAIL, id],
     queryFn: async (): Promise<IApiResponse<IUserDetail>> =>
-      api.get(`/v1/admin/users/${id}`).then((res) => res.data),
+      api.get(`/admin/users/${id}`).then((res) => res.data),
     enabled: !!id,
   });
 
@@ -36,7 +36,7 @@ const useUpdateUser = () =>
       id: string;
       data: IUpdateUserBody;
     }): Promise<IApiResponse<IUserDetail>> =>
-      api.patch(`/v1/admin/users/${id}`, data).then((res) => res.data),
+      api.patch(`/admin/users/${id}`, data).then((res) => res.data),
     onSuccess: () => {
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.ADMIN.USERS],

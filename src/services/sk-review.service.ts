@@ -14,7 +14,7 @@ const useGetSkReviewList = (paginateRequest: IPaginateRequest) =>
     queryKey: [QUERY_KEYS.SK.LIST, paginateRequest],
     queryFn: async (): Promise<IApiResponse<ISkReviewListResponse[]>> =>
       api
-        .get("/v1/admin/sk-list", { params: paginateRequest })
+        .get("/admin/sk-list", { params: paginateRequest })
         .then((res) => res.data),
   });
 
@@ -27,9 +27,7 @@ const useChangeSKReviewStatus = () =>
       id: string;
       data: ISkReviewChangeStatusBody;
     }): Promise<IApiResponse<null>> =>
-      api
-        .patch(`/v1/admin/change-status-sk/${id}`, data)
-        .then((res) => res.data),
+      api.patch(`/admin/change-status-sk/${id}`, data).then((res) => res.data),
     onSuccess: () => {
       query.invalidateQueries({
         queryKey: [QUERY_KEYS.SK.LIST],
