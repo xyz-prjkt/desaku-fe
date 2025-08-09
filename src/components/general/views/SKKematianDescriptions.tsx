@@ -78,8 +78,20 @@ const SKKematianDescriptions = ({ data }: ISKKematianDescriptionsProps) => {
   ];
   return (
     <Space className="w-full" direction="vertical" size={24}>
-      <Descriptions title="Informasi Pengaju" items={itemsPengaju} bordered />
-      <Descriptions title="Informasi Mendiang" items={itemsKematian} bordered />
+      <Descriptions
+        size="small"
+        title="Informasi Pengaju"
+        layout="vertical"
+        bordered
+        items={itemsPengaju}
+      />
+      <Descriptions
+        size="small"
+        title="Informasi Mendiang"
+        layout="vertical"
+        bordered
+        items={itemsKematian}
+      />
     </Space>
   );
 };
