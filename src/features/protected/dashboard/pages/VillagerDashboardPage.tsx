@@ -81,13 +81,13 @@ const VillagerDashboardPage = () => {
               </div>
               <div className="w-full">
                 <Typography.P className="text-purple-800 font-medium text-xl">
-                  {myProfile.data?.name}
+                  {myProfile?.data?.name}
                 </Typography.P>
                 <Typography.P className="text-gray-600 mb-3">
-                  {myProfile.data?.email}
+                  {myProfile?.data?.email}
                 </Typography.P>
                 <div className="flex flex-wrap gap-1">
-                  {myProfile.data?.role.map((role) => (
+                  {myProfile?.data?.role.map((role) => (
                     <Tag key={role.id}>{role.name}</Tag>
                   ))}
                 </div>
@@ -154,8 +154,8 @@ const VillagerDashboardPage = () => {
                         record.sk_type === "KEMATIAN"
                           ? "kematian"
                           : record.sk_type === "TIDAK_MAMPU"
-                            ? "tidak-mampu"
-                            : "";
+                          ? "tidak-mampu"
+                          : "";
                       navigate(`/my-sk/${skUrl}/${record.id}/detail`);
                     }}
                   >

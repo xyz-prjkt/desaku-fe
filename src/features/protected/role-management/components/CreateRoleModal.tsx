@@ -1,11 +1,10 @@
-import { Modal } from "antd";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { IRoleBody } from "@/interfaces/services/role-permission";
 import { FormProvider } from "@/components/atoms/form";
 import FormInput from "@/components/atoms/input/FormInput";
 import { useAnt } from "@/hooks";
 import { useCreateRole } from "@/services/role-permission.service";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Modal } from "antd";
+import { useForm } from "react-hook-form";
 import { createRoleSchema } from "../schemas/role";
 
 interface CreateRoleModalProps {

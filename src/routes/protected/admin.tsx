@@ -1,5 +1,4 @@
 import { Suspense } from "@/components/atoms/suspense";
-import SKReviewKematianDetail from "@/features/protected/sk-review/pages/detail/sk-kematian/pages/SKKematianDetail";
 import { IRoute } from "@/interfaces/components/route";
 import {
   DashboardOutlined,
@@ -10,17 +9,26 @@ import {
 import { lazy } from "react";
 
 const RoleManagementPages = lazy(
-  () =>
-    import("@/features/protected/role-management/pages/RoleManagementPages"),
+  () => import("@/features/protected/role-management/pages/RoleManagementPages")
 );
 
 const UserManagementPages = lazy(
-  () =>
-    import("@/features/protected/user-management/pages/UserManagementPages"),
+  () => import("@/features/protected/user-management/pages/UserManagementPages")
 );
 
 const SkReviewPages = lazy(
-  () => import("@/features/protected/sk-review/pages/SkReviewPages"),
+  () => import("@/features/protected/sk-review/pages/SkReviewPages")
+);
+
+const SKReviewKematianDetail = lazy(
+  () =>
+    import(
+      "@/features/protected/sk-review/pages/detail/sk-kematian/pages/SKKematianDetail"
+    )
+);
+
+const SKApprovalFlowPage = lazy(
+  () => import("@/features/protected/sk-approval-flow/pages/SKApprovalFlowPage")
 );
 
 export const ADMIN_ROUTES: IRoute = {
@@ -61,6 +69,17 @@ export const ADMIN_ROUTES: IRoute = {
       element: (
         <Suspense>
           <UserManagementPages />
+        </Suspense>
+      ),
+    },
+    {
+      id: "Approval Flow Management",
+      icon: <SecurityScanOutlined />,
+      path: "approval-flow",
+      allowedPermission: "MANAGE_APPROVAL_FLOW",
+      element: (
+        <Suspense>
+          <SKApprovalFlowPage />
         </Suspense>
       ),
     },

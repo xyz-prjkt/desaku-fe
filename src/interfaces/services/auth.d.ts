@@ -21,7 +21,8 @@ type IPermissionName =
   | "VIEW_SK"
   | "APPROVE_SK"
   | "MANAGE_ROLES_PERMISSIONS"
-  | "MANAGE_USERS";
+  | "MANAGE_USERS"
+  | "MANAGE_APPROVAL_FLOW";
 
 interface IPermission {
   id: string;

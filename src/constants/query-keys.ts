@@ -1,4 +1,5 @@
 export const QUERY_KEYS = {
+  INFINITE: {},
   DASHBOARD: {
     STATUS_COUNT: ["dashboard", "status-count"],
     MY_SK_LIST: ["dashboard", "my-sk-list"],
@@ -17,5 +18,6 @@ export const QUERY_KEYS = {
     PERMISSIONS: ["admin", "permissions"],
     USERS: ["admin", "users"],
     USER_DETAIL: ["admin", "user", "detail"],
+    SK_APPROVER_SETTINGS: ["admin", "sk-approver-settings"],
   },
 } as const;

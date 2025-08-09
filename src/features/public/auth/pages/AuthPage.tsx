@@ -2,7 +2,7 @@ import { Typography } from "@/components/atoms/typography";
 import { Divider, Space, Tabs } from "antd";
 import { Shield } from "lucide-react";
 import LoginForm from "../components/LoginForm";
-import SignupForm from "../components/SignUpForm";
+import SignupForm from "../components/SignupForm";
 
 const AuthPage = () => {
   return (

@@ -2,13 +2,15 @@ import { IPaginateRequest } from "@/components/molecules/table/interfaces";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import { IApiResponse } from "@/interfaces/services/api";
 import {
+  IUpdateUserBody,
   IUser,
   IUserDetail,
-  IUpdateUserBody,
 } from "@/interfaces/services/user";
 import { api } from "@/libs";
 import { query } from "@/libs/query";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { getNextPageParams } from "@/utils/infinite-scroll-list";
+import { generateUrlParams } from "@/utils/url-params-generator";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetAllUsers = (paginateRequest: IPaginateRequest) =>
   useQuery({
@@ -17,6 +19,27 @@ const useGetAllUsers = (paginateRequest: IPaginateRequest) =>
       api
         .get("/admin/users", { params: paginateRequest })
         .then((res) => res.data),
+  });
+
+const useGetInfiniteAllUsers = (paginateRequest: IPaginateRequest) =>
+  useInfiniteQuery({
+    queryKey: [
+      QUERY_KEYS.INFINITE,
+      QUERY_KEYS.ADMIN.USERS,
+      { ...paginateRequest },
+    ],
+    queryFn: async ({ pageParam }) =>
+      await api
+        .get(
+          `/admin/users?${generateUrlParams({
+            ...paginateRequest,
+            page: pageParam,
+          })}`
+        )
+        .then((res: { data: IApiResponse<IUser[]> }) => res.data),
+    initialPageParam: paginateRequest.page || 1,
+    getNextPageParam: (lastPage) => getNextPageParams(lastPage),
+    select: (data) => data.pages.flatMap((page) => page.data),
   });
 
 const useGetUserDetail = (id: string) =>
@@ -50,4 +73,9 @@ const useUpdateUser = () =>
     },
   });
 
-export { useGetAllUsers, useGetUserDetail, useUpdateUser };
+export {
+  useGetAllUsers,
+  useGetInfiniteAllUsers,
+  useGetUserDetail,
+  useUpdateUser,
+};
