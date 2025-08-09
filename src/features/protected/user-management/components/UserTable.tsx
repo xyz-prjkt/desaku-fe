@@ -5,7 +5,8 @@ import { useGetAllUsers } from "@/services/user.service";
 import { Button, Popover, Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { EditIcon, UserIcon } from "lucide-react";
-import { EditUserModal } from "./index";
+import EditUserModal from "./EditUserModal";
+import { EditOutlined } from "@ant-design/icons";
 
 const UserTable = () => {
   const { paginateRequest, handlePageChange, handleSearchChange } =
@@ -64,16 +65,14 @@ const UserTable = () => {
         date ? new Date(date).toLocaleDateString() : "-",
     },
     {
-      title: "Actions",
+      title: "Aksi",
       key: "actions",
       render: (_, record) => (
         <Space>
-          <Popover content={<span>Edit User</span>}>
-            <Button
-              type="text"
-              icon={<EditIcon color="blue" size={18} />}
+          <Popover content="Edit User">
+            <EditOutlined
+              className="text-blue-500"
               onClick={() => editUserModal.handleClickOpen(record.id)}
-              title="Edit User"
             />
           </Popover>
         </Space>
@@ -82,7 +81,7 @@ const UserTable = () => {
   ];
 
   return (
-    <div>
+    <>
       <BaseTable<IUser>
         columns={columns}
         data={usersData?.data || []}
@@ -110,7 +109,7 @@ const UserTable = () => {
           onSuccess={editUserModal.handleClose}
         />
       )}
-    </div>
+    </>
   );
 };
 

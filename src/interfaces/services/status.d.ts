@@ -1,3 +1,3 @@
-type ApprovalStatus = "APPROVED" | "REJECTED" | "REVISED" | "PENDING";
+type ApprovalStatus = "APPROVED" | "REJECTED" | "REVISED" | "VERIFY";
 
 export { ApprovalStatus };

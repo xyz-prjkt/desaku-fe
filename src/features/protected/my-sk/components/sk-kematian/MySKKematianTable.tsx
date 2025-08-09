@@ -3,6 +3,7 @@ import { BaseTable } from "@/components/molecules/table";
 import { useTableAsync } from "@/hooks";
 import { ISuratKeterangan } from "@/interfaces/services/sk";
 import { useGetUserSkKematian } from "@/services/sk-kematian.service";
+import { EyeOutlined } from "@ant-design/icons";
 import { Button, Card, Space } from "antd";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
@@ -73,16 +74,17 @@ const MySKKematianTable = () => {
           },
           {
             key: "action",
-            dataIndex: "id",
+            title: "Aksi",
             fixed: "right",
             render: (record) => (
               <Space>
-                <Button
+                <EyeOutlined
+                  className="text-blue-500"
                   type="link"
-                  onClick={() => navigate(`/my-sk/kematian/${record}/detail`)}
-                >
-                  Detail
-                </Button>
+                  onClick={() =>
+                    navigate(`/my-sk/kematian/${record.id}/detail`)
+                  }
+                />
               </Space>
             ),
           },

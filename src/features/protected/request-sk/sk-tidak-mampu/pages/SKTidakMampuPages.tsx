@@ -9,7 +9,7 @@ import { useGetAuthMeProfile } from "@/services/auth.service";
 import { useCreateSkTidakMampu } from "@/services/sk-tidak-mampu.service";
 import { SaveFilled } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Space } from "antd";
+import { Alert, Button, Space } from "antd";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
@@ -55,6 +55,17 @@ const SKTidakMampuPages = () => {
     >
       <FormProvider formMethods={formMethods} onSubmit={onSubmit}>
         <Space direction="vertical" className="w-full">
+          <Alert
+            message="Apabila terdapat kesalahan pada data pribadi, silakan melakukan perubahan melalui Profil Saya"
+            type="info"
+            showIcon
+            className="mb-4"
+            action={
+              <Button color="blue" variant="solid">
+                Ubah Profil
+              </Button>
+            }
+          />
           <SKGeneralForm />
           <SKTidakMampuForm />
         </Space>

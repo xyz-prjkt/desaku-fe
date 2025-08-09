@@ -57,7 +57,7 @@ const EditUserModal = ({
       address: userDetailData?.data?.address,
       roleIds: userDetailData?.data?.user_roles?.map((ur) => ur.role.id),
       permissionIds: userDetailData?.data?.user_permissions?.map(
-        (up) => up.permission.id,
+        (up) => up.permission.id
       ),
     },
     resolver: yupResolver(updateUserSchema),
@@ -85,8 +85,9 @@ const EditUserModal = ({
   return (
     <Modal
       loading={isLoadingUserDetail}
-      title={`Edit User: ${userDetailData?.data?.name}`}
+      title={`Edit User ${userDetailData?.data?.name}`}
       open={open}
+      centered
       onOk={formMethods.handleSubmit(handleSubmit)}
       onCancel={handleCancel}
       confirmLoading={isUpdating}

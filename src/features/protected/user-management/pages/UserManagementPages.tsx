@@ -1,5 +1,5 @@
 import { ContentPaper } from "@/components/atoms/paper";
-import { UserTable } from "../components";
+import UserTable from "../components/UserTable";
 
 const UserManagementPages = () => {
   return (

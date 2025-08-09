@@ -7,7 +7,7 @@ import { ISkKematianCreate } from "@/interfaces/services/sk-kematian";
 import { useCreateSkKematian } from "@/services/sk-kematian.service";
 import { SaveFilled } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "antd";
+import { Alert, Button } from "antd";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
@@ -35,6 +35,12 @@ const SKKematianPages = () => {
   return (
     <ContentPaper title="Ajukan Surat Keterangan Kematian">
       <FormProvider formMethods={formMethods} onSubmit={onSubmit}>
+        <Alert
+          message="Silakan isi data dengan informasi mendiang yang bersangkutan"
+          type="info"
+          showIcon
+          className="mb-4"
+        />
         <SKKematianForm />
         <Button
           icon={<SaveFilled />}

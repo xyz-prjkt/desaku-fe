@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useNavigate } from "react-router";
 import MySKTidakMampuFilter from "./MySKTidakMampuFilter";
+import { EyeOutlined } from "@ant-design/icons";
 
 const MySKTidakMampuTable = () => {
   const {
@@ -64,18 +65,16 @@ const MySKTidakMampuTable = () => {
           },
           {
             key: "action",
-            dataIndex: "id",
+            title: "Aksi",
             fixed: "right",
             render: (record) => (
               <Space>
-                <Button
-                  type="link"
+                <EyeOutlined
+                  className="text-blue-500"
                   onClick={() =>
-                    navigate(`/my-sk/tidak-mampu/${record}/detail`)
+                    navigate(`/my-sk/tidak-mampu/${record.id}/detail`)
                   }
-                >
-                  Detail
-                </Button>
+                />
               </Space>
             ),
           },

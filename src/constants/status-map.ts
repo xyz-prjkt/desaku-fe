@@ -4,5 +4,5 @@ export const STATUS_MAP: Record<ApprovalStatus, string> = {
   APPROVED: "Disetujui",
   REJECTED: "Ditolak",
   REVISED: "Direvisi",
-  PENDING: "Menunggu Verifikasi",
+  VERIFY: "Menunggu Verifikasi",
 } as const;

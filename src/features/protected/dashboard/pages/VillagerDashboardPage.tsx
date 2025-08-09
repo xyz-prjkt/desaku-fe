@@ -17,6 +17,7 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useNavigate } from "react-router";
 import VillagerDashboardFilter from "../components/VillagerDashboardFilter";
+import { EyeOutlined } from "@ant-design/icons";
 
 const VillagerDashboardPage = () => {
   const {
@@ -146,9 +147,12 @@ const VillagerDashboardPage = () => {
                   }),
               },
               {
+                title: "Aksi",
+                key: "action",
+                fixed: "right",
                 render: (_, record) => (
-                  <Button
-                    type="link"
+                  <EyeOutlined
+                    className="text-blue-500"
                     onClick={() => {
                       const skUrl =
                         record.sk_type === "KEMATIAN"
@@ -158,9 +162,7 @@ const VillagerDashboardPage = () => {
                           : "";
                       navigate(`/my-sk/${skUrl}/${record.id}/detail`);
                     }}
-                  >
-                    Detail
-                  </Button>
+                  />
                 ),
               },
             ]}

@@ -69,6 +69,7 @@ const SkReviewPages = () => {
               {
                 title: "Aksi",
                 key: "action",
+                fixed: "right",
                 render: (_, record) => (
                   <Space>
                     <EditOutlined
@@ -84,7 +85,6 @@ const SkReviewPages = () => {
                     </Link>
                   </Space>
                 ),
-                fixed: "right",
               },
             ]}
             isLoading={skListIsLoading}
