@@ -69,18 +69,12 @@ const SKUsahaPages = lazy(
   () => import("@/features/protected/request-sk/sk-usaha/pages/SKUsahaPages")
 );
 
-const SKKematianDetail = lazy(
-  () =>
-    import(
-      "@/features/protected/my-sk/pages/detail/sk-kematian/pages/SKKematianDetail"
-    )
+const SKKematianDetailView = lazy(
+  () => import("@/components/general/views/SKKematianDetailView")
 );
 
-const SKTidakMampuDetail = lazy(
-  () =>
-    import(
-      "@/features/protected/my-sk/pages/detail/sk-tidak-mampu/pages/SKTidakMampuDetail"
-    )
+const SKTidakMampuDetailView = lazy(
+  () => import("@/components/general/views/SKTidakMampuDetailView")
 );
 
 export const VILLAGER_ROUTES: IRoute = {
@@ -115,7 +109,7 @@ export const VILLAGER_ROUTES: IRoute = {
       allowedPermission: "VIEW_SK",
       element: (
         <Suspense>
-          <SKKematianDetail />
+          <SKKematianDetailView type="view" />
         </Suspense>
       ),
     },
@@ -126,7 +120,7 @@ export const VILLAGER_ROUTES: IRoute = {
       allowedPermission: "VIEW_SK",
       element: (
         <Suspense>
-          <SKTidakMampuDetail />
+          <SKTidakMampuDetailView type="view" />
         </Suspense>
       ),
     },

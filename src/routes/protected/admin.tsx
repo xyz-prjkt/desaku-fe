@@ -20,11 +20,12 @@ const SkReviewPages = lazy(
   () => import("@/features/protected/sk-review/pages/SkReviewPages")
 );
 
-const SKReviewKematianDetail = lazy(
-  () =>
-    import(
-      "@/features/protected/sk-review/pages/detail/sk-kematian/pages/SKKematianDetail"
-    )
+const SKKematianDetailView = lazy(
+  () => import("@/components/general/views/SKKematianDetailView")
+);
+
+const SKTidakMampuDetailView = lazy(
+  () => import("@/components/general/views/SKTidakMampuDetailView")
 );
 
 const SKApprovalFlowPage = lazy(
@@ -32,10 +33,10 @@ const SKApprovalFlowPage = lazy(
 );
 
 export const ADMIN_ROUTES: IRoute = {
-  id: "Admin Menu",
+  id: "Menu Pegawai",
   children: [
     {
-      id: "Dashboard Admin",
+      id: "Dashboard Pegawai",
       icon: <DashboardOutlined />,
       path: "dashboard",
       allowedPermission: "ADMIN_DASHBOARD",
@@ -57,7 +58,17 @@ export const ADMIN_ROUTES: IRoute = {
       allowedPermission: "APPROVE_SK",
       element: (
         <Suspense>
-          <SKReviewKematianDetail />
+          <SKKematianDetailView type="review" />
+        </Suspense>
+      ),
+    },
+    {
+      hidden: true,
+      path: "review-sk/tidak_mampu/:id/detail",
+      allowedPermission: "APPROVE_SK",
+      element: (
+        <Suspense>
+          <SKTidakMampuDetailView type="review" />
         </Suspense>
       ),
     },

@@ -40,7 +40,6 @@ const SkReviewPages = () => {
                     <div className="text-gray-500 text-sm">NIK: {user.nik}</div>
                   </div>
                 ),
-                width: 200,
               },
               {
                 title: "Jenis SK",
