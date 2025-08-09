@@ -11,8 +11,9 @@ const revokeAuthorization = () => {
 };
 
 const createAxiosInstance = () => {
+  const baseURL = import.meta.env.VITE_API_BASE_URL || "http://localhost:4056";
   const axios = baseAxios.create({
-    baseURL: "http://localhost:4056",
+    baseURL,
     withCredentials: true,
   });
 
