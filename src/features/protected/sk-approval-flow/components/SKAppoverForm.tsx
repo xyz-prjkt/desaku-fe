@@ -1,14 +1,17 @@
 import { DraggablePortal } from "@/components/atoms/draggable";
 import { FormProvider } from "@/components/atoms/form";
 import { UserSelectInput } from "@/components/general/select/UserSelectInput";
+import { useAnt } from "@/hooks";
 import {
   ISKApproverSettings,
   ISKApproverSettingsBody,
 } from "@/interfaces/services/sk-approver-settings";
 import { SkType } from "@/interfaces/services/sk-type";
+import { useUpdateSKApproverSettings } from "@/services/sk-approver-settings.service";
 import { DeleteOutlined, UserAddOutlined } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Card, Divider, Space, Typography } from "antd";
+import { useEffect, useRef } from "react";
 import {
   DragDropContext,
   Draggable,
@@ -17,20 +20,28 @@ import {
 } from "react-beautiful-dnd";
 import { useFieldArray, useForm } from "react-hook-form";
 import { skApprovalFlowSchema } from "../schemas/sk-approval-flow.schema";
-import { useUpdateSKApproverSettings } from "@/services/sk-approver-settings.service";
 
 const { Text } = Typography;
 
 interface ISKApproverFormProps {
   skType: SkType;
   data: ISKApproverSettings[];
+  isEditMode?: boolean;
+  onSubmit?: (data: ISKApproverSettingsBody) => void;
 }
 
-const SKApproverForm = ({ skType, data }: ISKApproverFormProps) => {
+const SKApproverForm = ({
+  skType,
+  data,
+  isEditMode = false,
+}: ISKApproverFormProps) => {
   const {
     mutateAsync: updateSKApprover,
     isPending: updateSKApproverIsPending,
   } = useUpdateSKApproverSettings();
+
+  const { message } = useAnt();
+  const isSubmittingRef = useRef(false);
 
   const formMethods = useForm<ISKApproverSettingsBody>({
     resolver: yupResolver(skApprovalFlowSchema),
@@ -55,7 +66,34 @@ const SKApproverForm = ({ skType, data }: ISKApproverFormProps) => {
     name: "approvers",
   });
 
-  const onDragEnd = (result: DropResult) => {
+  useEffect(() => {
+    if (!isEditMode) return;
+    const subscription = formMethods.watch(async (value, { name, type }) => {
+      if (
+        type === "change" &&
+        name?.startsWith("approvers") &&
+        name.endsWith("user_approver_id") &&
+        !isSubmittingRef.current
+      ) {
+        const fieldIndex = parseInt(name.split(".")[1]);
+        const approverValue = value.approvers?.[fieldIndex];
+
+        if (approverValue?.user_approver_id) {
+          isSubmittingRef.current = true;
+          try {
+            await formMethods.handleSubmit(handleSubmit)();
+          } finally {
+            isSubmittingRef.current = false;
+          }
+        }
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [isEditMode]);
+
+  const onDragEnd = async (result: DropResult) => {
+    if (!isEditMode) return;
     const { destination, source } = result;
     if (!destination) return;
     if (
@@ -65,16 +103,47 @@ const SKApproverForm = ({ skType, data }: ISKApproverFormProps) => {
       return;
     }
     moveApprover(source.index, destination.index);
+    await formMethods.handleSubmit(handleSubmit)();
+  };
+
+  const handleRemoveApprover = async (index: number) => {
+    removeApprover(index);
+    if (isEditMode) await formMethods.handleSubmit(handleSubmit)();
+  };
+
+  const handleAddApprover = () => {
+    appendApprover({
+      user_approver_id: "",
+      is_active: true,
+      order_priority: approversFields.length + 1,
+    });
   };
 
   const selectedApproverIds = (formValues.approvers || [])
-    .map((a: any) => a?.approverCoreUserId)
+    .map((a: any) => a?.user_approver_id)
     .filter(Boolean);
 
   const approversError = formMethods.formState.errors?.approvers;
   const hasApproversError = !!approversError;
 
-  const handleSubmit = (data: ISKApproverSettingsBody) => {};
+  const handleSubmit = async (data: ISKApproverSettingsBody) => {
+    if (!isEditMode) return;
+    const submitData = {
+      ...data,
+      approvers: data.approvers.map((approver, index) => ({
+        ...approver,
+        order_priority: index + 1,
+      })),
+    };
+
+    await updateSKApprover(submitData)
+      .then((res) => {
+        if (res.success) {
+          message.success("Approver settings updated successfully");
+        }
+      })
+      .catch((err) => message.error((err as Error).message));
+  };
 
   return (
     <FormProvider formMethods={formMethods} onSubmit={handleSubmit}>
@@ -108,18 +177,20 @@ const SKApproverForm = ({ skType, data }: ISKApproverFormProps) => {
                   const disabledOptions = selectedApproverIds.filter(
                     (id: string) => id && id !== currentId
                   );
+
                   return (
                     <Draggable
                       key={field.id}
                       draggableId={field.id}
                       index={index}
+                      isDragDisabled={!isEditMode}
                     >
                       {(provided, snapshot) => {
                         const card = (
                           <div
                             ref={provided.innerRef}
                             {...provided.draggableProps}
-                            {...provided.dragHandleProps}
+                            {...(isEditMode ? provided.dragHandleProps : {})}
                             className="flex items-center"
                           >
                             <Card className="min-w-64">
@@ -132,14 +203,18 @@ const SKApproverForm = ({ skType, data }: ISKApproverFormProps) => {
                                   placeholder="Select Approver"
                                   fullWidth
                                   disabledOptions={disabledOptions}
+                                  disabled={!isEditMode}
                                 />
-                                <Button
-                                  className="w-fit"
-                                  danger
-                                  onClick={() => removeApprover(index)}
-                                >
-                                  <DeleteOutlined />
-                                </Button>
+                                {isEditMode && (
+                                  <Button
+                                    className="w-fit"
+                                    danger
+                                    onClick={() => handleRemoveApprover(index)}
+                                    loading={updateSKApproverIsPending}
+                                  >
+                                    <DeleteOutlined />
+                                  </Button>
+                                )}
                               </Space.Compact>
                             </Card>
                             {index < approversFields.length - 1 && (
@@ -163,20 +238,17 @@ const SKApproverForm = ({ skType, data }: ISKApproverFormProps) => {
             )}
           </Droppable>
         </DragDropContext>
-        <Button
-          icon={<UserAddOutlined />}
-          className="w-full"
-          type="dashed"
-          onClick={() =>
-            appendApprover({
-              user_approver_id: "",
-              is_active: true,
-              order_priority: 0,
-            })
-          }
-        >
-          Add Approver
-        </Button>
+        {isEditMode && (
+          <Button
+            icon={<UserAddOutlined />}
+            className="w-full"
+            type="dashed"
+            onClick={handleAddApprover}
+            disabled={updateSKApproverIsPending}
+          >
+            Add Approver
+          </Button>
+        )}
       </Card>
     </FormProvider>
   );

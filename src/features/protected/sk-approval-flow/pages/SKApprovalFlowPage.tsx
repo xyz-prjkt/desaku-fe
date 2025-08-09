@@ -1,15 +1,14 @@
 import { ContentPaper } from "@/components/atoms/paper";
-import { Tabs } from "antd";
-import SKApproverTable from "../components/SKApproverTable";
 import { useGetSKApproverSettings } from "@/services/sk-approver-settings.service";
+import { Button, Tabs } from "antd";
+import { useState } from "react";
 import FileApprovalDraggable from "../components/SKAppoverForm";
+import { EditOutlined } from "@ant-design/icons";
 
 const SKApprovalFlowPage = () => {
+  const [isEdit, setIsEdit] = useState<boolean>(false);
   const { data: skApproverSettings, isLoading: skApproverSettingsIsLoading } =
     useGetSKApproverSettings();
-  const onEditApprover = (id: string) => {
-    console.log("Edit approver with ID:", id);
-  };
 
   return (
     <ContentPaper
@@ -25,6 +24,7 @@ const SKApprovalFlowPage = () => {
               <FileApprovalDraggable
                 skType="KEMATIAN"
                 data={skApproverSettings?.data["KEMATIAN"]}
+                isEditMode={isEdit}
               />
             ),
           },
@@ -35,10 +35,22 @@ const SKApprovalFlowPage = () => {
               <FileApprovalDraggable
                 skType="TIDAK_MAMPU"
                 data={skApproverSettings?.data["TIDAK_MAMPU"]}
+                isEditMode={isEdit}
               />
             ),
           },
         ]}
+        tabBarExtraContent={{
+          right: (
+            <Button
+              icon={<EditOutlined />}
+              type={isEdit ? "primary" : "default"}
+              onClick={() => setIsEdit(!isEdit)}
+            >
+              {isEdit ? "Editing Mode" : "Edit Approval"}
+            </Button>
+          ),
+        }}
       />
     </ContentPaper>
   );
