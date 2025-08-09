@@ -1,3 +1,6 @@
+import { ISkKematianDetail } from "./sk-kematian";
+import { ISkTidakMampuDetail } from "./sk-tidak-mampu";
+import { SkType } from "./sk-type";
 import { IUserApprover } from "./user";
 
 interface ISuratKeterangan {
@@ -8,7 +11,7 @@ interface ISuratKeterangan {
   updatedAt: string;
   user_approvers: IUserApprover[];
   sk_kematian: ISkKematianDetail | null;
-  sk_tidak_mampu: ISkTidakMampu | null;
+  sk_tidak_mampu: ISkTidakMampuDetail | null;
 }
 
 export { ISuratKeterangan };

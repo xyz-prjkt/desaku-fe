@@ -10,6 +10,8 @@ export const QUERY_KEYS = {
   SK: {
     KEMATIAN: ["sk", "kematian"],
     KEMATIAN_DETAIL: ["sk", "kematian", "detail"],
+    TIDAK_MAMPU: ["sk", "tidak-mampu"],
+    TIDAK_MAMPU_DETAIL: ["sk", "tidak-mampu", "detail"],
     LIST: ["sk", "list"],
   },
   ADMIN: {
