@@ -1,3 +1,4 @@
+import { MaritalStatus } from "./sk-tidak-mampu";
 import { ApprovalStatus } from "./status";
 
 interface IApprover {
@@ -54,7 +55,7 @@ interface IUserDetail extends IUser {
   password?: string;
   born_birth?: string;
   born_place?: string;
-  marital_status?: string;
+  marital_status?: MaritalStatus;
   religion?: string;
   address?: string;
   user_roles: IUserRole[];

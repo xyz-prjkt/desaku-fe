@@ -35,6 +35,19 @@ const MySKKematianTable = () => {
             render: (record) => record.name,
           },
           {
+            title: "NIK Mendiang",
+            key: "death_nik",
+            dataIndex: "sk_kematian",
+            render: (record) => record.nik,
+          },
+          {
+            title: "Alamat",
+            key: "address",
+            dataIndex: "sk_kematian",
+            width: 260,
+            render: (record) => record.address,
+          },
+          {
             title: "Tanggal Kematian",
             key: "death_date",
             dataIndex: "sk_kematian",
@@ -42,12 +55,6 @@ const MySKKematianTable = () => {
               format(new Date(record.death_date), "EEEE, dd MMMM yyyy, HH:mm", {
                 locale: id,
               }),
-          },
-          {
-            title: "Alamat",
-            key: "address",
-            dataIndex: "sk_kematian",
-            render: (record) => record.address,
           },
           {
             title: "Tanggal Pengajuan",
@@ -67,6 +74,7 @@ const MySKKematianTable = () => {
           {
             key: "action",
             dataIndex: "id",
+            fixed: "right",
             render: (record) => (
               <Space>
                 <Button

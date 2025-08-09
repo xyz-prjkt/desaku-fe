@@ -1,4 +1,5 @@
 import ApprovalsTag from "@/components/atoms/approvals-tag/ApprovalsTag";
+import GenderLabel from "@/components/general/labels/GenderLabel";
 import { ISuratKeterangan } from "@/interfaces/services/sk";
 import { Descriptions, Space } from "antd";
 import { format } from "date-fns";
@@ -42,7 +43,9 @@ const SKKematianDescriptions = ({ data }: ISKKematianDescriptionsProps) => {
     {
       key: "gender",
       label: "Jenis Kelamin",
-      children: data?.sk_kematian?.gender,
+      children: data?.sk_kematian?.gender && (
+        <GenderLabel gender={data?.sk_kematian?.gender} />
+      ),
     },
     {
       key: "religion",

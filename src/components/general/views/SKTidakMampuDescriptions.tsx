@@ -1,4 +1,6 @@
 import ApprovalsTag from "@/components/atoms/approvals-tag/ApprovalsTag";
+import GenderLabel from "@/components/general/labels/GenderLabel";
+import MaritalStatusLabel from "@/components/general/labels/MaritalStatusLabel";
 import { ISuratKeterangan } from "@/interfaces/services/sk";
 import { Descriptions, Space } from "antd";
 import { format } from "date-fns";
@@ -8,35 +10,6 @@ interface ISKTidakMampuDescriptionsProps {
 }
 
 const SKTidakMampuDescriptions = ({ data }: ISKTidakMampuDescriptionsProps) => {
-  const itemsPengaju = [
-    {
-      key: "createdAt",
-      label: "Tanggal Pengajuan",
-      children:
-        data?.createdAt &&
-        format(new Date(data?.createdAt), "EEEE, dd MMMM yyyy, HH:mm"),
-    },
-    {
-      key: "status",
-      label: "Status",
-      children: <ApprovalsTag approvers={data?.user_approvers} />,
-    },
-  ];
-
-  const getMaritalStatusLabel = (status: string) => {
-    const statusMap = {
-      SINGLE: "Belum Menikah",
-      MARRIED: "Menikah",
-      DIVORCED: "Bercerai",
-      WIDOWED: "Janda/Duda",
-    };
-    return statusMap[status as keyof typeof statusMap] || status;
-  };
-
-  const getGenderLabel = (gender: string) => {
-    return gender === "MALE" ? "Laki-laki" : "Perempuan";
-  };
-
   const itemsTidakMampu = [
     {
       key: "name",
@@ -51,9 +24,9 @@ const SKTidakMampuDescriptions = ({ data }: ISKTidakMampuDescriptionsProps) => {
     {
       key: "gender",
       label: "Jenis Kelamin",
-      children:
-        data?.sk_tidak_mampu?.gender &&
-        getGenderLabel(data?.sk_tidak_mampu?.gender),
+      children: data?.sk_tidak_mampu?.gender && (
+        <GenderLabel gender={data?.sk_tidak_mampu?.gender} />
+      ),
     },
     {
       key: "born_place",
@@ -78,9 +51,9 @@ const SKTidakMampuDescriptions = ({ data }: ISKTidakMampuDescriptionsProps) => {
     {
       key: "marital_status",
       label: "Status Pernikahan",
-      children:
-        data?.sk_tidak_mampu?.marital_status &&
-        getMaritalStatusLabel(data?.sk_tidak_mampu?.marital_status),
+      children: data?.sk_tidak_mampu?.marital_status && (
+        <MaritalStatusLabel status={data?.sk_tidak_mampu?.marital_status} />
+      ),
     },
     {
       key: "work",
@@ -99,16 +72,21 @@ const SKTidakMampuDescriptions = ({ data }: ISKTidakMampuDescriptionsProps) => {
       span: 3,
       children: data?.sk_tidak_mampu?.reason,
     },
+    {
+      key: "status",
+      label: "Status Pengajuan",
+      children: <ApprovalsTag approvers={data?.user_approvers} />,
+    },
+    {
+      key: "createdAt",
+      label: "Tanggal Pengajuan",
+      children:
+        data?.createdAt &&
+        format(new Date(data?.createdAt), "EEEE, dd MMMM yyyy, HH:mm"),
+    },
   ];
   return (
     <Space className="w-full" direction="vertical" size={24}>
-      <Descriptions
-        size="small"
-        title="Informasi Pengaju"
-        layout="vertical"
-        bordered
-        items={itemsPengaju}
-      />
       <Descriptions
         size="small"
         title="Informasi Pemohon"

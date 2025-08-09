@@ -1,24 +1,40 @@
 import { FormProvider } from "@/components/atoms/form";
 import { ContentPaper } from "@/components/atoms/paper";
 import skTidakMampuSchema from "@/components/general/forms/schemas/sk-tidak-mampu.schema";
+import SKGeneralForm from "@/components/general/forms/SKGeneralForm";
 import SKTidakMampuForm from "@/components/general/forms/SKTidakMampuForm";
 import { useAnt } from "@/hooks";
 import { ISkTidakMampuCreate } from "@/interfaces/services/sk-tidak-mampu";
+import { useGetAuthMeProfile } from "@/services/auth.service";
 import { useCreateSkTidakMampu } from "@/services/sk-tidak-mampu.service";
 import { SaveFilled } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "antd";
+import { Button, Space } from "antd";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
 const SKTidakMampuPages = () => {
   const navigate = useNavigate();
   const { message } = useAnt();
+  const { data: userProfile, isLoading: userProfileIsLoading } =
+    useGetAuthMeProfile();
   const { mutateAsync: createSk, isPending: createSkIsPending } =
     useCreateSkTidakMampu();
 
   const formMethods = useForm<ISkTidakMampuCreate>({
     resolver: yupResolver(skTidakMampuSchema),
+    values: {
+      address: userProfile?.data?.address,
+      born_place: userProfile?.data?.born_place,
+      born_birth: userProfile?.data?.born_birth,
+      gender: userProfile?.data?.gender,
+      marital_status: userProfile?.data?.marital_status,
+      name: userProfile?.data?.name,
+      nik: userProfile?.data?.nik,
+      religion: userProfile?.data?.religion,
+      work: userProfile?.data?.work,
+      reason: "",
+    },
   });
 
   const onSubmit = async (data: ISkTidakMampuCreate) => {
@@ -33,9 +49,15 @@ const SKTidakMampuPages = () => {
   };
 
   return (
-    <ContentPaper title="Ajukan Surat Keterangan Tidak Mampu">
+    <ContentPaper
+      title="Ajukan Surat Keterangan Tidak Mampu"
+      isLoading={userProfileIsLoading}
+    >
       <FormProvider formMethods={formMethods} onSubmit={onSubmit}>
-        <SKTidakMampuForm />
+        <Space direction="vertical" className="w-full">
+          <SKGeneralForm />
+          <SKTidakMampuForm />
+        </Space>
         <Button
           icon={<SaveFilled />}
           loading={createSkIsPending}

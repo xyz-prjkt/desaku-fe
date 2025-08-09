@@ -1,5 +1,4 @@
 import { Suspense } from "@/components/atoms/suspense";
-import SKKematianDetail from "@/features/protected/my-sk/pages/detail/sk-kematian/pages/SKKematianDetail";
 import { IRoute } from "@/interfaces/components/route";
 import {
   AuditOutlined,
@@ -70,6 +69,20 @@ const SKUsahaPages = lazy(
   () => import("@/features/protected/request-sk/sk-usaha/pages/SKUsahaPages")
 );
 
+const SKKematianDetail = lazy(
+  () =>
+    import(
+      "@/features/protected/my-sk/pages/detail/sk-kematian/pages/SKKematianDetail"
+    )
+);
+
+const SKTidakMampuDetail = lazy(
+  () =>
+    import(
+      "@/features/protected/my-sk/pages/detail/sk-tidak-mampu/pages/SKTidakMampuDetail"
+    )
+);
+
 export const VILLAGER_ROUTES: IRoute = {
   id: "Main Menu",
   children: [
@@ -103,6 +116,17 @@ export const VILLAGER_ROUTES: IRoute = {
       element: (
         <Suspense>
           <SKKematianDetail />
+        </Suspense>
+      ),
+    },
+    {
+      id: "Detail SK Tidak Mampu",
+      hidden: true,
+      path: "my-sk/tidak-mampu/:id/detail",
+      allowedPermission: "VIEW_SK",
+      element: (
+        <Suspense>
+          <SKTidakMampuDetail />
         </Suspense>
       ),
     },
