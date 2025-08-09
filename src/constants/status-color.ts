@@ -4,5 +4,5 @@ export const STATUS_COLOR_MAP: Record<ApprovalStatus, string> = {
   APPROVED: "green",
   REJECTED: "red",
   REVISED: "blue",
-  PENDING: "orange",
+  VERIFY: "orange",
 } as const;
