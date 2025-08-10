@@ -6,13 +6,17 @@ import MaritalStatusSelectInput from "@/components/general/select/MaritalStatusS
 import ReligionSelectInput from "@/components/general/select/ReligionSelectInput";
 import { Col, Row, Space } from "antd";
 
-const SKGeneralForm = () => {
+interface SKGeneralFormProps {
+  disabled?: boolean;
+}
+
+const SKGeneralForm = ({ disabled = true }: SKGeneralFormProps) => {
   return (
     <Space direction="vertical" className="w-full">
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <FormInput
-            disabled
+            disabled={disabled}
             isRequired
             name="name"
             label="Nama Lengkap"
@@ -24,7 +28,7 @@ const SKGeneralForm = () => {
       <Row gutter={[16, 16]}>
         <Col span={12}>
           <FormInput
-            disabled
+            disabled={disabled}
             isRequired
             name="nik"
             label="NIK"
@@ -34,7 +38,7 @@ const SKGeneralForm = () => {
         </Col>
         <Col span={12}>
           <GenderSelectInput
-            disabled
+            disabled={disabled}
             label="Jenis Kelamin"
             name="gender"
             isRequired
@@ -45,7 +49,7 @@ const SKGeneralForm = () => {
       <Row gutter={[16, 16]}>
         <Col span={12}>
           <FormInput
-            disabled
+            disabled={disabled}
             isRequired
             name="born_place"
             label="Tempat Lahir"
@@ -54,7 +58,7 @@ const SKGeneralForm = () => {
         </Col>
         <Col span={12}>
           <DatePicker
-            disabled
+            disabled={disabled}
             isRequired
             name="born_birth"
             label="Tanggal Lahir"
@@ -68,7 +72,7 @@ const SKGeneralForm = () => {
       <Row gutter={[16, 16]}>
         <Col span={12}>
           <ReligionSelectInput
-            disabled
+            disabled={disabled}
             isRequired
             name="religion"
             label="Agama"
@@ -76,7 +80,7 @@ const SKGeneralForm = () => {
         </Col>
         <Col span={12}>
           <MaritalStatusSelectInput
-            disabled
+            disabled={disabled}
             isRequired
             name="marital_status"
             label="Status Pernikahan"
@@ -87,7 +91,7 @@ const SKGeneralForm = () => {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <FormInput
-            disabled
+            disabled={disabled}
             isRequired
             name="work"
             label="Pekerjaan"
@@ -99,7 +103,7 @@ const SKGeneralForm = () => {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <FormInputArea
-            disabled
+            disabled={disabled}
             isRequired
             name="address"
             label="Alamat Lengkap"

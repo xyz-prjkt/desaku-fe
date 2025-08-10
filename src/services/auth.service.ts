@@ -7,7 +7,20 @@ import {
 } from "@/interfaces/services/auth";
 import { IUserDetail } from "@/interfaces/services/user";
 import { api } from "@/libs";
+import { query } from "@/libs/query";
 import { useMutation, useQuery } from "@tanstack/react-query";
+
+interface IUpdateProfileBody {
+  name: string;
+  nik: string;
+  gender: string;
+  born_birth: string;
+  born_place: string;
+  religion: string;
+  marital_status: string;
+  work: string;
+  address: string;
+}
 
 const useAuthSignIn = () =>
   useMutation({
@@ -35,6 +48,21 @@ const useGetAuthMeProfile = () =>
       api.get("/auth/me/profile").then((res) => res.data),
   });
 
+const useUpdateAuthProfile = () => {
+  return useMutation({
+    mutationFn: async (data: IUpdateProfileBody): Promise<IApiResponse<null>> =>
+      api.put("/auth/me", data).then((res) => res.data),
+    onSuccess: () => {
+      query.invalidateQueries({
+        queryKey: [QUERY_KEYS.AUTH.ME, "profile"],
+      });
+      query.invalidateQueries({
+        queryKey: [QUERY_KEYS.AUTH.ME],
+      });
+    },
+  });
+};
+
 const useAuthSignOut = () =>
   useMutation({
     mutationFn: async (): Promise<IApiResponse<null>> =>
@@ -42,9 +70,11 @@ const useAuthSignOut = () =>
   });
 
 export {
+  IUpdateProfileBody,
   useAuthSignIn,
   useAuthSignOut,
   useAuthSignUp,
   useGetAuthMe,
   useGetAuthMeProfile,
+  useUpdateAuthProfile,
 };

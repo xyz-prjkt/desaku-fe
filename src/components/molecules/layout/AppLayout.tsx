@@ -71,7 +71,7 @@ const AppLayout = ({
       avatarProps={
         user
           ? {
-              src: <Avatar>{user?.name.charAt(0).toUpperCase()}</Avatar>,
+              src: <Avatar>{user?.name?.charAt(0).toUpperCase()}</Avatar>,
               size: "small",
               title: user?.name,
               render: (_, dom) => {

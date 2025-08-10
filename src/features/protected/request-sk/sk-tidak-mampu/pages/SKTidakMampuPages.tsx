@@ -68,7 +68,7 @@ const SKTidakMampuPages = () => {
               </Link>
             }
           />
-          <SKGeneralForm />
+          <SKGeneralForm disabled={false} />
           <SKTidakMampuForm />
         </Space>
         <Button
