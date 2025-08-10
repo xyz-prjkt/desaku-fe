@@ -18,7 +18,7 @@ root.render(
           token: {
             wireframe: false,
             borderRadius: 16,
-            colorPrimary: "#8674b9",
+            colorPrimary: "#002868",
           },
         }}
       >

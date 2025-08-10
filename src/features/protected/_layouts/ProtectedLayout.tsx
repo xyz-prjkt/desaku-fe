@@ -36,8 +36,14 @@ const ProtectedLayout = () => {
         fixSiderbar: true,
       }}
       siderWidth={278}
+      styles={{
+        contentBg: {
+          background:
+            "radial-gradient(circle at center, #B8D4F0 0%, rgba(184, 212, 240, 0.4) 35%, rgba(220, 235, 250, 0.2) 65%, rgba(245, 250, 255, 0.1) 85%, #ffffff 100%)",
+        },
+      }}
       logo={
-        <div className="h-6 w-6 flex items-center justify-center rounded-lg bg-purple-700 p-1">
+        <div className="h-6 w-6 flex items-center justify-center rounded-lg bg-[#002868] p-1">
           <LandmarkIcon color="white" size={16} />
         </div>
       }

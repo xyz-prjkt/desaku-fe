@@ -15,7 +15,7 @@ const AppAuthLayout = ({ children }: IAppAuthLayout) => {
       </div>
       <FlickeringGrid
         className="absolute h-screen w-screen"
-        color="#8B5CF6"
+        color="#002868"
         squareSize={6}
         gridGap={18}
         maxOpacity={0.8}

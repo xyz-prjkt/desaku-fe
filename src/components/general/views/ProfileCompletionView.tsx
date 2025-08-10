@@ -28,9 +28,7 @@ const ProfileCompletionView = ({
       type="info"
       action={
         <Link to="/my-profile">
-          <Button color="blue" variant="solid">
-            Lengkapi Profil
-          </Button>
+          <Button type="primary">Lengkapi Profil</Button>
         </Link>
       }
       showIcon

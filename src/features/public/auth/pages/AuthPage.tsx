@@ -7,10 +7,10 @@ import SignupForm from "../components/SignupForm";
 const AuthPage = () => {
   return (
     <Space className="md:min-w-96 max-w-96" direction="vertical">
-      <div className="flex items-center gap-3 text-purple-800 mb-3">
+      <div className="flex items-center gap-3 text-[#002868] mb-3">
         <Shield size={42} />
         <div>
-          <Typography.P className="text-xl font-semibold text-purple-800">
+          <Typography.P className="text-xl font-semibold text-[#002868]">
             Desaku Digital
           </Typography.P>
           <Typography.P>Authorisasi ke dalam sistem.</Typography.P>
