@@ -1,12 +1,17 @@
 import { AvatarImage } from "@/components/atoms/avatar";
 import { Typography } from "@/components/atoms/typography";
-import { BellFilled, InfoCircleFilled } from "@ant-design/icons";
+import {
+  BellFilled,
+  InfoCircleFilled,
+  LogoutOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import {
   ProLayout,
   ProLayoutProps,
   ProSettings,
 } from "@ant-design/pro-components";
-import { Card, Dropdown, List, Space, Tag } from "antd";
+import { Avatar, Card, Dropdown, List, Space, Tag } from "antd";
 import { CSSProperties, ReactNode } from "react";
 import { useNavigate } from "react-router";
 import { IRoute } from "../sidebar/interfaces";
@@ -66,7 +71,7 @@ const AppLayout = ({
       avatarProps={
         user
           ? {
-              src: user?.profilePicture,
+              src: <Avatar>{user?.name.charAt(0).toUpperCase()}</Avatar>,
               size: "small",
               title: user?.name,
               render: (_, dom) => {
@@ -104,9 +109,17 @@ const AppLayout = ({
                         </Space>
                         <List bordered className="mt-3">
                           <List.Item
+                            onClick={() => navigate("/my-profile")}
+                            className="cursor-pointer"
+                          >
+                            <UserOutlined className="mr-2" />
+                            Akun Saya
+                          </List.Item>
+                          <List.Item
                             onClick={handleLogout}
                             className="cursor-pointer"
                           >
+                            <LogoutOutlined className="mr-2" />
                             Keluar Akun
                           </List.Item>
                         </List>

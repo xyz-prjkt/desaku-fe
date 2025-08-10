@@ -11,7 +11,7 @@ import { SaveFilled } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, Button, Space } from "antd";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const SKTidakMampuPages = () => {
   const navigate = useNavigate();
@@ -61,9 +61,11 @@ const SKTidakMampuPages = () => {
             showIcon
             className="mb-4"
             action={
-              <Button color="blue" variant="solid">
-                Ubah Profil
-              </Button>
+              <Link to="/my-profile">
+                <Button color="blue" variant="solid">
+                  Ubah Profil
+                </Button>
+              </Link>
             }
           />
           <SKGeneralForm />
