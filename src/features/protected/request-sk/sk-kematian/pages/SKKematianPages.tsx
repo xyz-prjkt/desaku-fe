@@ -2,6 +2,7 @@ import { FormProvider } from "@/components/atoms/form";
 import { ContentPaper } from "@/components/atoms/paper";
 import skKematianSchema from "@/components/general/forms/schemas/sk-kematian.schema";
 import SKKematianForm from "@/components/general/forms/SKKematianForm";
+import ProfileCompletionView from "@/components/general/views/ProfileCompletionView";
 import { useAnt } from "@/hooks";
 import { ISkKematianCreate } from "@/interfaces/services/sk-kematian";
 import { useCreateSkKematian } from "@/services/sk-kematian.service";
@@ -35,22 +36,24 @@ const SKKematianPages = () => {
   return (
     <ContentPaper title="Ajukan Surat Keterangan Kematian">
       <FormProvider formMethods={formMethods} onSubmit={onSubmit}>
-        <Alert
-          message="Silakan isi data dengan informasi mendiang yang bersangkutan"
-          type="info"
-          showIcon
-          className="mb-4"
-        />
-        <SKKematianForm />
-        <Button
-          icon={<SaveFilled />}
-          loading={createSkIsPending}
-          type="primary"
-          className="mt-6"
-          onClick={formMethods.handleSubmit(onSubmit)}
-        >
-          Submit Permintaan Surat Keterangan
-        </Button>
+        <ProfileCompletionView>
+          <Alert
+            message="Silakan isi data dengan informasi mendiang yang bersangkutan"
+            type="info"
+            showIcon
+            className="mb-4"
+          />
+          <SKKematianForm />
+          <Button
+            icon={<SaveFilled />}
+            loading={createSkIsPending}
+            type="primary"
+            className="mt-6"
+            onClick={formMethods.handleSubmit(onSubmit)}
+          >
+            Submit Permintaan Surat Keterangan
+          </Button>
+        </ProfileCompletionView>
       </FormProvider>
     </ContentPaper>
   );

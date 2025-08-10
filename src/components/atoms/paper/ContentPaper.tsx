@@ -24,7 +24,7 @@ const ContentPaper = ({
   hideTitle,
   action,
   breadcrumb,
-  translucent = true,
+  translucent = false,
 }: ContentPaperProps) => {
   return (
     <>

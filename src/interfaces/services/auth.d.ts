@@ -39,11 +39,20 @@ interface IUserProfile {
   permissions: IPermission[];
 }
 
+interface IUserProfileCheck {
+  isComplete: boolean;
+  completionPercentage: number;
+  missingFields: string[];
+  totalFields: number;
+  completedFields: number;
+}
+
 export {
+  IPermission,
+  IPermissionName,
+  IRole,
   ISignInRequest,
   ISignUpRequest,
   IUserProfile,
-  IRole,
-  IPermission,
-  IPermissionName,
+  IUserProfileCheck,
 };

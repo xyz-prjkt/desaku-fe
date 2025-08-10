@@ -3,6 +3,7 @@ import { AvatarImage } from "@/components/atoms/avatar";
 import { formatter } from "@/components/atoms/count-up";
 import { ContentPaper } from "@/components/atoms/paper";
 import { Typography } from "@/components/atoms/typography";
+import ProfileCompletionView from "@/components/general/views/ProfileCompletionView";
 import { BaseTable } from "@/components/molecules/table";
 import { SK_TYPE_MAP } from "@/constants/sk-type-map";
 import { useTableAsync } from "@/hooks";
@@ -12,12 +13,12 @@ import {
   useGetDashboardStatusCount,
   useGetMySkList,
 } from "@/services/dashboard.service";
-import { Button, Card, Space, Statistic, Tag } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
+import { Card, Space, Statistic, Tag } from "antd";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useNavigate } from "react-router";
 import VillagerDashboardFilter from "../components/VillagerDashboardFilter";
-import { EyeOutlined } from "@ant-design/icons";
 
 const VillagerDashboardPage = () => {
   const {
@@ -32,10 +33,8 @@ const VillagerDashboardPage = () => {
   }>({});
 
   const { data: myProfile, isLoading: myProfileIsLoading } = useGetAuthMe();
-
   const { data: statusCount, isLoading: statusCountIsLoading } =
     useGetDashboardStatusCount();
-
   const { data: userSkList, isLoading: userSkListIsLoading } =
     useGetMySkList(paginateRequest);
 
@@ -67,6 +66,7 @@ const VillagerDashboardPage = () => {
   return (
     <ContentPaper title="Dashboard">
       <Space direction="vertical" size="large" className="w-full">
+        <ProfileCompletionView />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <Card
             loading={myProfileIsLoading}

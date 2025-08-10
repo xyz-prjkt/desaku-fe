@@ -7,6 +7,7 @@ import ProfileActions from "../components/ProfileActions";
 import ProfileHeader from "../components/ProfileHeader";
 import ProfileInformation from "../components/ProfileInformation";
 import ProfileUpdateModal from "../components/ProfileUpdateModal";
+import ProfileCompletionView from "@/components/general/views/ProfileCompletionView";
 
 const MyProfilePage = () => {
   const {

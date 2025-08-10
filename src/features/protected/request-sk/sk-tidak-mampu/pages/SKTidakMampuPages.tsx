@@ -3,6 +3,7 @@ import { ContentPaper } from "@/components/atoms/paper";
 import skTidakMampuSchema from "@/components/general/forms/schemas/sk-tidak-mampu.schema";
 import SKGeneralForm from "@/components/general/forms/SKGeneralForm";
 import SKTidakMampuForm from "@/components/general/forms/SKTidakMampuForm";
+import ProfileCompletionView from "@/components/general/views/ProfileCompletionView";
 import { useAnt } from "@/hooks";
 import { ISkTidakMampuCreate } from "@/interfaces/services/sk-tidak-mampu";
 import { useGetAuthMeProfile } from "@/services/auth.service";
@@ -54,32 +55,34 @@ const SKTidakMampuPages = () => {
       isLoading={userProfileIsLoading}
     >
       <FormProvider formMethods={formMethods} onSubmit={onSubmit}>
-        <Space direction="vertical" className="w-full">
-          <Alert
-            message="Apabila terdapat kesalahan pada data pribadi, silakan melakukan perubahan melalui Profil Saya"
-            type="info"
-            showIcon
-            className="mb-4"
-            action={
-              <Link to="/my-profile">
-                <Button color="blue" variant="solid">
-                  Ubah Profil
-                </Button>
-              </Link>
-            }
-          />
-          <SKGeneralForm disabled={false} />
-          <SKTidakMampuForm />
-        </Space>
-        <Button
-          icon={<SaveFilled />}
-          loading={createSkIsPending}
-          type="primary"
-          className="mt-6"
-          onClick={formMethods.handleSubmit(onSubmit)}
-        >
-          Submit Permintaan Surat Keterangan
-        </Button>
+        <ProfileCompletionView>
+          <Space direction="vertical" className="w-full">
+            <Alert
+              message="Apabila terdapat kesalahan pada data pribadi, silakan melakukan perubahan melalui Profil Saya"
+              type="info"
+              showIcon
+              className="mb-4"
+              action={
+                <Link to="/my-profile">
+                  <Button color="blue" variant="solid">
+                    Ubah Profil
+                  </Button>
+                </Link>
+              }
+            />
+            <SKGeneralForm disabled={false} />
+            <SKTidakMampuForm />
+          </Space>
+          <Button
+            icon={<SaveFilled />}
+            loading={createSkIsPending}
+            type="primary"
+            className="mt-6"
+            onClick={formMethods.handleSubmit(onSubmit)}
+          >
+            Submit Permintaan Surat Keterangan
+          </Button>
+        </ProfileCompletionView>
       </FormProvider>
     </ContentPaper>
   );

@@ -4,6 +4,7 @@ import {
   ISignInRequest,
   ISignUpRequest,
   IUserProfile,
+  IUserProfileCheck,
 } from "@/interfaces/services/auth";
 import { IUserDetail } from "@/interfaces/services/user";
 import { api } from "@/libs";
@@ -48,8 +49,8 @@ const useGetAuthMeProfile = () =>
       api.get("/auth/me/profile").then((res) => res.data),
   });
 
-const useUpdateAuthProfile = () => {
-  return useMutation({
+const useUpdateAuthProfile = () =>
+  useMutation({
     mutationFn: async (data: IUpdateProfileBody): Promise<IApiResponse<null>> =>
       api.put("/auth/me", data).then((res) => res.data),
     onSuccess: () => {
@@ -61,7 +62,13 @@ const useUpdateAuthProfile = () => {
       });
     },
   });
-};
+
+const useGetAuthProfileCheck = () =>
+  useQuery({
+    queryKey: [QUERY_KEYS.AUTH.ME, "check-profile"],
+    queryFn: async (): Promise<IApiResponse<IUserProfileCheck>> =>
+      api.get("/auth/me/check-profile").then((res) => res.data),
+  });
 
 const useAuthSignOut = () =>
   useMutation({
@@ -76,5 +83,6 @@ export {
   useAuthSignUp,
   useGetAuthMe,
   useGetAuthMeProfile,
+  useGetAuthProfileCheck,
   useUpdateAuthProfile,
 };

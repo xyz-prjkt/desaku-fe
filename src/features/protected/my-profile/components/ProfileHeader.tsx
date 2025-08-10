@@ -11,7 +11,7 @@ interface ProfileHeaderProps {
 const ProfileHeader = ({ data }: ProfileHeaderProps) => {
   const { xs } = Grid.useBreakpoint();
   return (
-    <Card>
+    <Card className="w-full flex-1">
       <Space
         direction={xs ? "vertical" : "horizontal"}
         size="large"
