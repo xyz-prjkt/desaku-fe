@@ -39,6 +39,83 @@ const SKApprovalFlowPage = () => {
               />
             ),
           },
+          {
+            key: "DISPENSASI",
+            label: "Dispensasi",
+            children: (
+              <FileApprovalDraggable
+                skType="DISPENSASI"
+                data={skApproverSettings?.data["DISPENSASI"]}
+                isEditMode={isEdit}
+              />
+            ),
+          },
+          {
+            key: "BEDA_NAMA",
+            label: "Beda Nama",
+            children: (
+              <FileApprovalDraggable
+                skType="BEDA_NAMA"
+                data={skApproverSettings?.data["BEDA_NAMA"]}
+                isEditMode={isEdit}
+              />
+            ),
+          },
+          {
+            key: "DOMISILI",
+            label: "Domisili",
+            children: (
+              <FileApprovalDraggable
+                skType="DOMISILI"
+                data={skApproverSettings?.data["DOMISILI"]}
+                isEditMode={isEdit}
+              />
+            ),
+          },
+          {
+            key: "KEHILANGAN",
+            label: "Kehilangan",
+            children: (
+              <FileApprovalDraggable
+                skType="KEHILANGAN"
+                data={skApproverSettings?.data["KEHILANGAN"]}
+                isEditMode={isEdit}
+              />
+            ),
+          },
+          {
+            key: "KELAHIRAN",
+            label: "Kelahiran",
+            children: (
+              <FileApprovalDraggable
+                skType="KELAHIRAN"
+                data={skApproverSettings?.data["KELAHIRAN"]}
+                isEditMode={isEdit}
+              />
+            ),
+          },
+          {
+            key: "USAHA",
+            label: "Usaha",
+            children: (
+              <FileApprovalDraggable
+                skType="USAHA"
+                data={skApproverSettings?.data["USAHA"]}
+                isEditMode={isEdit}
+              />
+            ),
+          },
+          {
+            key: "KTP_SEMENTARA",
+            label: "KTP Sementara",
+            children: (
+              <FileApprovalDraggable
+                skType="KTP_SEMENTARA"
+                data={skApproverSettings?.data["KTP_SEMENTARA"]}
+                isEditMode={isEdit}
+              />
+            ),
+          },
         ]}
         tabBarExtraContent={{
           right: (

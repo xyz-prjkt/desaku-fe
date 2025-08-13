@@ -30,7 +30,7 @@ const MySKPages = lazy(
 const SKKelahiranAnakPages = lazy(
   () =>
     import(
-      "@/features/protected/request-sk/sk-kelahiran-anak/pages/SKKelahiranAnakPages"
+      "@/features/protected/request-sk/sk-kelahiran/pages/SKKelahiranPages"
     )
 );
 
@@ -151,7 +151,7 @@ export const VILLAGER_ROUTES: IRoute = {
         },
         {
           id: "Kelahiran & Anak",
-          path: "request-sk/kelahiran-anak",
+          path: "request-sk/kelahiran",
           allowedPermission: "REQUEST_SK",
           element: (
             <Suspense>

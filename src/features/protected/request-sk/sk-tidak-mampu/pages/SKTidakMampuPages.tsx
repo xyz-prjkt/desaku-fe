@@ -24,7 +24,7 @@ const SKTidakMampuPages = () => {
 
   const formMethods = useForm<ISkTidakMampuCreate>({
     resolver: yupResolver(skTidakMampuSchema),
-    values: {
+    defaultValues: {
       address: userProfile?.data?.address,
       born_place: userProfile?.data?.born_place,
       born_birth: userProfile?.data?.born_birth,
@@ -34,7 +34,6 @@ const SKTidakMampuPages = () => {
       nik: userProfile?.data?.nik,
       religion: userProfile?.data?.religion,
       work: userProfile?.data?.work,
-      reason: "",
     },
   });
 

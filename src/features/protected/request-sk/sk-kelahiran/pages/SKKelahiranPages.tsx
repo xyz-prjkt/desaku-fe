@@ -1,29 +1,29 @@
 import { FormProvider } from "@/components/atoms/form";
 import { ContentPaper } from "@/components/atoms/paper";
-import skDispensasiSchema from "@/components/general/forms/schemas/sk-dispensasi.schema";
+import skKelahiranSchema from "@/components/general/forms/schemas/sk-kelahiran.schema";
 import SKGeneralForm from "@/components/general/forms/SKGeneralForm";
-import SKDispensasiForm from "@/components/general/forms/SKDispensasiForm";
+import SKKelahiranForm from "@/components/general/forms/SKKelahiranForm";
 import ProfileCompletionView from "@/components/general/views/ProfileCompletionView";
 import { useAnt } from "@/hooks";
-import { ISkDispensasiCreate } from "@/interfaces/services/sk-dispensasi";
+import { ISkKelahiranCreate } from "@/interfaces/services/sk-kelahiran";
 import { useGetAuthMeProfile } from "@/services/auth.service";
-import { useCreateSkDispensasi } from "@/services/sk-dispensasi.service";
+import { useCreateSkKelahiran } from "@/services/sk-kelahiran.service";
 import { SaveFilled } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, Button, Space } from "antd";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 
-const SKDispensasiPages = () => {
+const SKKelahiranPages = () => {
   const navigate = useNavigate();
   const { message } = useAnt();
   const { data: userProfile, isLoading: userProfileIsLoading } =
     useGetAuthMeProfile();
   const { mutateAsync: createSk, isPending: createSkIsPending } =
-    useCreateSkDispensasi();
+    useCreateSkKelahiran();
 
-  const formMethods = useForm<ISkDispensasiCreate>({
-    resolver: yupResolver(skDispensasiSchema),
+  const formMethods = useForm<ISkKelahiranCreate>({
+    resolver: yupResolver(skKelahiranSchema),
     defaultValues: {
       address: userProfile?.data?.address,
       born_place: userProfile?.data?.born_place,
@@ -36,12 +36,12 @@ const SKDispensasiPages = () => {
     },
   });
 
-  const onSubmit = async (data: ISkDispensasiCreate) => {
+  const onSubmit = async (data: ISkKelahiranCreate) => {
     await createSk(data)
       .then((res) => {
         if (res.success) {
           message.success("Berhasil mengirim permintaan");
-          navigate(`/my-sk/dispensasi/${res.data.id}/detail`);
+          navigate(`/my-sk/kelahiran/${res.data.id}/detail`);
         }
       })
       .catch((err) => message.error((err as Error).message));
@@ -49,7 +49,7 @@ const SKDispensasiPages = () => {
 
   return (
     <ContentPaper
-      title="Ajukan Surat Keterangan Dispensasi"
+      title="Ajukan Surat Keterangan Kelahiran"
       isLoading={userProfileIsLoading}
     >
       <FormProvider formMethods={formMethods} onSubmit={onSubmit}>
@@ -69,7 +69,7 @@ const SKDispensasiPages = () => {
               }
             />
             <SKGeneralForm />
-            <SKDispensasiForm />
+            <SKKelahiranForm />
           </Space>
           <Button
             icon={<SaveFilled />}
@@ -86,4 +86,4 @@ const SKDispensasiPages = () => {
   );
 };
 
-export default SKDispensasiPages;
+export default SKKelahiranPages;

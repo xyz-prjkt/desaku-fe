@@ -1,49 +1,37 @@
 import { Gender } from "./gender";
+import { MaritalStatus } from "./sk-tidak-mampu";
 
-type MaritalStatus =
-  | "SINGLE"
-  | "MARRIED"
-  | "DIVORCED"
-  | "WIDOWED"
-  | "SEPARATED"
-  | "SIRI";
-
-interface ISkTidakMampu {
+interface ISkBedaNama {
   id: string;
   name: string;
   address: string;
-  reason: string;
+  false_document: string;
 }
 
-interface ISkTidakMampuDetail extends ISkTidakMampu {
+interface ISkBedaNamaDetail extends ISkBedaNama {
   born_birth: string;
   born_place: string;
   nik: string;
+  no_kk: string;
   gender: Gender;
   religion: string;
-  work: string;
   marital_status: MaritalStatus;
   createdAt: string;
   updatedAt: string;
   user_sk_id: string;
 }
 
-interface ISkTidakMampuCreate {
+interface ISkBedaNamaCreate {
   name: string;
   born_birth: string;
   born_place: string;
   gender: Gender;
   nik: string;
+  no_kk: string;
   religion: string;
   address: string;
-  reason: string;
-  work: string;
   marital_status: MaritalStatus;
+  false_document: string;
 }
 
-export {
-  ISkTidakMampu,
-  ISkTidakMampuDetail,
-  ISkTidakMampuCreate,
-  MaritalStatus,
-};
+export { ISkBedaNama, ISkBedaNamaDetail, ISkBedaNamaCreate };
