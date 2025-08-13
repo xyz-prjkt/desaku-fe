@@ -70,21 +70,22 @@ const VillagerDashboardPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <Card
             loading={myProfileIsLoading}
-            className="bg-purple-100 lg:col-span-1"
+            className="bg-[#002868] lg:col-span-1"
           >
             <div className="flex flex-col gap-4">
-              <div className="p-1 w-fit rounded-full border-2 border-spacing-6 border-purple-500 border-dotted">
+              <div className="p-1 w-fit rounded-full border-2 border-spacing-6 border-white border-dotted">
                 <AvatarImage
+                  className="bg-white text-[#002868]"
                   src={""}
                   fallback={myProfile?.data?.name.slice(0, 1)}
                   size={64}
                 />
               </div>
               <div className="w-full">
-                <Typography.P className="text-purple-800 font-medium text-xl">
+                <Typography.P className="text-white font-medium text-xl">
                   {myProfile?.data?.name}
                 </Typography.P>
-                <Typography.P className="text-gray-600 mb-3">
+                <Typography.P className="text-white mb-3">
                   {myProfile?.data?.email}
                 </Typography.P>
                 <div className="flex flex-wrap gap-1">
