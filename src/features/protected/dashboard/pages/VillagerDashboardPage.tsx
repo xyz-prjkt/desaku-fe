@@ -5,9 +5,10 @@ import { ContentPaper } from "@/components/atoms/paper";
 import { Typography } from "@/components/atoms/typography";
 import ProfileCompletionView from "@/components/general/views/ProfileCompletionView";
 import { BaseTable } from "@/components/molecules/table";
-import { SK_TYPE_MAP } from "@/constants/sk-type-map";
+import { getSkObject, SK_TYPE_MAP } from "@/constants/sk-type-map";
 import { useTableAsync } from "@/hooks";
 import { ISuratKeterangan } from "@/interfaces/services/sk";
+import { SkType } from "@/interfaces/services/sk-type";
 import { useGetAuthMe } from "@/services/auth.service";
 import {
   useGetDashboardStatusCount,
@@ -122,15 +123,7 @@ const VillagerDashboardPage = () => {
               },
               {
                 title: "Nama di Surat",
-                render: (_, record) => {
-                  if (record.sk_type === "KEMATIAN") {
-                    return record.sk_kematian.name;
-                  } else if (record.sk_type === "TIDAK_MAMPU") {
-                    return record.sk_tidak_mampu.name;
-                  } else {
-                    return "-";
-                  }
-                },
+                render: (_, record) => getSkObject(record)?.name,
               },
               {
                 title: "Status",

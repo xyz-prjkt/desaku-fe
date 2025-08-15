@@ -14,47 +14,47 @@ const MySKPages = () => {
   const items = [
     {
       key: "sk-kematian",
-      label: "Surat Keterangan Kematian",
+      label: "SK Kematian",
       children: <MySKKematianTable />,
     },
     {
       key: "sk-tidak-mampu",
-      label: "Surat Keterangan Tidak Mampu",
+      label: "SK Tidak Mampu",
       children: <MySKTidakMampuTable />,
     },
     {
       key: "sk-dispensasi",
-      label: "Surat Keterangan Dispensasi",
+      label: "SK Dispensasi",
       children: <MySKDispensasiTable />,
     },
     {
       key: "sk-beda-nama",
-      label: "Surat Keterangan Beda Nama",
+      label: "SK Beda Nama",
       children: <MySKBedaNamaTable />,
     },
     {
       key: "sk-domisili",
-      label: "Surat Keterangan Domisili",
+      label: "SK Domisili",
       children: <MySKDomisiliTable />,
     },
     {
       key: "sk-kehilangan",
-      label: "Surat Keterangan Kehilangan",
+      label: "SK Kehilangan",
       children: <MySKKehilanganTable />,
     },
     {
       key: "sk-kelahiran",
-      label: "Surat Keterangan Kelahiran",
+      label: "SK Kelahiran",
       children: <MySKKelahiranTable />,
     },
     {
       key: "sk-usaha",
-      label: "Surat Keterangan Usaha",
+      label: "SK Usaha",
       children: <MySKUsahaTable />,
     },
     {
       key: "sk-ktp-sementara",
-      label: "Surat Keterangan KTP Sementara",
+      label: "SK KTP Sementara",
       children: <MySKKtpSementaraTable />,
     },
   ];
