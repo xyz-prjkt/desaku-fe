@@ -77,6 +77,34 @@ const SKTidakMampuDetailView = lazy(
   () => import("@/components/general/views/SKTidakMampuDetailView")
 );
 
+const SKDispensasiDetailView = lazy(
+  () => import("@/components/general/views/SKDispensasiDetailView")
+);
+
+const SKBedaNamaDetailView = lazy(
+  () => import("@/components/general/views/SKBedaNamaDetailView")
+);
+
+const SKDomisiliDetailView = lazy(
+  () => import("@/components/general/views/SKDomisiliDetailView")
+);
+
+const SKKehilanganDetailView = lazy(
+  () => import("@/components/general/views/SKKehilanganDetailView")
+);
+
+const SKKelahiranDetailView = lazy(
+  () => import("@/components/general/views/SKKelahiranDetailView")
+);
+
+const SKUsahaDetailView = lazy(
+  () => import("@/components/general/views/SKUsahaDetailView")
+);
+
+const SKKtpSementaraDetailView = lazy(
+  () => import("@/components/general/views/SKKtpSementaraDetailView")
+);
+
 export const VILLAGER_ROUTES: IRoute = {
   id: "Main Menu",
   children: [
@@ -121,6 +149,83 @@ export const VILLAGER_ROUTES: IRoute = {
       element: (
         <Suspense>
           <SKTidakMampuDetailView type="view" />
+        </Suspense>
+      ),
+    },
+    {
+      id: "Detail SK Dispensasi",
+      hidden: true,
+      path: "my-sk/dispensasi/:id/detail",
+      allowedPermission: "VIEW_SK",
+      element: (
+        <Suspense>
+          <SKDispensasiDetailView type="view" />
+        </Suspense>
+      ),
+    },
+    {
+      id: "Detail SK Beda Nama",
+      hidden: true,
+      path: "my-sk/beda-nama/:id/detail",
+      allowedPermission: "VIEW_SK",
+      element: (
+        <Suspense>
+          <SKBedaNamaDetailView type="view" />
+        </Suspense>
+      ),
+    },
+    {
+      id: "Detail SK Domisili",
+      hidden: true,
+      path: "my-sk/domisili/:id/detail",
+      allowedPermission: "VIEW_SK",
+      element: (
+        <Suspense>
+          <SKDomisiliDetailView type="view" />
+        </Suspense>
+      ),
+    },
+    {
+      id: "Detail SK Kehilangan",
+      hidden: true,
+      path: "my-sk/kehilangan/:id/detail",
+      allowedPermission: "VIEW_SK",
+      element: (
+        <Suspense>
+          <SKKehilanganDetailView type="view" />
+        </Suspense>
+      ),
+    },
+    {
+      id: "Detail SK Kelahiran",
+      hidden: true,
+      path: "my-sk/kelahiran/:id/detail",
+      allowedPermission: "VIEW_SK",
+      element: (
+        <Suspense>
+          <SKKelahiranDetailView type="view" />
+        </Suspense>
+      ),
+    },
+    {
+      id: "Detail SK Usaha",
+      hidden: true,
+      path: "my-sk/usaha/:id/detail",
+      allowedPermission: "VIEW_SK",
+      element: (
+        <Suspense>
+          <SKUsahaDetailView type="view" />
+        </Suspense>
+      ),
+    },
+    {
+      id: "Detail SK KTP Sementara",
+      hidden: true,
+      path: "my-sk/ktp-sementara/:id/detail",
+      allowedPermission: "VIEW_SK",
+      element: (
+        <Suspense>
+          <SKKtpSementaraDetailView type="view" />
         </Suspense>
       ),
     },

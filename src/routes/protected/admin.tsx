@@ -28,6 +28,34 @@ const SKTidakMampuDetailView = lazy(
   () => import("@/components/general/views/SKTidakMampuDetailView")
 );
 
+const SKDispensasiDetailView = lazy(
+  () => import("@/components/general/views/SKDispensasiDetailView")
+);
+
+const SKBedaNamaDetailView = lazy(
+  () => import("@/components/general/views/SKBedaNamaDetailView")
+);
+
+const SKDomisiliDetailView = lazy(
+  () => import("@/components/general/views/SKDomisiliDetailView")
+);
+
+const SKKehilanganDetailView = lazy(
+  () => import("@/components/general/views/SKKehilanganDetailView")
+);
+
+const SKKelahiranDetailView = lazy(
+  () => import("@/components/general/views/SKKelahiranDetailView")
+);
+
+const SKUsahaDetailView = lazy(
+  () => import("@/components/general/views/SKUsahaDetailView")
+);
+
+const SKKtpSementaraDetailView = lazy(
+  () => import("@/components/general/views/SKKtpSementaraDetailView")
+);
+
 const SKApprovalFlowPage = lazy(
   () => import("@/features/protected/sk-approval-flow/pages/SKApprovalFlowPage")
 );
@@ -64,11 +92,81 @@ export const ADMIN_ROUTES: IRoute = {
     },
     {
       hidden: true,
-      path: "review-sk/tidak_mampu/:id/detail",
+      path: "review-sk/tidak-mampu/:id/detail",
       allowedPermission: "APPROVE_SK",
       element: (
         <Suspense>
           <SKTidakMampuDetailView type="review" />
+        </Suspense>
+      ),
+    },
+    {
+      hidden: true,
+      path: "review-sk/dispensasi/:id/detail",
+      allowedPermission: "APPROVE_SK",
+      element: (
+        <Suspense>
+          <SKDispensasiDetailView type="review" />
+        </Suspense>
+      ),
+    },
+    {
+      hidden: true,
+      path: "review-sk/beda-nama/:id/detail",
+      allowedPermission: "APPROVE_SK",
+      element: (
+        <Suspense>
+          <SKBedaNamaDetailView type="review" />
+        </Suspense>
+      ),
+    },
+    {
+      hidden: true,
+      path: "review-sk/domisili/:id/detail",
+      allowedPermission: "APPROVE_SK",
+      element: (
+        <Suspense>
+          <SKDomisiliDetailView type="review" />
+        </Suspense>
+      ),
+    },
+    {
+      hidden: true,
+      path: "review-sk/kehilangan/:id/detail",
+      allowedPermission: "APPROVE_SK",
+      element: (
+        <Suspense>
+          <SKKehilanganDetailView type="review" />
+        </Suspense>
+      ),
+    },
+    {
+      hidden: true,
+      path: "review-sk/kelahiran/:id/detail",
+      allowedPermission: "APPROVE_SK",
+      element: (
+        <Suspense>
+          <SKKelahiranDetailView type="review" />
+        </Suspense>
+      ),
+    },
+    {
+      hidden: true,
+      path: "review-sk/usaha/:id/detail",
+      allowedPermission: "APPROVE_SK",
+      element: (
+        <Suspense>
+          <SKUsahaDetailView type="review" />
+        </Suspense>
+      ),
+    },
+    {
+      hidden: true,
+      path: "review-sk/ktp-sementara/:id/detail",
+      allowedPermission: "APPROVE_SK",
+      element: (
+        <Suspense>
+          <SKKtpSementaraDetailView type="review" />
         </Suspense>
       ),
     },
