@@ -148,13 +148,11 @@ const VillagerDashboardPage = () => {
                   <EyeOutlined
                     className="text-blue-500"
                     onClick={() => {
-                      const skUrl =
-                        record.sk_type === "KEMATIAN"
-                          ? "kematian"
-                          : record.sk_type === "TIDAK_MAMPU"
-                          ? "tidak-mampu"
-                          : "";
-                      navigate(`/my-sk/${skUrl}/${record.id}/detail`);
+                      navigate(
+                        `/my-sk/${record.sk_type
+                          .toLowerCase()
+                          .replace(/_/g, "-")}/${record.id}/detail`
+                      );
                     }}
                   />
                 ),
