@@ -79,7 +79,9 @@ const SkReviewPages = () => {
                       Change Status
                     </EditOutlined>
                     <Link
-                      to={`${record.sk_type.toLowerCase()}/${record.id}/detail`}
+                      to={`${record.sk_type.toLowerCase().replace(/_/g, "-")}/${
+                        record.id
+                      }/detail`}
                     >
                       <EyeOutlined className="text-blue-500" />
                     </Link>
