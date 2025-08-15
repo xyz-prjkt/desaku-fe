@@ -1,13 +1,13 @@
-import { ISkBedaNama } from "./sk-beda-nama";
-import { ISkDispensasi } from "./sk-dispensasi";
-import { ISkDomisili } from "./sk-domisili";
-import { ISkKehilangan } from "./sk-kehilangan";
-import { ISkKelahiran } from "./sk-kelahiran";
+import { ISkBedaNamaDetail } from "./sk-beda-nama";
+import { ISkDispensasiDetail } from "./sk-dispensasi";
+import { ISkDomisiliDetail } from "./sk-domisili";
+import { ISkKehilanganDetail } from "./sk-kehilangan";
+import { ISkKelahiranDetail } from "./sk-kelahiran";
 import { ISkKematianDetail } from "./sk-kematian";
-import { ISkKtpSementara } from "./sk-ktp-sementara";
+import { ISkKtpSementaraDetail } from "./sk-ktp-sementara";
 import { ISkTidakMampuDetail } from "./sk-tidak-mampu";
 import { SkType } from "./sk-type";
-import { ISkUsaha } from "./sk-usaha";
+import { ISkUsahaDetail } from "./sk-usaha";
 import { IUserApprover } from "./user";
 
 interface ISuratKeterangan {
@@ -19,14 +19,13 @@ interface ISuratKeterangan {
   user_approvers: IUserApprover[];
   sk_kematian: ISkKematianDetail | null;
   sk_tidak_mampu: ISkTidakMampuDetail | null;
-  sk_kelahiran: ISkKelahiran | null;
-  sk_beda_nama: ISkBedaNama | null;
-  sk_dispensasi: ISkDispensasi | null;
-  sk_domisili: ISkDomisili | null;
-  sk_kehilangan: ISkKehilangan | null;
-  sk_kehilangan: ISkKehilangan | null;
-  sk_ktp_sementara: ISkKtpSementara | null;
-  sk_usaha: ISkUsaha | null;
+  sk_kelahiran: ISkKelahiranDetail | null;
+  sk_beda_nama: ISkBedaNamaDetail | null;
+  sk_dispensasi: ISkDispensasiDetail | null;
+  sk_domisili: ISkDomisiliDetail | null;
+  sk_kehilangan: ISkKehilanganDetail | null;
+  sk_ktp_sementara: ISkKtpSementaraDetail | null;
+  sk_usaha: ISkUsahaDetail | null;
 }
 
 export { ISuratKeterangan };

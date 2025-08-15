@@ -1,4 +1,6 @@
 import ApprovalsTag from "@/components/atoms/approvals-tag/ApprovalsTag";
+import GenderLabel from "@/components/general/labels/GenderLabel";
+import MaritalStatusLabel from "@/components/general/labels/MaritalStatusLabel";
 import { ISuratKeterangan } from "@/interfaces/services/sk";
 import { Descriptions, Space } from "antd";
 import { format } from "date-fns";
@@ -8,21 +10,6 @@ interface ISKKelahiranDescriptionsProps {
 }
 
 const SKKelahiranDescriptions = ({ data }: ISKKelahiranDescriptionsProps) => {
-  const itemsPengaju = [
-    {
-      key: "createdAt",
-      label: "Tanggal Pengajuan",
-      children:
-        data?.createdAt &&
-        format(new Date(data?.createdAt), "EEEE, dd MMMM yyyy, HH:mm"),
-    },
-    {
-      key: "status",
-      label: "Status",
-      children: <ApprovalsTag approvers={data?.user_approvers} />,
-    },
-  ];
-
   const itemsKelahiran = [
     {
       key: "name",
@@ -30,8 +17,45 @@ const SKKelahiranDescriptions = ({ data }: ISKKelahiranDescriptionsProps) => {
       children: data?.sk_kelahiran?.name,
     },
     {
+      key: "nik",
+      label: "NIK",
+      children: data?.sk_kelahiran?.nik,
+    },
+    {
+      key: "gender",
+      label: "Jenis Kelamin",
+      children: data?.sk_kelahiran?.gender && (
+        <GenderLabel gender={data?.sk_kelahiran?.gender} />
+      ),
+    },
+    {
+      key: "born_place",
+      label: "Tempat Lahir",
+      children: data?.sk_kelahiran?.born_place,
+    },
+    {
+      key: "born_birth",
+      label: "Tanggal Lahir",
+      children:
+        data?.sk_kelahiran?.born_birth &&
+        format(new Date(data?.sk_kelahiran?.born_birth), "EEEE, dd MMMM yyyy"),
+    },
+    {
+      key: "religion",
+      label: "Agama",
+      children: data?.sk_kelahiran?.religion,
+    },
+    {
+      key: "marital_status",
+      label: "Status Pernikahan",
+      children: data?.sk_kelahiran?.marital_status && (
+        <MaritalStatusLabel status={data?.sk_kelahiran?.marital_status} />
+      ),
+    },
+    {
       key: "address",
       label: "Alamat",
+      span: 3,
       children: data?.sk_kelahiran?.address,
     },
     {
@@ -44,19 +68,25 @@ const SKKelahiranDescriptions = ({ data }: ISKKelahiranDescriptionsProps) => {
       label: "Nama Ibu",
       children: data?.sk_kelahiran?.mother_name,
     },
+    {
+      key: "status",
+      label: "Status Pengajuan",
+      children: <ApprovalsTag approvers={data?.user_approvers} />,
+    },
+    {
+      key: "createdAt",
+      label: "Tanggal Pengajuan",
+      children:
+        data?.createdAt &&
+        format(new Date(data?.createdAt), "EEEE, dd MMMM yyyy, HH:mm"),
+    },
   ];
 
   return (
     <Space direction="vertical" size="middle" className="w-full">
       <Descriptions
-        title="Data Pengajuan"
-        layout="vertical"
-        items={itemsPengaju}
-        bordered
-        column={2}
-      />
-      <Descriptions
-        title="Data Kelahiran"
+        size="small"
+        title="Informasi Pemohon"
         layout="vertical"
         items={itemsKelahiran}
         bordered
@@ -65,5 +95,4 @@ const SKKelahiranDescriptions = ({ data }: ISKKelahiranDescriptionsProps) => {
     </Space>
   );
 };
-
 export default SKKelahiranDescriptions;

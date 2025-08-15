@@ -1,4 +1,6 @@
 import ApprovalsTag from "@/components/atoms/approvals-tag/ApprovalsTag";
+import GenderLabel from "@/components/general/labels/GenderLabel";
+import MaritalStatusLabel from "@/components/general/labels/MaritalStatusLabel";
 import { ISuratKeterangan } from "@/interfaces/services/sk";
 import { Descriptions, Space } from "antd";
 import { format } from "date-fns";
@@ -8,21 +10,6 @@ interface ISKUsahaDescriptionsProps {
 }
 
 const SKUsahaDescriptions = ({ data }: ISKUsahaDescriptionsProps) => {
-  const itemsPengaju = [
-    {
-      key: "createdAt",
-      label: "Tanggal Pengajuan",
-      children:
-        data?.createdAt &&
-        format(new Date(data?.createdAt), "EEEE, dd MMMM yyyy, HH:mm"),
-    },
-    {
-      key: "status",
-      label: "Status",
-      children: <ApprovalsTag approvers={data?.user_approvers} />,
-    },
-  ];
-
   const itemsUsaha = [
     {
       key: "name",
@@ -30,33 +17,78 @@ const SKUsahaDescriptions = ({ data }: ISKUsahaDescriptionsProps) => {
       children: data?.sk_usaha?.name,
     },
     {
+      key: "nik",
+      label: "NIK",
+      children: data?.sk_usaha?.nik,
+    },
+    {
+      key: "gender",
+      label: "Jenis Kelamin",
+      children: data?.sk_usaha?.gender && (
+        <GenderLabel gender={data?.sk_usaha?.gender} />
+      ),
+    },
+    {
+      key: "born_place",
+      label: "Tempat Lahir",
+      children: data?.sk_usaha?.born_place,
+    },
+    {
+      key: "born_birth",
+      label: "Tanggal Lahir",
+      children:
+        data?.sk_usaha?.born_birth &&
+        format(new Date(data?.sk_usaha?.born_birth), "EEEE, dd MMMM yyyy"),
+    },
+    {
+      key: "religion",
+      label: "Agama",
+      children: data?.sk_usaha?.religion,
+    },
+    {
+      key: "marital_status",
+      label: "Status Pernikahan",
+      children: data?.sk_usaha?.marital_status && (
+        <MaritalStatusLabel status={data?.sk_usaha?.marital_status} />
+      ),
+    },
+    {
       key: "address",
       label: "Alamat",
+      span: 3,
       children: data?.sk_usaha?.address,
     },
     {
       key: "bussiness",
       label: "Jenis Usaha",
+      span: 3,
       children: data?.sk_usaha?.bussiness,
     },
     {
       key: "reason",
-      label: "Alasan",
+      label: "Tujuan",
+      span: 3,
       children: data?.sk_usaha?.reason,
+    },
+    {
+      key: "status",
+      label: "Status Pengajuan",
+      children: <ApprovalsTag approvers={data?.user_approvers} />,
+    },
+    {
+      key: "createdAt",
+      label: "Tanggal Pengajuan",
+      children:
+        data?.createdAt &&
+        format(new Date(data?.createdAt), "EEEE, dd MMMM yyyy, HH:mm"),
     },
   ];
 
   return (
     <Space direction="vertical" size="middle" className="w-full">
       <Descriptions
-        title="Data Pengajuan"
-        layout="vertical"
-        items={itemsPengaju}
-        bordered
-        column={2}
-      />
-      <Descriptions
-        title="Data Usaha"
+        size="small"
+        title="Informasi Pemohon"
         layout="vertical"
         items={itemsUsaha}
         bordered
@@ -65,5 +97,4 @@ const SKUsahaDescriptions = ({ data }: ISKUsahaDescriptionsProps) => {
     </Space>
   );
 };
-
 export default SKUsahaDescriptions;
