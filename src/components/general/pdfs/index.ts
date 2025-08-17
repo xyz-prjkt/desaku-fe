@@ -1,0 +1,9 @@
+export { default as SKBedaNamaTemplate } from "./SKBedaNamaTemplate";
+export { default as SKDispensasiTemplate } from "./SKDispensasiTemplate";
+export { default as SKDomisiliTemplate } from "./SKDomisiliTemplate";
+export { default as SKKehilanganTemplate } from "./SKKehilanganTemplate";
+export { default as SKKelahiranTemplate } from "./SKKelahiranTemplate";
+export { default as SKKematianTemplate } from "./SKKematianTemplate";
+export { default as SKKtpSementaraTemplate } from "./SKKtpSementaraTemplate";
+export { default as SKTidakMampuTemplate } from "./SKTidakMampuTemplate";
+export { default as SKUsahaTemplate } from "./SKUsahaTemplate";
