@@ -6,6 +6,7 @@ import { useGetSkDomisiliDetail } from "@/services/sk-domisili.service";
 import { usePdf } from "@/utils/pdf-helper";
 import { EditOutlined, FilePdfOutlined } from "@ant-design/icons";
 import { Button, Space } from "antd";
+import { toDataURL } from "qrcode";
 import { useParams } from "react-router";
 import SKDomisiliTemplate from "../pdfs/SKDomisiliTemplate";
 
@@ -27,12 +28,31 @@ const SKDomisiliDetailView = ({ type }: ISKDetailViewProps) => {
   );
 
   const handleSKPreview = async () => {
-    previewPdf(<SKDomisiliTemplate data={skDomisiliDetail?.data} />);
+    await toDataURL(
+      `${window.location.origin}/validate/${skDomisiliDetail.data?.id}`,
+      {
+        width: 100,
+      }
+    ).then((qr) => {
+      previewPdf(
+        <SKDomisiliTemplate data={skDomisiliDetail?.data} qrCodeValue={qr} />
+      );
+    });
   };
 
   const handleSkDownload = async () => {
-    downloadPdf(<SKDomisiliTemplate data={skDomisiliDetail?.data} />, {
-      fileName: `SK_Domisili_${id}.pdf`,
+    await toDataURL(
+      `${window.location.origin}/validate/${skDomisiliDetail.data?.id}`,
+      {
+        width: 100,
+      }
+    ).then((qr) => {
+      downloadPdf(
+        <SKDomisiliTemplate data={skDomisiliDetail?.data} qrCodeValue={qr} />,
+        {
+          fileName: `SK_Domisili_${id}.pdf`,
+        }
+      );
     });
   };
 

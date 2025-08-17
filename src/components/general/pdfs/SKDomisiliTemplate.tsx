@@ -1,16 +1,22 @@
 import { formatGender } from "@/constants/gender";
 import { formatMaritalStatus } from "@/constants/marital-status";
 import { ISuratKeterangan } from "@/interfaces/services/sk";
-import { Document, Image, Page, Text, View } from "@react-pdf/renderer";
+import { Document, Page, Text, View } from "@react-pdf/renderer";
 import { format } from "date-fns";
 import React from "react";
-import { Logo } from "./assets";
+import SKFooter from "./components/SKFooter";
+import SKHeader from "./components/SKHeader";
+import SKSignature from "./components/SKSignature";
 
 interface SKDomisiliTemplateProps {
   data: ISuratKeterangan;
+  qrCodeValue: string;
 }
 
-const SKDomisiliTemplate: React.FC<SKDomisiliTemplateProps> = ({ data }) => {
+const SKDomisiliTemplate: React.FC<SKDomisiliTemplateProps> = ({
+  data,
+  qrCodeValue,
+}) => {
   const skDomisili = data.sk_domisili;
 
   if (!skDomisili) return null;
@@ -18,46 +24,8 @@ const SKDomisiliTemplate: React.FC<SKDomisiliTemplateProps> = ({ data }) => {
   return (
     <Document>
       <Page size="A4" style={{ fontFamily: "Times-Roman", padding: 40 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginBottom: 20,
-          }}
-        >
-          <View
-            style={{
-              width: 62,
-              height: 62,
-              marginRight: 16,
-            }}
-          >
-            <Image src={Logo} />
-          </View>
-          <View>
-            <Text
-              style={{ fontSize: 14, fontWeight: "bold", textAlign: "center" }}
-            >
-              PEMERINTAH KABUPATEN PROBOLINGGO
-            </Text>
-            <Text
-              style={{ fontSize: 14, fontWeight: "bold", textAlign: "center" }}
-            >
-              KECAMATAN SUMBERASIH
-            </Text>
-            <Text
-              style={{ fontSize: 14, fontWeight: "bold", textAlign: "center" }}
-            >
-              DESA JANGUR
-            </Text>
-            <Text style={{ fontSize: 10, textAlign: "center", marginTop: 5 }}>
-              Jl. Malindo No. 1 Kode Pos 67251
-            </Text>
-          </View>
-        </View>
-
-        {/* Divider */}
-        <View style={{ borderBottom: "2px solid black", marginBottom: 20 }} />
+        {/* Header */}
+        <SKHeader />
 
         {/* Title */}
         <Text
@@ -106,7 +74,8 @@ const SKDomisiliTemplate: React.FC<SKDomisiliTemplateProps> = ({ data }) => {
             </Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12 }}>
-              {skDomisili.born_place}, {skDomisili.born_birth}
+              {skDomisili.born_place},{" "}
+              {format(skDomisili.born_birth, "dd MMMM yyyy")}
             </Text>
           </View>
 
@@ -130,12 +99,6 @@ const SKDomisiliTemplate: React.FC<SKDomisiliTemplateProps> = ({ data }) => {
             <Text style={{ fontSize: 12, width: 150 }}>Agama</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12 }}>{skDomisili.religion}</Text>
-          </View>
-
-          <View style={{ flexDirection: "row", marginBottom: 8 }}>
-            <Text style={{ fontSize: 12, width: 150 }}>Pekerjaan</Text>
-            <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>-</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
@@ -173,16 +136,9 @@ const SKDomisiliTemplate: React.FC<SKDomisiliTemplateProps> = ({ data }) => {
         </Text>
 
         {/* Signature */}
-        <View style={{ alignItems: "flex-end", marginBottom: 60 }}>
-          <Text style={{ fontSize: 12, marginBottom: 5 }}>
-            {format(new Date(data.createdAt), "dd MMMM yyyy")}
-          </Text>
-          <Text style={{ fontSize: 12, marginBottom: 5 }}>Mengetahui</Text>
-          <Text style={{ fontSize: 12, marginBottom: 60 }}>
-            Kepala desa jangur
-          </Text>
-          <Text style={{ fontSize: 12, fontWeight: "bold" }}>LOTVI</Text>
-        </View>
+        <SKSignature date={data.createdAt} />
+
+        <SKFooter qrCodeValue={qrCodeValue} />
       </Page>
     </Document>
   );
