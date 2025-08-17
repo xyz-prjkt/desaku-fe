@@ -87,7 +87,7 @@ const SKKematianPages = () => {
                       isRequired
                       name="death_reporter_relation"
                       label="Hubungan Pelapor dengan Almarhum"
-                      placeholder="Masukkan hubungan pelapor dengan almarhum"
+                      placeholder="Masukkan hubungan dengan almarhum (contoh: Istri, Suami, Anak, dll)"
                     />
                   </Space>
                 ),

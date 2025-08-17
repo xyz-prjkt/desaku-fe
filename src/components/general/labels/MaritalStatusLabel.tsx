@@ -1,5 +1,7 @@
+import { MaritalStatus } from "@/interfaces/services/sk-tidak-mampu";
+
 interface MaritalStatusLabelProps {
-  status: string;
+  status: MaritalStatus;
 }
 
 const MaritalStatusLabel = ({ status }: MaritalStatusLabelProps) => {
