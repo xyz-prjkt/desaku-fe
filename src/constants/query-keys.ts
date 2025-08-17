@@ -1,5 +1,8 @@
 export const QUERY_KEYS = {
   INFINITE: {},
+  PUBLIC: {
+    SK: ["public", "sk"],
+  },
   DASHBOARD: {
     STATUS_COUNT: ["dashboard", "status-count"],
     MY_SK_LIST: ["dashboard", "my-sk-list"],

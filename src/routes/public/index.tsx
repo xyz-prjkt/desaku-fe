@@ -1,12 +1,15 @@
 import { Suspense } from "@/components/atoms/suspense";
 import AppAuthLayout from "@/components/molecules/layout/AuthLayout";
-import AuthPage from "@/features/public/auth/pages/AuthPage";
 import { IRoute } from "@/interfaces/components/route";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
 import { lazy } from "react";
 
 const LandingPage = lazy(
   () => import("@/features/public/landing/pages/LandingPage")
+);
+const AuthPage = lazy(() => import("@/features/public/auth/pages/AuthPage"));
+const VerifyPages = lazy(
+  () => import("@/features/public/verify/pages/VerifyPages")
 );
 
 export const PUBLIC_ROUTE: IRoute = {
@@ -34,6 +37,11 @@ export const PUBLIC_ROUTE: IRoute = {
           ),
         },
       ],
+    },
+    {
+      id: "verify",
+      path: "verify/:id",
+      element: <VerifyPages />,
     },
   ],
 };
