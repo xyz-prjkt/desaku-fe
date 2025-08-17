@@ -110,7 +110,7 @@ const SKKtpSementaraTemplate: React.FC<SKKtpSementaraTemplateProps> = ({
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Pekerjaan</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>Pelajar</Text>
+            <Text style={{ fontSize: 12 }}>{skKtpSementara.work}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>

@@ -6,7 +6,6 @@ import { useGetSkTidakMampuDetail } from "@/services/sk-tidak-mampu.service";
 import { EditOutlined } from "@ant-design/icons";
 import { Button, Space } from "antd";
 import { useParams } from "react-router";
-import SKTidakMampuDownloadButton from "../buttons/SKTidakMampuDownloadButton";
 
 const SKTidakMampuDetailView = ({ type }: ISKDetailViewProps) => {
   const { id } = useParams();
@@ -29,13 +28,6 @@ const SKTidakMampuDetailView = ({ type }: ISKDetailViewProps) => {
               Ubah Status
             </Button>
           )}
-          <SKTidakMampuDownloadButton
-            id={id}
-            isAdmin={true}
-            disabled={skTidakMampuDetail?.data?.user_approvers?.every(
-              (approver) => approver.status !== "APPROVED"
-            )}
-          />
         </Space.Compact>
       }
     >

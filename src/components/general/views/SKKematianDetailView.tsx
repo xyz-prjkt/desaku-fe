@@ -1,5 +1,4 @@
 import { ContentPaper } from "@/components/atoms/paper";
-import SKKematianDownloadButton from "@/components/general/buttons/SKKematianDownloadButton";
 import SKKematianDescriptions from "@/components/general/views/SKKematianDescriptions";
 import UpdateStatusModal from "@/features/protected/sk-review/components/UpdateStatusModal";
 import { useDialog } from "@/hooks";
@@ -29,13 +28,6 @@ const SKKematianDetailView = ({ type }: ISKDetailViewProps) => {
               Ubah Status
             </Button>
           )}
-          <SKKematianDownloadButton
-            id={id}
-            isAdmin={true}
-            disabled={skKematianDetail?.data?.user_approvers?.every(
-              (approver) => approver.status !== "APPROVED"
-            )}
-          />
         </Space.Compact>
       }
     >

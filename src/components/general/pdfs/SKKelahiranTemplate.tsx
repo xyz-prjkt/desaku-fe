@@ -108,7 +108,7 @@ const SKKelahiranTemplate: React.FC<SKKelahiranTemplateProps> = ({
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Pekerjaan</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>Karyawan Swasta</Text>
+            <Text style={{ fontSize: 12 }}>{skKelahiran.work}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
