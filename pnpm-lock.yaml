@@ -93,7 +93,7 @@ importers:
         specifier: ^7.54.2
         version: 7.58.1(react@19.1.0)
       react-pdf:
-        specifier: ^10.0.1
+        specifier: ^10.1.0
         version: 10.1.0(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-router:
         specifier: ^7.6.2

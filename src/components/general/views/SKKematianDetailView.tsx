@@ -5,9 +5,10 @@ import { useDialog } from "@/hooks";
 import { useGetSkKematianDetail } from "@/services/sk-kematian.service";
 import { usePdf } from "@/utils/pdf-helper";
 import { EditOutlined, FilePdfOutlined } from "@ant-design/icons";
-import { Button, Space } from "antd";
+import { PDFViewer } from "@react-pdf/renderer";
+import { Button, Empty, Space, Splitter } from "antd";
 import { toDataURL } from "qrcode";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import SKKematianTemplate from "../pdfs/SKKematianTemplate";
 
 type ISKDetailType = "review" | "view";
@@ -17,28 +18,16 @@ interface ISKDetailViewProps {
 }
 
 const SKKematianDetailView = ({ type }: ISKDetailViewProps) => {
+  const { pathname } = useLocation();
   const { id } = useParams();
   const { data: skKematianDetail, isLoading: skKematianDetailIsLoading } =
     useGetSkKematianDetail(id, type === "review");
 
   const updateSk = useDialog<string>();
-  const { isLoading, downloadPdf, previewPdf } = usePdf();
+  const { isLoading, downloadPdf } = usePdf();
   const isAllApproved = skKematianDetail?.data?.user_approvers.every(
     (approver) => approver.status === "APPROVED"
   );
-
-  const handleSKPreview = async () => {
-    await toDataURL(
-      `${window.location.origin}/validate/${skKematianDetail.data?.id}`,
-      {
-        width: 100,
-      }
-    ).then((qr) => {
-      previewPdf(
-        <SKKematianTemplate data={skKematianDetail?.data} qrCodeValue={qr} />
-      );
-    });
-  };
 
   const handleSkDownload = async () => {
     await toDataURL(
@@ -71,14 +60,6 @@ const SKKematianDetailView = ({ type }: ISKDetailViewProps) => {
             </Button>
           )}
           <Button
-            key="preview"
-            onClick={handleSKPreview}
-            disabled={isLoading || !isAllApproved}
-            loading={isLoading}
-          >
-            Preview SK
-          </Button>
-          <Button
             key="download"
             onClick={handleSkDownload}
             disabled={skKematianDetailIsLoading || !isAllApproved}
@@ -92,7 +73,25 @@ const SKKematianDetailView = ({ type }: ISKDetailViewProps) => {
         </Space.Compact>
       }
     >
-      <SKKematianDescriptions data={skKematianDetail?.data} />
+      <Splitter className="gap-3 min-h-[calc(100vh-21rem)]">
+        <Splitter.Panel defaultSize="60%" min={"50%"}>
+          <SKKematianDescriptions data={skKematianDetail?.data} />
+        </Splitter.Panel>
+        <Splitter.Panel defaultSize="40%" min={"40%"}>
+          {isAllApproved || pathname.includes("review-sk") ? (
+            <PDFViewer className="w-full h-full" showToolbar={false}>
+              <SKKematianTemplate
+                data={skKematianDetail?.data}
+                qrCodeValue={null}
+              />
+            </PDFViewer>
+          ) : (
+            <div className="flex h-full justify-center items-center">
+              <Empty description="Dokumen Belum Disetujui"></Empty>
+            </div>
+          )}
+        </Splitter.Panel>
+      </Splitter>
       {type === "review" && updateSk.open && (
         <UpdateStatusModal
           open={updateSk.open}

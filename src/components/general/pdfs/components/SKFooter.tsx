@@ -1,9 +1,17 @@
-import { Image, View, Text, Link } from "@react-pdf/renderer";
+import { Image, Link, Text, View } from "@react-pdf/renderer";
 import React from "react";
+import SKCopyWatermark from "./SKCopyWatermark";
 
 const SKFooter: React.FC<{ qrCodeValue: string }> = ({ qrCodeValue }) => {
+  if (!qrCodeValue) return <SKCopyWatermark />;
   return (
-    <View fixed>
+    <View
+      fixed
+      style={{
+        position: "absolute",
+        bottom: 18,
+      }}
+    >
       <View
         style={{
           flexDirection: "row",
@@ -22,6 +30,7 @@ const SKFooter: React.FC<{ qrCodeValue: string }> = ({ qrCodeValue }) => {
         <Text
           style={{
             fontSize: 10,
+            fontStyle: "italic",
             textAlign: "left",
             opacity: 0.6,
             lineHeight: 1.4,
@@ -29,7 +38,7 @@ const SKFooter: React.FC<{ qrCodeValue: string }> = ({ qrCodeValue }) => {
           }}
         >
           <>
-            Dokumen digenerate otomatis oleh{" "}
+            Dokumen diterbitkan oleh{" "}
             <span>
               <Link
                 style={{

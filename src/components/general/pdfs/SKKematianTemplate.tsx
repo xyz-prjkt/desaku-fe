@@ -7,6 +7,7 @@ import React from "react";
 import SKFooter from "./components/SKFooter";
 import SKHeader from "./components/SKHeader";
 import SKSignature from "./components/SKSignature";
+import SKCopyWatermark from "./components/SKCopyWatermark";
 
 interface SKKematianTemplateProps {
   data: ISuratKeterangan;

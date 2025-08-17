@@ -41,7 +41,7 @@ const SKKelahiranTemplate: React.FC<SKKelahiranTemplateProps> = ({
         </Text>
 
         <Text style={{ fontSize: 12, textAlign: "center", marginBottom: 20 }}>
-          NOMER: {data.id}
+          Nomor: {data.id}
         </Text>
 
         {/* Opening Statement */}
