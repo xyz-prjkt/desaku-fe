@@ -31,7 +31,7 @@ const SKDispensasiDetailView = ({ type }: ISKDetailViewProps) => {
 
   const handleSKPreview = async () => {
     await toDataURL(
-      `${window.location.origin}/validate/${skDispensasiDetail.data?.id}`,
+      `${window.location.origin}/verify/${skDispensasiDetail.data?.id}`,
       {
         width: 100,
       }

@@ -31,7 +31,7 @@ const SKDomisiliDetailView = ({ type }: ISKDetailViewProps) => {
 
   const handleSKPreview = async () => {
     await toDataURL(
-      `${window.location.origin}/validate/${skDomisiliDetail.data?.id}`,
+      `${window.location.origin}/verify/${skDomisiliDetail.data?.id}`,
       {
         width: 100,
       }

@@ -31,7 +31,7 @@ const SKUsahaDetailView = ({ type }: ISKDetailViewProps) => {
 
   const handleSKPreview = async () => {
     await toDataURL(
-      `${window.location.origin}/validate/${skUsahaDetail.data?.id}`,
+      `${window.location.origin}/verify/${skUsahaDetail.data?.id}`,
       {
         width: 100,
       }

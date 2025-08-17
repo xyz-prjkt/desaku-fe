@@ -33,7 +33,7 @@ const SKKtpSementaraDetailView = ({ type }: ISKDetailViewProps) => {
 
   const handleSKPreview = async () => {
     await toDataURL(
-      `${window.location.origin}/validate/${skKtpSementaraDetail.data?.id}`,
+      `${window.location.origin}/verify/${skKtpSementaraDetail.data?.id}`,
       {
         width: 100,
       }

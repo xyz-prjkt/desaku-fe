@@ -31,7 +31,7 @@ const SKKematianDetailView = ({ type }: ISKDetailViewProps) => {
 
   const handleSKPreview = async () => {
     await toDataURL(
-      `${window.location.origin}/validate/${skKematianDetail.data?.id}`,
+      `${window.location.origin}/verify/${skKematianDetail.data?.id}`,
       {
         width: 100,
       }

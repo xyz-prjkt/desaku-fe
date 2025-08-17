@@ -31,7 +31,7 @@ const SKKehilanganDetailView = ({ type }: ISKDetailViewProps) => {
 
   const handleSKPreview = async () => {
     await toDataURL(
-      `${window.location.origin}/validate/${skKehilanganDetail.data?.id}`,
+      `${window.location.origin}/verify/${skKehilanganDetail.data?.id}`,
       {
         width: 100,
       }

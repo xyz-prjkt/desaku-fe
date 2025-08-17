@@ -31,7 +31,7 @@ const SKBedaNamaDetailView = ({ type }: ISKDetailViewProps) => {
 
   const handleSKPreview = async () => {
     await toDataURL(
-      `${window.location.origin}/validate/${skBedaNamaDetail.data?.id}`,
+      `${window.location.origin}/verify/${skBedaNamaDetail.data?.id}`,
       {
         width: 100,
       }

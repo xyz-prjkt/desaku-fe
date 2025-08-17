@@ -31,7 +31,7 @@ const SKTidakMampuDetailView = ({ type }: ISKDetailViewProps) => {
 
   const handleSKPreview = async () => {
     await toDataURL(
-      `${window.location.origin}/validate/${skTidakMampuDetail.data?.id}`,
+      `${window.location.origin}/verify/${skTidakMampuDetail.data?.id}`,
       {
         width: 100,
       }
