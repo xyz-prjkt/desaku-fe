@@ -146,7 +146,7 @@ const SKKelahiranTemplate: React.FC<SKKelahiranTemplateProps> = ({
         </Text>
 
         {/* Signature */}
-        <SKSignature date={data.createdAt} />
+        <SKSignature date={data.createdAt} qrCodeValue={qrCodeValue} />
 
         <SKFooter qrCodeValue={qrCodeValue} />
       </Page>

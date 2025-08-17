@@ -24,14 +24,30 @@ const SKTidakMampuDetailView = ({ type }: ISKDetailViewProps) => {
     useGetSkTidakMampuDetail(id, type === "review");
 
   const updateSk = useDialog<string>();
-  const { isLoading, downloadPdf } = usePdf();
+  const { isLoading, downloadPdf, previewPdf } = usePdf();
   const isAllApproved = skTidakMampuDetail?.data?.user_approvers.every(
     (approver) => approver.status === "APPROVED"
   );
 
-  const handleSkDownload = async () => {
+  const handleSKPreview = async () => {
     await toDataURL(
       `${window.location.origin}/validate/${skTidakMampuDetail.data?.id}`,
+      {
+        width: 100,
+      }
+    ).then((qr) => {
+      previewPdf(
+        <SKTidakMampuTemplate
+          data={skTidakMampuDetail?.data}
+          qrCodeValue={qr}
+        />
+      );
+    });
+  };
+
+  const handleSkDownload = async () => {
+    await toDataURL(
+      `${window.location.origin}/verify/${skTidakMampuDetail.data?.id}`,
       {
         width: 100,
       }
@@ -62,6 +78,14 @@ const SKTidakMampuDetailView = ({ type }: ISKDetailViewProps) => {
               Ubah Status
             </Button>
           )}
+          <Button
+            key="preview"
+            onClick={handleSKPreview}
+            disabled={isLoading || !isAllApproved}
+            loading={isLoading}
+          >
+            Preview SK
+          </Button>
           <Button
             key="download"
             onClick={handleSkDownload}

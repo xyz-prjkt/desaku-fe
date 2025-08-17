@@ -24,14 +24,27 @@ const SKBedaNamaDetailView = ({ type }: ISKDetailViewProps) => {
     useGetSkBedaNamaDetail(id, type === "review");
 
   const updateSk = useDialog<string>();
-  const { isLoading, downloadPdf } = usePdf();
+  const { isLoading, downloadPdf, previewPdf } = usePdf();
   const isAllApproved = skBedaNamaDetail?.data?.user_approvers.every(
     (approver) => approver.status === "APPROVED"
   );
 
-  const handleSkDownload = async () => {
+  const handleSKPreview = async () => {
     await toDataURL(
       `${window.location.origin}/validate/${skBedaNamaDetail.data?.id}`,
+      {
+        width: 100,
+      }
+    ).then((qr) => {
+      previewPdf(
+        <SKBedaNamaTemplate data={skBedaNamaDetail?.data} qrCodeValue={qr} />
+      );
+    });
+  };
+
+  const handleSkDownload = async () => {
+    await toDataURL(
+      `${window.location.origin}/verify/${skBedaNamaDetail.data?.id}`,
       {
         width: 100,
       }
@@ -59,6 +72,14 @@ const SKBedaNamaDetailView = ({ type }: ISKDetailViewProps) => {
               Ubah Status
             </Button>
           )}
+          <Button
+            key="preview"
+            onClick={handleSKPreview}
+            disabled={isLoading || !isAllApproved}
+            loading={isLoading}
+          >
+            Preview SK
+          </Button>
           <Button
             key="download"
             onClick={handleSkDownload}

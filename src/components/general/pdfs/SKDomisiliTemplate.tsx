@@ -142,7 +142,7 @@ const SKDomisiliTemplate: React.FC<SKDomisiliTemplateProps> = ({
         </Text>
 
         {/* Signature */}
-        <SKSignature date={data.createdAt} />
+        <SKSignature date={data.createdAt} qrCodeValue={qrCodeValue} />
 
         <SKFooter qrCodeValue={qrCodeValue} />
       </Page>
