@@ -3,9 +3,12 @@ import SKKtpSementaraDescriptions from "@/components/general/views/SKKtpSementar
 import UpdateStatusModal from "@/features/protected/sk-review/components/UpdateStatusModal";
 import { useDialog } from "@/hooks";
 import { useGetSkKtpSementaraDetail } from "@/services/sk-ktp-sementara.service";
-import { EditOutlined } from "@ant-design/icons";
+import { usePdf } from "@/utils/pdf-helper";
+import { EditOutlined, FilePdfOutlined } from "@ant-design/icons";
 import { Button, Space } from "antd";
+import { toDataURL } from "qrcode";
 import { useParams } from "react-router";
+import SKKtpSementaraTemplate from "../pdfs/SKKtpSementaraTemplate";
 
 type ISKDetailType = "review" | "view";
 
@@ -21,6 +24,45 @@ const SKKtpSementaraDetailView = ({ type }: ISKDetailViewProps) => {
   } = useGetSkKtpSementaraDetail(id, type === "review");
 
   const updateSk = useDialog<string>();
+  const { isLoading, downloadPdf, previewPdf } = usePdf();
+  const isAllApproved = skKtpSementaraDetail?.data?.user_approvers.every(
+    (approver) => approver.status === "APPROVED"
+  );
+
+  const handleSKPreview = async () => {
+    await toDataURL(
+      `${window.location.origin}/validate/${skKtpSementaraDetail.data?.id}`,
+      {
+        width: 100,
+      }
+    ).then((qr) => {
+      previewPdf(
+        <SKKtpSementaraTemplate
+          data={skKtpSementaraDetail?.data}
+          qrCodeValue={qr}
+        />
+      );
+    });
+  };
+
+  const handleSkDownload = async () => {
+    await toDataURL(
+      `${window.location.origin}/validate/${skKtpSementaraDetail.data?.id}`,
+      {
+        width: 100,
+      }
+    ).then((qr) => {
+      downloadPdf(
+        <SKKtpSementaraTemplate
+          data={skKtpSementaraDetail?.data}
+          qrCodeValue={qr}
+        />,
+        {
+          fileName: `SK_KTP_Sementara_${id}.pdf`,
+        }
+      );
+    });
+  };
 
   return (
     <ContentPaper
@@ -36,6 +78,25 @@ const SKKtpSementaraDetailView = ({ type }: ISKDetailViewProps) => {
               Ubah Status
             </Button>
           )}
+          <Button
+            key="preview"
+            onClick={handleSKPreview}
+            disabled={isLoading || !isAllApproved}
+            loading={isLoading}
+          >
+            Preview SK
+          </Button>
+          <Button
+            key="download"
+            onClick={handleSkDownload}
+            disabled={skKtpSementaraDetailIsLoading || !isAllApproved}
+            loading={isLoading}
+            color="red"
+            variant="solid"
+            icon={<FilePdfOutlined />}
+          >
+            Download SK as PDF
+          </Button>
         </Space.Compact>
       }
     >
