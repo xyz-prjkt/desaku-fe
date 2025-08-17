@@ -34,8 +34,8 @@ const SKBedaNamaPages = () => {
       name: userProfile?.data?.name,
       nik: userProfile?.data?.nik,
       religion: userProfile?.data?.religion,
-      false_document: "",
-      no_kk: "",
+      false_document: undefined,
+      no_kk: undefined,
     },
   });
 

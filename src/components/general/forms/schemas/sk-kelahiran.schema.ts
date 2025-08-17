@@ -8,6 +8,7 @@ const skKelahiranSchema = yup.object({
   born_place: yup.string().required("Tempat lahir wajib diisi"),
   gender: yup.mixed<Gender>().required("Jenis kelamin wajib diisi"),
   nik: yup.string().min(16).max(16).required("NIK wajib diisi"),
+  work: yup.string().required("Pekerjaan wajib diisi"),
   religion: yup.string().required("Agama wajib diisi"),
   address: yup.string().required("Alamat wajib diisi"),
   marital_status: yup

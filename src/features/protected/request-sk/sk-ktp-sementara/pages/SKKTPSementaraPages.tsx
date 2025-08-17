@@ -24,7 +24,7 @@ const SKKtpSementaraPages = () => {
 
   const formMethods = useForm<ISkKtpSementaraCreate>({
     resolver: yupResolver(skKtpSementaraSchema),
-    defaultValues: {
+    values: {
       address: userProfile?.data?.address,
       born_place: userProfile?.data?.born_place,
       born_birth: userProfile?.data?.born_birth,
@@ -33,6 +33,7 @@ const SKKtpSementaraPages = () => {
       name: userProfile?.data?.name,
       nik: userProfile?.data?.nik,
       religion: userProfile?.data?.religion,
+      work: userProfile?.data?.work,
     },
   });
 

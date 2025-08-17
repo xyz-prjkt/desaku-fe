@@ -24,7 +24,7 @@ const SKKehilanganPages = () => {
 
   const formMethods = useForm<ISkKehilanganCreate>({
     resolver: yupResolver(skKehilanganSchema),
-    defaultValues: {
+    values: {
       address: userProfile?.data?.address,
       born_place: userProfile?.data?.born_place,
       born_birth: userProfile?.data?.born_birth,
@@ -33,6 +33,9 @@ const SKKehilanganPages = () => {
       name: userProfile?.data?.name,
       nik: userProfile?.data?.nik,
       religion: userProfile?.data?.religion,
+      work: userProfile?.data?.work,
+      lost_object: undefined,
+      lost_place: undefined,
     },
   });
 

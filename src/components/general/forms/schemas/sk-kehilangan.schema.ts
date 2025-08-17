@@ -7,6 +7,7 @@ const skKehilanganSchema = yup.object({
   born_birth: yup.string().required("Tanggal lahir wajib diisi"),
   born_place: yup.string().required("Tempat lahir wajib diisi"),
   gender: yup.mixed<Gender>().required("Jenis kelamin wajib diisi"),
+  work: yup.string().required("Pekerjaan wajib diisi"),
   nik: yup.string().min(16).max(16).required("NIK wajib diisi"),
   religion: yup.string().required("Agama wajib diisi"),
   address: yup.string().required("Alamat wajib diisi"),

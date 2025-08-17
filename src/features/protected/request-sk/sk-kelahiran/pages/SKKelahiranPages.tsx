@@ -24,7 +24,7 @@ const SKKelahiranPages = () => {
 
   const formMethods = useForm<ISkKelahiranCreate>({
     resolver: yupResolver(skKelahiranSchema),
-    defaultValues: {
+    values: {
       address: userProfile?.data?.address,
       born_place: userProfile?.data?.born_place,
       born_birth: userProfile?.data?.born_birth,
@@ -33,6 +33,9 @@ const SKKelahiranPages = () => {
       name: userProfile?.data?.name,
       nik: userProfile?.data?.nik,
       religion: userProfile?.data?.religion,
+      work: userProfile?.data?.work,
+      father_name: undefined,
+      mother_name: undefined,
     },
   });
 

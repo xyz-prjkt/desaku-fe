@@ -4,6 +4,7 @@ const skUsahaSchema = yup.object({
   name: yup.string().required("Nama wajib diisi"),
   born_birth: yup.string().required("Tanggal lahir wajib diisi"),
   born_place: yup.string().required("Tempat lahir wajib diisi"),
+  work: yup.string().required("Pekerjaan wajib diisi"),
   gender: yup
     .string()
     .oneOf(["MALE", "FEMALE"])

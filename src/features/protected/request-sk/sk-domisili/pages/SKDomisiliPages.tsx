@@ -24,11 +24,12 @@ const SKDomisiliPages = () => {
 
   const formMethods = useForm<ISkDomisiliCreate>({
     resolver: yupResolver(skDomisiliSchema),
-    defaultValues: {
+    values: {
       address: userProfile?.data?.address,
       born_place: userProfile?.data?.born_place,
       born_birth: userProfile?.data?.born_birth,
       gender: userProfile?.data?.gender,
+      work: userProfile?.data?.work,
       marital_status: userProfile?.data?.marital_status,
       name: userProfile?.data?.name,
       nik: userProfile?.data?.nik,

@@ -1,8 +1,8 @@
 import { FormProvider } from "@/components/atoms/form";
 import { ContentPaper } from "@/components/atoms/paper";
 import skDispensasiSchema from "@/components/general/forms/schemas/sk-dispensasi.schema";
-import SKGeneralForm from "@/components/general/forms/SKGeneralForm";
 import SKDispensasiForm from "@/components/general/forms/SKDispensasiForm";
+import SKGeneralForm from "@/components/general/forms/SKGeneralForm";
 import ProfileCompletionView from "@/components/general/views/ProfileCompletionView";
 import { useAnt } from "@/hooks";
 import { ISkDispensasiCreate } from "@/interfaces/services/sk-dispensasi";
@@ -24,15 +24,20 @@ const SKDispensasiPages = () => {
 
   const formMethods = useForm<ISkDispensasiCreate>({
     resolver: yupResolver(skDispensasiSchema),
-    defaultValues: {
+    values: {
       address: userProfile?.data?.address,
       born_place: userProfile?.data?.born_place,
       born_birth: userProfile?.data?.born_birth,
+      work: userProfile?.data?.work,
       gender: userProfile?.data?.gender,
       marital_status: userProfile?.data?.marital_status,
       name: userProfile?.data?.name,
       nik: userProfile?.data?.nik,
       religion: userProfile?.data?.religion,
+      end_date: undefined,
+      purpose: undefined,
+      reason: undefined,
+      start_date: undefined,
     },
   });
 

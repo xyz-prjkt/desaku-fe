@@ -24,7 +24,7 @@ const SKUsahaPages = () => {
 
   const formMethods = useForm<ISkUsahaCreate>({
     resolver: yupResolver(skUsahaSchema),
-    defaultValues: {
+    values: {
       address: userProfile?.data?.address,
       born_place: userProfile?.data?.born_place,
       born_birth: userProfile?.data?.born_birth,
@@ -33,6 +33,9 @@ const SKUsahaPages = () => {
       name: userProfile?.data?.name,
       nik: userProfile?.data?.nik,
       religion: userProfile?.data?.religion,
+      work: userProfile?.data?.work,
+      reason: undefined,
+      bussiness: undefined,
     },
   });
 
