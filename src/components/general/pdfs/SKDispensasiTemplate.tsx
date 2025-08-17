@@ -116,7 +116,16 @@ const SKDispensasiTemplate: React.FC<SKDispensasiTemplateProps> = ({
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Alamat</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{skDispensasi.address}</Text>
+            <Text
+              style={{
+                fontSize: 12,
+                flex: 1,
+                lineHeight: 1.4,
+                textAlign: "justify",
+              }}
+            >
+              {skDispensasi.address}
+            </Text>
           </View>
         </View>
 

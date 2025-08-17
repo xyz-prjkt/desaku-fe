@@ -114,7 +114,16 @@ const SKKelahiranTemplate: React.FC<SKKelahiranTemplateProps> = ({
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Alamat</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{skKelahiran.address}</Text>
+            <Text
+              style={{
+                fontSize: 12,
+                flex: 1,
+                lineHeight: 1.4,
+                textAlign: "justify",
+              }}
+            >
+              {skKelahiran.address}
+            </Text>
           </View>
         </View>
 
@@ -127,10 +136,11 @@ const SKKelahiranTemplate: React.FC<SKKelahiranTemplateProps> = ({
             lineHeight: 1.5,
           }}
         >
-          Bahwa orang tersebut di atas benar-benar penduduk desa jangur
-          kecamatan sumberasih kabupaten probolinggo dan ia benar-benar anak
+          Bahwa orang tersebut di atas benar-benar penduduk Desa Jangur
+          Kecamatan Sumberasih Kabupaten Probolinggo dan ia benar-benar anak
           kandung dari Bapak {skKelahiran.father_name} dan ibu{" "}
-          {skKelahiran.mother_name} telah lahir pada hari jumat di rumah
+          {skKelahiran.mother_name} telah lahir pada hari{" "}
+          {format(skKelahiran.born_birth, "EEEE")}
         </Text>
 
         <Text
