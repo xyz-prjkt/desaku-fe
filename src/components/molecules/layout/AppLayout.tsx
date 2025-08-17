@@ -167,8 +167,7 @@ const AppLayout = ({
               paddingBlockStart: 12,
             }}
           >
-            <div>© 2025 {settings?.title}</div>
-            <div>by xyzscape</div>
+            <div> {settings?.title} © 2025 All rights reserved.</div>
           </div>
         );
       }}

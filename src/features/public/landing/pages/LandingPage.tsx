@@ -1,3 +1,4 @@
+import { WorldMap } from "@/components/atoms/backgrounds";
 import {
   CloudSyncOutlined,
   LockOutlined,
@@ -8,7 +9,6 @@ import {
   TeamOutlined,
   ThunderboltOutlined,
 } from "@ant-design/icons";
-import { Area } from "@antv/g2plot";
 import {
   Button,
   Card,
@@ -24,7 +24,9 @@ import {
   theme,
   Typography,
 } from "antd";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { LandmarkIcon } from "lucide-react";
+import { motion } from "motion/react";
+import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router";
 
@@ -44,107 +46,14 @@ const scrollToId = (id: string) => {
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
-// Indonesia map data for AntV visualization
-const indonesiaMapData = [
-  { region: "Sumatera", value: 85, coordinates: [-2.5, 118.0] },
-  { region: "Jawa", value: 92, coordinates: [-7.8, 110.4] },
-  { region: "Kalimantan", value: 78, coordinates: [-0.8, 114.0] },
-  { region: "Sulawesi", value: 88, coordinates: [-2.5, 120.0] },
-  { region: "Papua", value: 75, coordinates: [-4.0, 138.0] },
-  { region: "Bali & Nusa Tenggara", value: 90, coordinates: [-8.3, 115.8] },
-  { region: "Maluku", value: 82, coordinates: [-3.2, 129.0] },
-];
-
-const IndonesiaMapVisualization = ({
-  containerRef,
-}: {
-  containerRef: React.RefObject<HTMLDivElement>;
-}) => {
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const area = new Area(containerRef.current, {
-      data: indonesiaMapData,
-      xField: "region",
-      yField: "value",
-      smooth: true,
-      color: "#8674b9",
-      areaStyle: {
-        fillOpacity: 0.3,
-      },
-      line: {
-        color: "#8674b9",
-        size: 2,
-      },
-      point: {
-        color: "#8674b9",
-        size: 4,
-      },
-      xAxis: {
-        label: {
-          style: {
-            fontSize: 10,
-            fill: "rgba(0,0,0,0.45)",
-          },
-        },
-        grid: {
-          line: {
-            style: {
-              stroke: "rgba(0,0,0,0.06)",
-            },
-          },
-        },
-      },
-      yAxis: {
-        label: {
-          style: {
-            fontSize: 10,
-            fill: "rgba(0,0,0,0.45)",
-          },
-        },
-        grid: {
-          line: {
-            style: {
-              stroke: "rgba(0,0,0,0.06)",
-            },
-          },
-        },
-      },
-      tooltip: {
-        formatter: (data) => {
-          return {
-            name: "Adopsi Digital",
-            value: `${data.value}%`,
-          };
-        },
-      },
-    });
-
-    area.render();
-
-    return () => {
-      area.destroy();
-    };
-  }, [containerRef]);
-
-  return null;
-};
-
 const LandingPage = () => {
   const navigate = useNavigate();
   const { token } = theme.useToken();
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const mapRef = useRef<HTMLDivElement>(null);
 
   const menuItems = useMemo(
     () => sections.map((s) => ({ key: s.key, label: <span>{s.label}</span> })),
     []
   );
-
-  const handleMenuClick = (key: string) => {
-    scrollToId(key);
-    setDrawerOpen(false);
-  };
 
   return (
     <Layout>
@@ -170,15 +79,18 @@ const LandingPage = () => {
         <Row align="middle" gutter={16} wrap={false}>
           <Col flex="none">
             <Space size={8} align="center">
-              <RocketOutlined
-                style={{ fontSize: 24, color: token.colorPrimary }}
-              />
+              <div className="h-6 w-6 flex items-center justify-center rounded-lg bg-[#002868] ">
+                <LandmarkIcon color="white" size={16} />
+              </div>
               <Title level={4} style={{ margin: 0 }}>
-                DesaKU
+                Desaku Digital Administration
               </Title>
             </Space>
           </Col>
-          <Col flex="auto">
+          <Col
+            flex="auto"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
             <Menu
               mode="horizontal"
               selectable={false}
@@ -199,77 +111,78 @@ const LandingPage = () => {
       </Header>
 
       <Content>
-        {/* Hero */}
-        <section
-          style={{
-            position: "relative",
-            minHeight: "82vh",
-            display: "flex",
-            alignItems: "center",
-            overflow: "hidden",
-            background: `linear-gradient(180deg, ${token.colorBgLayout} 0%, ${token.colorBgContainer} 100%)`,
-          }}
-        >
-          <img
-            src="/assets/indonesia-outline.svg"
-            alt="Peta Indonesia"
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-              opacity: 0.08,
-              transform: "scale(1.1)",
-              filter: "grayscale(100%)",
-              pointerEvents: "none",
-            }}
-          />
-          <Row
-            gutter={[24, 24]}
-            style={{
-              padding: "80px 24px",
-              width: "100%",
-              position: "relative",
-            }}
-            justify="center"
-          >
-            <Col xs={24} md={20} lg={16} xl={14}>
-              <Space
-                direction="vertical"
-                size={16}
-                style={{ width: "100%", textAlign: "center" }}
-              >
-                <Title style={{ marginBottom: 0 }}>
-                  Desaku Digital Administration
-                </Title>
-                <Paragraph
-                  style={{ fontSize: 18, color: token.colorTextSecondary }}
-                >
-                  Transformasi layanan administrasi desa yang cepat, transparan,
-                  dan terintegrasi. Ajukan surat, pantau progres, dan selesaikan
-                  urusan Anda tanpa antri.
-                </Paragraph>
-                <Space
-                  size="middle"
-                  style={{ justifyContent: "center", width: "100%" }}
-                >
-                  <Button
-                    type="primary"
-                    size="large"
-                    onClick={() => navigate("/auth")}
-                    icon={<RocketOutlined />}
+        <div className="py-28 bg-white w-full">
+          <div className="max-w-7xl mx-auto text-center">
+            <p className="font-bold text-xl md:text-4xl text-black">
+              Desaku Digital{" "}
+              <span className="text-neutral-400">
+                {"Administration".split(" ").map((word, idx) => (
+                  <motion.span
+                    key={idx}
+                    className="inline-block"
+                    initial={{ x: -10, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.5, delay: idx * 0.04 }}
                   >
-                    Mulai Sekarang
-                  </Button>
-                  <Button size="large" onClick={() => scrollToId("fitur")}>
-                    Pelajari Lebih Lanjut
-                  </Button>
-                </Space>
-              </Space>
-            </Col>
-          </Row>
-        </section>
+                    {word}
+                  </motion.span>
+                ))}
+              </span>
+            </p>
+            <p className="text-sm md:text-lg text-neutral-500 max-w-2xl mx-auto py-4">
+              Transformasi layanan administrasi desa yang cepat, transparan, dan
+              terintegrasi. Ajukan surat, pantau progres, dan selesaikan urusan
+              Anda tanpa antri.
+            </p>
+            <Space size="middle" className="justify-content mt-8">
+              <Button
+                type="primary"
+                size="large"
+                onClick={() => navigate("/auth")}
+                icon={<RocketOutlined />}
+              >
+                Mulai Sekarang
+              </Button>
+              <Button size="large" onClick={() => scrollToId("fitur")}>
+                Pelajari Lebih Lanjut
+              </Button>
+            </Space>
+          </div>
+          <WorldMap
+            dots={[
+              {
+                start: {
+                  lat: 64.2008,
+                  lng: -149.4937,
+                }, // Alaska (Fairbanks)
+                end: {
+                  lat: 34.0522,
+                  lng: -118.2437,
+                }, // Los Angeles
+              },
+              {
+                start: { lat: 64.2008, lng: -149.4937 }, // Alaska (Fairbanks)
+                end: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
+              },
+              {
+                start: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
+                end: { lat: 38.7223, lng: -9.1393 }, // Lisbon
+              },
+              {
+                start: { lat: 51.5074, lng: -0.1278 }, // London
+                end: { lat: 28.6139, lng: 77.209 }, // New Delhi
+              },
+              {
+                start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                end: { lat: 43.1332, lng: 131.9113 }, // Vladivostok
+              },
+              {
+                start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                end: { lat: -1.2921, lng: 36.8219 }, // Nairobi
+              },
+            ]}
+          />
+        </div>
 
         {/* Tentang */}
         <section id="tentang" style={{ padding: "64px 24px" }}>

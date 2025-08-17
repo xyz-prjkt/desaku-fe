@@ -1,5 +1,6 @@
-import { FlickeringGrid } from "./FlickeringGrid";
 import { Aurora } from "./Aurora";
+import { FlickeringGrid } from "./FlickeringGrid";
 import { InteractiveGridPattern } from "./InteractingGridPattern";
+import { WorldMap } from "./WorldMap";
 
-export { FlickeringGrid, Aurora, InteractiveGridPattern };
+export { Aurora, FlickeringGrid, InteractiveGridPattern, WorldMap };

@@ -34,7 +34,7 @@ const AuthPage = () => {
       <Divider />
       <div className="flex flex-col items-center gap-2">
         <Typography.P className="text-center">
-          xyzscape © 2025 All rights reserved.
+          Desaku Digital Administration © 2025
         </Typography.P>
       </div>
     </Space>
