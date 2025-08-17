@@ -3,9 +3,11 @@ import SKDomisiliDescriptions from "@/components/general/views/SKDomisiliDescrip
 import UpdateStatusModal from "@/features/protected/sk-review/components/UpdateStatusModal";
 import { useDialog } from "@/hooks";
 import { useGetSkDomisiliDetail } from "@/services/sk-domisili.service";
-import { EditOutlined } from "@ant-design/icons";
+import { usePdf } from "@/utils/pdf-helper";
+import { EditOutlined, FilePdfOutlined } from "@ant-design/icons";
 import { Button, Space } from "antd";
 import { useParams } from "react-router";
+import SKDomisiliTemplate from "../pdfs/SKDomisiliTemplate";
 
 type ISKDetailType = "review" | "view";
 
@@ -19,6 +21,20 @@ const SKDomisiliDetailView = ({ type }: ISKDetailViewProps) => {
     useGetSkDomisiliDetail(id, type === "review");
 
   const updateSk = useDialog<string>();
+  const { isLoading, downloadPdf, previewPdf } = usePdf();
+  const isAllApproved = skDomisiliDetail?.data?.user_approvers.every(
+    (approver) => approver.status === "APPROVED"
+  );
+
+  const handleSKPreview = async () => {
+    previewPdf(<SKDomisiliTemplate data={skDomisiliDetail?.data} />);
+  };
+
+  const handleSkDownload = async () => {
+    downloadPdf(<SKDomisiliTemplate data={skDomisiliDetail?.data} />, {
+      fileName: `SK_Domisili_${id}.pdf`,
+    });
+  };
 
   return (
     <ContentPaper
@@ -34,6 +50,25 @@ const SKDomisiliDetailView = ({ type }: ISKDetailViewProps) => {
               Ubah Status
             </Button>
           )}
+          <Button
+            key="preview"
+            onClick={handleSKPreview}
+            disabled={isLoading || !isAllApproved}
+            loading={isLoading}
+          >
+            Preview SK
+          </Button>
+          <Button
+            key="download"
+            onClick={handleSkDownload}
+            disabled={skDomisiliDetailIsLoading || !isAllApproved}
+            loading={isLoading}
+            color="red"
+            variant="solid"
+            icon={<FilePdfOutlined />}
+          >
+            Download SK as PDF
+          </Button>
         </Space.Compact>
       }
     >
