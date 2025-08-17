@@ -3,9 +3,12 @@ import SKBedaNamaDescriptions from "@/components/general/views/SKBedaNamaDescrip
 import UpdateStatusModal from "@/features/protected/sk-review/components/UpdateStatusModal";
 import { useDialog } from "@/hooks";
 import { useGetSkBedaNamaDetail } from "@/services/sk-beda-nama.service";
-import { EditOutlined } from "@ant-design/icons";
+import { usePdf } from "@/utils/pdf-helper";
+import { EditOutlined, FilePdfOutlined } from "@ant-design/icons";
 import { Button, Space } from "antd";
+import { toDataURL } from "qrcode";
 import { useParams } from "react-router";
+import SKBedaNamaTemplate from "../pdfs/SKBedaNamaTemplate";
 
 type ISKDetailType = "review" | "view";
 
@@ -19,6 +22,39 @@ const SKBedaNamaDetailView = ({ type }: ISKDetailViewProps) => {
     useGetSkBedaNamaDetail(id, type === "review");
 
   const updateSk = useDialog<string>();
+  const { isLoading, downloadPdf, previewPdf } = usePdf();
+  const isAllApproved = skBedaNamaDetail?.data?.user_approvers.every(
+    (approver) => approver.status === "APPROVED"
+  );
+
+  const handleSKPreview = async () => {
+    await toDataURL(
+      `${window.location.origin}/validate/${skBedaNamaDetail.data?.id}`,
+      {
+        width: 100,
+      }
+    ).then((qr) => {
+      previewPdf(
+        <SKBedaNamaTemplate data={skBedaNamaDetail?.data} qrCodeValue={qr} />
+      );
+    });
+  };
+
+  const handleSkDownload = async () => {
+    await toDataURL(
+      `${window.location.origin}/validate/${skBedaNamaDetail.data?.id}`,
+      {
+        width: 100,
+      }
+    ).then((qr) => {
+      downloadPdf(
+        <SKBedaNamaTemplate data={skBedaNamaDetail?.data} qrCodeValue={qr} />,
+        {
+          fileName: `SK_Beda_Nama_${id}.pdf`,
+        }
+      );
+    });
+  };
 
   return (
     <ContentPaper
@@ -34,6 +70,25 @@ const SKBedaNamaDetailView = ({ type }: ISKDetailViewProps) => {
               Ubah Status
             </Button>
           )}
+          <Button
+            key="preview"
+            onClick={handleSKPreview}
+            disabled={isLoading || !isAllApproved}
+            loading={isLoading}
+          >
+            Preview SK
+          </Button>
+          <Button
+            key="download"
+            onClick={handleSkDownload}
+            disabled={skBedaNamaDetailIsLoading || !isAllApproved}
+            loading={isLoading}
+            color="red"
+            variant="solid"
+            icon={<FilePdfOutlined />}
+          >
+            Download SK as PDF
+          </Button>
         </Space.Compact>
       }
     >

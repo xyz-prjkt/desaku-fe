@@ -30,6 +30,7 @@ const SKBedaNamaPages = () => {
       born_birth: userProfile?.data?.born_birth,
       gender: userProfile?.data?.gender,
       marital_status: userProfile?.data?.marital_status,
+      work: userProfile?.data?.work,
       name: userProfile?.data?.name,
       nik: userProfile?.data?.nik,
       religion: userProfile?.data?.religion,

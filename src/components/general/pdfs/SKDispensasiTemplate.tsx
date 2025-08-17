@@ -8,18 +8,18 @@ import SKFooter from "./components/SKFooter";
 import SKHeader from "./components/SKHeader";
 import SKSignature from "./components/SKSignature";
 
-interface SKUsahaTemplateProps {
+interface SKDispensasiTemplateProps {
   data: ISuratKeterangan;
   qrCodeValue: string;
 }
 
-const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
+const SKDispensasiTemplate: React.FC<SKDispensasiTemplateProps> = ({
   data,
   qrCodeValue,
 }) => {
-  const skUsaha = data.sk_usaha;
+  const skDispensasi = data.sk_dispensasi;
 
-  if (!skUsaha) return null;
+  if (!skDispensasi) return null;
 
   return (
     <Document>
@@ -37,7 +37,7 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             textDecoration: "underline",
           }}
         >
-          SURAT KETERANGAN USAHA
+          SURAT KETERANGAN PERMOHONAN DISPENSASI
         </Text>
 
         <Text style={{ fontSize: 12, textAlign: "center", marginBottom: 20 }}>
@@ -54,7 +54,7 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
           }}
         >
           Yang bertanda tangan di bawah ini Kepala Desa Jangur, Kecamatan
-          Sumberasih, Kabupaten Probolinggo, Menerangkan dengan sebenarnya
+          Sumberasih, Kabupaten Probolinggo, menerangkan dengan sebenarnya
           bahwa:
         </Text>
 
@@ -64,7 +64,7 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             <Text style={{ fontSize: 12, width: 150 }}>Nama</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12, fontWeight: "bold" }}>
-              {skUsaha.name}
+              {skDispensasi.name}
             </Text>
           </View>
 
@@ -74,41 +74,49 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             </Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12 }}>
-              {skUsaha.born_place},{" "}
-              {format(new Date(skUsaha.born_birth), "dd MMMM yyyy")}
+              {skDispensasi.born_place},{" "}
+              {format(new Date(skDispensasi.born_birth), "dd-MM-yyyy")}
             </Text>
+          </View>
+
+          <View style={{ flexDirection: "row", marginBottom: 8 }}>
+            <Text style={{ fontSize: 12, width: 150 }}>NIK</Text>
+            <Text style={{ fontSize: 12, width: 20 }}>:</Text>
+            <Text style={{ fontSize: 12 }}>{skDispensasi.nik}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Jenis Kelamin</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{formatGender(skUsaha.gender)}</Text>
+            <Text style={{ fontSize: 12 }}>
+              {formatGender(skDispensasi.gender)}
+            </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
-            <Text style={{ fontSize: 12, width: 150 }}>Status Perkawinan</Text>
+            <Text style={{ fontSize: 12, width: 150 }}>Status perkawinan</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12 }}>
-              {formatMaritalStatus(skUsaha.marital_status)}
+              {formatMaritalStatus(skDispensasi.marital_status)}
             </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Agama</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{skUsaha.religion}</Text>
+            <Text style={{ fontSize: 12 }}>{skDispensasi.religion}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Pekerjaan</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>Wiraswasta</Text>
+            <Text style={{ fontSize: 12 }}>Mahasiswi</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Alamat</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{skUsaha.address}</Text>
+            <Text style={{ fontSize: 12 }}>{skDispensasi.address}</Text>
           </View>
         </View>
 
@@ -121,10 +129,59 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             lineHeight: 1.5,
           }}
         >
-          Orang tersebut diatas adalah benar-benar penduduk Desa Jangur yang
-          mempunyai usaha {skUsaha.bussiness} yang terletak di Desa Jangur
-          Kabupaten Probolinggo. Surat keterangan ini dibuat untuk persyaratan
-          pinjaman di BANK.
+          Orang tersebut di atas adalah benar – benar penduduk Desa Jangur
+          Kecamatan Sumberasih Kabupaten Probolinggo, dan ia mohon ijin untuk
+          dispensasi selama {format(new Date(skDispensasi.start_date), "dd")}{" "}
+          hari di mulai dari:
+        </Text>
+
+        <View style={{ marginBottom: 20 }}>
+          <View style={{ flexDirection: "row", marginBottom: 8 }}>
+            <Text style={{ fontSize: 12, width: 100 }}>Hari</Text>
+            <Text style={{ fontSize: 12, width: 20 }}>:</Text>
+            <Text style={{ fontSize: 12 }}>
+              {format(new Date(skDispensasi.start_date), "EEEE")}
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row", marginBottom: 8 }}>
+            <Text style={{ fontSize: 12, width: 100 }}>Tanggal</Text>
+            <Text style={{ fontSize: 12, width: 20 }}>:</Text>
+            <Text style={{ fontSize: 12 }}>
+              {format(new Date(skDispensasi.start_date), "dd-MM-yyyy")}
+            </Text>
+          </View>
+        </View>
+
+        <Text style={{ fontSize: 12, marginBottom: 8 }}>Sampai dengan</Text>
+
+        <View style={{ marginBottom: 20 }}>
+          <View style={{ flexDirection: "row", marginBottom: 8 }}>
+            <Text style={{ fontSize: 12, width: 100 }}>Hari</Text>
+            <Text style={{ fontSize: 12, width: 20 }}>:</Text>
+            <Text style={{ fontSize: 12 }}>
+              {format(new Date(skDispensasi.end_date), "EEEE")}
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row", marginBottom: 8 }}>
+            <Text style={{ fontSize: 12, width: 100 }}>Tanggal</Text>
+            <Text style={{ fontSize: 12, width: 20 }}>:</Text>
+            <Text style={{ fontSize: 12 }}>
+              {format(new Date(skDispensasi.end_date), "dd-MM-yyyy")}
+            </Text>
+          </View>
+        </View>
+
+        <Text
+          style={{
+            fontSize: 12,
+            textAlign: "justify",
+            marginBottom: 20,
+            lineHeight: 1.5,
+          }}
+        >
+          Disebabkan karena {skDispensasi.reason} yang bertempat di Desa Jangur
+          Kecamatan Sumberasih Kabupaten Probolinggo. Keterangan ini dibuat
+          untuk persyaratan {skDispensasi.purpose}.
         </Text>
 
         <Text
@@ -135,8 +192,8 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             lineHeight: 1.5,
           }}
         >
-          Demikian surat keterangan ini kami buat dengan sebenarnya dan dapat
-          dipergunakan sebagai mana mestinya.
+          Demikian surat keterangan ini dibuat dengan sebenar - benarnya dan
+          untuk dapat diperg unakan sebagai mana mestinya.
         </Text>
 
         {/* Signature */}
@@ -148,4 +205,4 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
   );
 };
 
-export default SKUsahaTemplate;
+export default SKDispensasiTemplate;

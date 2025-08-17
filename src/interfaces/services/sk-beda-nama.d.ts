@@ -13,6 +13,7 @@ interface ISkBedaNamaDetail extends ISkBedaNama {
   born_place: string;
   nik: string;
   no_kk: string;
+  work: string;
   gender: Gender;
   religion: string;
   marital_status: MaritalStatus;
@@ -27,6 +28,7 @@ interface ISkBedaNamaCreate {
   born_place: string;
   gender: Gender;
   nik: string;
+  work: string;
   no_kk: string;
   religion: string;
   address: string;

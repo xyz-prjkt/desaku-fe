@@ -8,18 +8,18 @@ import SKFooter from "./components/SKFooter";
 import SKHeader from "./components/SKHeader";
 import SKSignature from "./components/SKSignature";
 
-interface SKUsahaTemplateProps {
+interface SKKehilanganTemplateProps {
   data: ISuratKeterangan;
   qrCodeValue: string;
 }
 
-const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
+const SKKehilanganTemplate: React.FC<SKKehilanganTemplateProps> = ({
   data,
   qrCodeValue,
 }) => {
-  const skUsaha = data.sk_usaha;
+  const skKehilangan = data.sk_kehilangan;
 
-  if (!skUsaha) return null;
+  if (!skKehilangan) return null;
 
   return (
     <Document>
@@ -37,7 +37,7 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             textDecoration: "underline",
           }}
         >
-          SURAT KETERANGAN USAHA
+          SURAT KETERANGAN KEHILANGAN
         </Text>
 
         <Text style={{ fontSize: 12, textAlign: "center", marginBottom: 20 }}>
@@ -64,51 +64,57 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             <Text style={{ fontSize: 12, width: 150 }}>Nama</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12, fontWeight: "bold" }}>
-              {skUsaha.name}
+              {skKehilangan.name}
             </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
-            <Text style={{ fontSize: 12, width: 150 }}>
-              Tempat / Tanggal Lahir
-            </Text>
+            <Text style={{ fontSize: 12, width: 150 }}>NIK</Text>
+            <Text style={{ fontSize: 12, width: 20 }}>:</Text>
+            <Text style={{ fontSize: 12 }}>{skKehilangan.nik}</Text>
+          </View>
+
+          <View style={{ flexDirection: "row", marginBottom: 8 }}>
+            <Text style={{ fontSize: 12, width: 150 }}>Lahir</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12 }}>
-              {skUsaha.born_place},{" "}
-              {format(new Date(skUsaha.born_birth), "dd MMMM yyyy")}
+              {skKehilangan.born_place},{" "}
+              {format(new Date(skKehilangan.born_birth), "dd-MM-yyyy")}
             </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Jenis Kelamin</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{formatGender(skUsaha.gender)}</Text>
+            <Text style={{ fontSize: 12 }}>
+              {formatGender(skKehilangan.gender)}
+            </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Status Perkawinan</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12 }}>
-              {formatMaritalStatus(skUsaha.marital_status)}
+              {formatMaritalStatus(skKehilangan.marital_status)}
             </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Agama</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{skUsaha.religion}</Text>
+            <Text style={{ fontSize: 12 }}>{skKehilangan.religion}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Pekerjaan</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>Wiraswasta</Text>
+            <Text style={{ fontSize: 12 }}>Pegawai Negeri Sipil (PNS)</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Alamat</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{skUsaha.address}</Text>
+            <Text style={{ fontSize: 12 }}>{skKehilangan.address}</Text>
           </View>
         </View>
 
@@ -121,10 +127,9 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             lineHeight: 1.5,
           }}
         >
-          Orang tersebut diatas adalah benar-benar penduduk Desa Jangur yang
-          mempunyai usaha {skUsaha.bussiness} yang terletak di Desa Jangur
-          Kabupaten Probolinggo. Surat keterangan ini dibuat untuk persyaratan
-          pinjaman di BANK.
+          Orang tersebut diatas adalah benar-benar penduduk Desa Jangur
+          Kecamatan Sumberasih Kabupaten Probolinggo. Dan kehilangan sebuah
+          Kartu Keluarga (KK) di {skKehilangan.lost_place}.
         </Text>
 
         <Text
@@ -135,7 +140,7 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             lineHeight: 1.5,
           }}
         >
-          Demikian surat keterangan ini kami buat dengan sebenarnya dan dapat
+          Demikian Surat Keterangan ini kami buat dengan sebenarnya dan dapat
           dipergunakan sebagai mana mestinya.
         </Text>
 
@@ -148,4 +153,4 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
   );
 };
 
-export default SKUsahaTemplate;
+export default SKKehilanganTemplate;

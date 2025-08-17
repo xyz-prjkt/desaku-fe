@@ -8,18 +8,18 @@ import SKFooter from "./components/SKFooter";
 import SKHeader from "./components/SKHeader";
 import SKSignature from "./components/SKSignature";
 
-interface SKUsahaTemplateProps {
+interface SKBedaNamaTemplateProps {
   data: ISuratKeterangan;
   qrCodeValue: string;
 }
 
-const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
+const SKBedaNamaTemplate: React.FC<SKBedaNamaTemplateProps> = ({
   data,
   qrCodeValue,
 }) => {
-  const skUsaha = data.sk_usaha;
+  const skBedaNama = data.sk_beda_nama;
 
-  if (!skUsaha) return null;
+  if (!skBedaNama) return null;
 
   return (
     <Document>
@@ -37,7 +37,7 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             textDecoration: "underline",
           }}
         >
-          SURAT KETERANGAN USAHA
+          SURAT KETERANGAN BEDA NAMA
         </Text>
 
         <Text style={{ fontSize: 12, textAlign: "center", marginBottom: 20 }}>
@@ -64,8 +64,9 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             <Text style={{ fontSize: 12, width: 150 }}>Nama</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12, fontWeight: "bold" }}>
-              {skUsaha.name}
+              {skBedaNama.name}
             </Text>
+            <Text style={{ fontSize: 12, marginLeft: 50 }}>:</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
@@ -74,41 +75,55 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             </Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12 }}>
-              {skUsaha.born_place},{" "}
-              {format(new Date(skUsaha.born_birth), "dd MMMM yyyy")}
+              {skBedaNama.born_place},{" "}
+              {format(new Date(skBedaNama.born_birth), "dd-MM-yyyy")}
             </Text>
+          </View>
+
+          <View style={{ flexDirection: "row", marginBottom: 8 }}>
+            <Text style={{ fontSize: 12, width: 150 }}>NIK</Text>
+            <Text style={{ fontSize: 12, width: 20 }}>:</Text>
+            <Text style={{ fontSize: 12 }}>{skBedaNama.nik}</Text>
+          </View>
+
+          <View style={{ flexDirection: "row", marginBottom: 8 }}>
+            <Text style={{ fontSize: 12, width: 150 }}>NIK Kartu Keluarga</Text>
+            <Text style={{ fontSize: 12, width: 20 }}>:</Text>
+            <Text style={{ fontSize: 12 }}>{skBedaNama.no_kk}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Jenis Kelamin</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{formatGender(skUsaha.gender)}</Text>
+            <Text style={{ fontSize: 12 }}>
+              {formatGender(skBedaNama.gender)}
+            </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Status Perkawinan</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12 }}>
-              {formatMaritalStatus(skUsaha.marital_status)}
+              {formatMaritalStatus(skBedaNama.marital_status)}
             </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Agama</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{skUsaha.religion}</Text>
+            <Text style={{ fontSize: 12 }}>{skBedaNama.religion}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Pekerjaan</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>Wiraswasta</Text>
+            <Text style={{ fontSize: 12 }}>{skBedaNama.work}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Alamat</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{skUsaha.address}</Text>
+            <Text style={{ fontSize: 12 }}>{skBedaNama.address}</Text>
           </View>
         </View>
 
@@ -121,10 +136,10 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             lineHeight: 1.5,
           }}
         >
-          Orang tersebut diatas adalah benar-benar penduduk Desa Jangur yang
-          mempunyai usaha {skUsaha.bussiness} yang terletak di Desa Jangur
-          Kabupaten Probolinggo. Surat keterangan ini dibuat untuk persyaratan
-          pinjaman di BANK.
+          Menyatakan bahwa terdapat perbedaan data nama yang tercantum pada KTP
+          tertulis ({skBedaNama.name}) dan di data {skBedaNama.false_document},
+          setelah melakukan penelitian orang tersebut diatas benar benar satu
+          orang yang sama.
         </Text>
 
         <Text
@@ -135,7 +150,7 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
             lineHeight: 1.5,
           }}
         >
-          Demikian surat keterangan ini kami buat dengan sebenarnya dan dapat
+          Demikian Surat Keterangan ini dibuat dengan sebenarnya dan dapat
           dipergunakan sebagai mana mestinya.
         </Text>
 
@@ -148,4 +163,4 @@ const SKUsahaTemplate: React.FC<SKUsahaTemplateProps> = ({
   );
 };
 
-export default SKUsahaTemplate;
+export default SKBedaNamaTemplate;

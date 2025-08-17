@@ -3,9 +3,12 @@ import SKDispensasiDescriptions from "@/components/general/views/SKDispensasiDes
 import UpdateStatusModal from "@/features/protected/sk-review/components/UpdateStatusModal";
 import { useDialog } from "@/hooks";
 import { useGetSkDispensasiDetail } from "@/services/sk-dispensasi.service";
-import { EditOutlined } from "@ant-design/icons";
+import { usePdf } from "@/utils/pdf-helper";
+import { EditOutlined, FilePdfOutlined } from "@ant-design/icons";
 import { Button, Space } from "antd";
+import { toDataURL } from "qrcode";
 import { useParams } from "react-router";
+import SKDispensasiTemplate from "../pdfs/SKDispensasiTemplate";
 
 type ISKDetailType = "review" | "view";
 
@@ -19,6 +22,45 @@ const SKDispensasiDetailView = ({ type }: ISKDetailViewProps) => {
     useGetSkDispensasiDetail(id, type === "review");
 
   const updateSk = useDialog<string>();
+  const { isLoading, downloadPdf, previewPdf } = usePdf();
+  const isAllApproved = skDispensasiDetail?.data?.user_approvers.every(
+    (approver) => approver.status === "APPROVED"
+  );
+
+  const handleSKPreview = async () => {
+    await toDataURL(
+      `${window.location.origin}/validate/${skDispensasiDetail.data?.id}`,
+      {
+        width: 100,
+      }
+    ).then((qr) => {
+      previewPdf(
+        <SKDispensasiTemplate
+          data={skDispensasiDetail?.data}
+          qrCodeValue={qr}
+        />
+      );
+    });
+  };
+
+  const handleSkDownload = async () => {
+    await toDataURL(
+      `${window.location.origin}/validate/${skDispensasiDetail.data?.id}`,
+      {
+        width: 100,
+      }
+    ).then((qr) => {
+      downloadPdf(
+        <SKDispensasiTemplate
+          data={skDispensasiDetail?.data}
+          qrCodeValue={qr}
+        />,
+        {
+          fileName: `SK_Dispensasi_${id}.pdf`,
+        }
+      );
+    });
+  };
 
   return (
     <ContentPaper
@@ -34,6 +76,25 @@ const SKDispensasiDetailView = ({ type }: ISKDetailViewProps) => {
               Ubah Status
             </Button>
           )}
+          <Button
+            key="preview"
+            onClick={handleSKPreview}
+            disabled={isLoading || !isAllApproved}
+            loading={isLoading}
+          >
+            Preview SK
+          </Button>
+          <Button
+            key="download"
+            onClick={handleSkDownload}
+            disabled={skDispensasiDetailIsLoading || !isAllApproved}
+            loading={isLoading}
+            color="red"
+            variant="solid"
+            icon={<FilePdfOutlined />}
+          >
+            Download SK as PDF
+          </Button>
         </Space.Compact>
       }
     >
