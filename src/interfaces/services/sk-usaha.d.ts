@@ -1,37 +1,12 @@
-import { Gender } from "./gender";
-import { MaritalStatus } from "./sk-tidak-mampu";
+import { ISuratKeteranganDetailBase, ISuratKeteranganGeneral } from "./sk";
 
 interface ISkUsaha {
-  id: string;
-  name: string;
-  address: string;
   bussiness: string;
   reason: string;
 }
 
-interface ISkUsahaDetail extends ISkUsaha {
-  born_birth: string;
-  born_place: string;
-  nik: string;
-  gender: Gender;
-  religion: string;
-  marital_status: MaritalStatus;
-  createdAt: string;
-  updatedAt: string;
-  user_sk_id: string;
-}
+interface ISkUsahaDetail extends ISuratKeteranganDetailBase, ISkUsaha {}
 
-interface ISkUsahaCreate {
-  name: string;
-  born_birth: string;
-  born_place: string;
-  gender: Gender;
-  nik: string;
-  religion: string;
-  address: string;
-  marital_status: MaritalStatus;
-  bussiness: string;
-  reason: string;
-}
+interface ISkUsahaCreate extends ISuratKeteranganGeneral, ISkUsaha {}
 
-export { ISkUsaha, ISkUsahaDetail, ISkUsahaCreate };
+export { ISkUsaha, ISkUsahaCreate, ISkUsahaDetail };

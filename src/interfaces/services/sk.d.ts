@@ -1,3 +1,4 @@
+import { Gender } from "./gender";
 import { ISkBedaNamaDetail } from "./sk-beda-nama";
 import { ISkDispensasiDetail } from "./sk-dispensasi";
 import { ISkDomisiliDetail } from "./sk-domisili";
@@ -5,7 +6,7 @@ import { ISkKehilanganDetail } from "./sk-kehilangan";
 import { ISkKelahiranDetail } from "./sk-kelahiran";
 import { ISkKematianDetail } from "./sk-kematian";
 import { ISkKtpSementaraDetail } from "./sk-ktp-sementara";
-import { ISkTidakMampuDetail } from "./sk-tidak-mampu";
+import { ISkTidakMampuDetail, MaritalStatus } from "./sk-tidak-mampu";
 import { SkType } from "./sk-type";
 import { ISkUsahaDetail } from "./sk-usaha";
 import { IUserApprover } from "./user";
@@ -28,4 +29,27 @@ interface ISuratKeterangan {
   sk_usaha: ISkUsahaDetail | null;
 }
 
-export { ISuratKeterangan };
+interface ISuratKeteranganGeneral {
+  name: string;
+  born_birth: string;
+  born_place: string;
+  gender: Gender;
+  nik: string;
+  religion: string;
+  address: string;
+  work: string;
+  marital_status: MaritalStatus;
+}
+
+interface ISuratKeteranganDetailBase extends ISuratKeteranganGeneral {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  user_sk_id: string;
+}
+
+export {
+  ISuratKeterangan,
+  ISuratKeteranganGeneral,
+  ISuratKeteranganDetailBase,
+};
