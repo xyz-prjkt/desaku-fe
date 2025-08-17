@@ -13,7 +13,7 @@ const SKKematianForm = () => {
         <Col span={24}>
           <FormInput
             isRequired
-            name="name"
+            name="death_name"
             label="Nama Lengkap"
             placeholder="Masukkan nama lengkap"
           />
@@ -24,14 +24,18 @@ const SKKematianForm = () => {
         <Col span={12}>
           <FormInput
             isRequired
-            name="nik"
+            name="death_nik"
             label="NIK"
             placeholder="Masukkan NIK (16 digit)"
             maxLength={16}
           />
         </Col>
         <Col span={12}>
-          <GenderSelectInput label="Jenis Kelamin" name="gender" isRequired />
+          <GenderSelectInput
+            label="Jenis Kelamin"
+            name="death_gender"
+            isRequired
+          />
         </Col>
       </Row>
 
@@ -39,7 +43,7 @@ const SKKematianForm = () => {
         <Col span={12}>
           <FormInput
             isRequired
-            name="born_place"
+            name="death_born_place"
             label="Tempat Lahir"
             placeholder="Masukkan tempat lahir"
           />
@@ -47,7 +51,7 @@ const SKKematianForm = () => {
         <Col span={12}>
           <DatePicker
             isRequired
-            name="born_birth"
+            name="death_born_birth"
             label="Tanggal Lahir"
             fullWidth
             placeholder="Pilih tanggal lahir"
@@ -58,12 +62,12 @@ const SKKematianForm = () => {
 
       <Row gutter={[16, 16]}>
         <Col span={8}>
-          <ReligionSelectInput isRequired name="religion" label="Agama" />
+          <ReligionSelectInput isRequired name="death_religion" label="Agama" />
         </Col>
         <Col span={8}>
           <MaritalStatusSelectInput
             isRequired
-            name="marital_status"
+            name="death_marital_status"
             label="Status Pernikahan"
           />
         </Col>
@@ -71,7 +75,7 @@ const SKKematianForm = () => {
         <Col span={8}>
           <FormInput
             isRequired
-            name="work"
+            name="death_work"
             label="Pekerjaan"
             placeholder="Masukkan pekerjaan"
           />
@@ -82,7 +86,7 @@ const SKKematianForm = () => {
         <Col span={24}>
           <FormInputArea
             isRequired
-            name="address"
+            name="death_address"
             label="Alamat Lengkap"
             placeholder="Masukkan alamat lengkap"
           />

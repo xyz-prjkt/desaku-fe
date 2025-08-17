@@ -62,7 +62,7 @@ const SKKematianTemplate: React.FC<SKKematianTemplateProps> = ({
             <Text style={{ fontSize: 12, width: 150 }}>Nama</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12, fontWeight: "bold" }}>
-              {skKematian.name}
+              {skKematian.death_name}
             </Text>
           </View>
 
@@ -72,35 +72,35 @@ const SKKematianTemplate: React.FC<SKKematianTemplateProps> = ({
             </Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12 }}>
-              {skKematian.born_place},{" "}
-              {format(new Date(skKematian.born_birth), "dd-MM-yyyy")}
+              {skKematian.death_born_place},{" "}
+              {format(new Date(skKematian.death_born_birth), "dd-MM-yyyy")}
             </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>N I K</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{skKematian.nik}</Text>
+            <Text style={{ fontSize: 12 }}>{skKematian.death_nik}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Jenis Kelamin</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
             <Text style={{ fontSize: 12 }}>
-              {formatGender(skKematian.gender)}
+              {formatGender(skKematian.death_gender)}
             </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Agama</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{skKematian.religion}</Text>
+            <Text style={{ fontSize: 12 }}>{skKematian.death_religion}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Alamat</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>{skKematian.address}</Text>
+            <Text style={{ fontSize: 12 }}>{skKematian.death_address}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
@@ -170,7 +170,7 @@ const SKKematianTemplate: React.FC<SKKematianTemplateProps> = ({
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Nama</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>SAMI</Text>
+            <Text style={{ fontSize: 12 }}>{skKematian.name}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
@@ -178,37 +178,44 @@ const SKKematianTemplate: React.FC<SKKematianTemplateProps> = ({
               Tempat / Tanggal Lahir
             </Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>Probolinggo, 06-09-1973</Text>
+            <Text style={{ fontSize: 12 }}>
+              {skKematian.born_place},{" "}
+              {format(new Date(skKematian.born_birth), "dd-MM-yyyy")}
+            </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>N I K</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>3513214609730002</Text>
+            <Text style={{ fontSize: 12 }}>{skKematian.nik}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Jenis Kelamin</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>Laki-laki</Text>
+            <Text style={{ fontSize: 12 }}>
+              {formatGender(skKematian.gender)}
+            </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Status</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>Kawin</Text>
+            <Text style={{ fontSize: 12 }}>
+              {formatMaritalStatus(skKematian.marital_status)}
+            </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Agama</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>Islam</Text>
+            <Text style={{ fontSize: 12 }}>{skKematian.religion}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
             <Text style={{ fontSize: 12, width: 150 }}>Alamat</Text>
             <Text style={{ fontSize: 12, width: 20 }}>:</Text>
-            <Text style={{ fontSize: 12 }}>Dusun Klompang Rt.013 Rw.003</Text>
+            <Text style={{ fontSize: 12 }}>{skKematian.address}</Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 8 }}>
@@ -227,7 +234,8 @@ const SKKematianTemplate: React.FC<SKKematianTemplateProps> = ({
             textDecoration: "underline",
           }}
         >
-          Hubungan pelapor dengan yang meninggal: Istri
+          Hubungan pelapor dengan yang meninggal:{" "}
+          {skKematian.death_reporter_relation}
         </Text>
 
         {/* Signature */}
