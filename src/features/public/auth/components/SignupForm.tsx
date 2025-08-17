@@ -2,23 +2,42 @@ import { FormProvider } from "@/components/atoms/form";
 import { FormInput, PasswordInput } from "@/components/atoms/input";
 import { useAnt } from "@/hooks";
 import { ISignUpRequest } from "@/interfaces/services/auth";
-import { useAuthSignUp } from "@/services/auth.service";
+import { cookies } from "@/libs/cookies";
+import { useAuthSignIn, useAuthSignUp } from "@/services/auth.service";
+import { encryptObject } from "@/utils/secure-storage";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Space } from "antd";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { authSignUp } from "../schemas/auth.schemas";
 
 const SignupForm = () => {
   const { mutateAsync: signUp, isPending: signUpIsPending } = useAuthSignUp();
+  const { mutateAsync: signIn, isPending: signInIsPending } = useAuthSignIn();
+
   const formMethods = useForm<ISignUpRequest>({
     resolver: yupResolver(authSignUp),
   });
   const { message } = useAnt();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: ISignUpRequest) => {
     await signUp(data)
-      .then((res) => {
-        if (res.success) message.success("Berhasil daftar ke dalam sistem");
+      .then(async (res) => {
+        if (res.success) {
+          await signIn({
+            email: data.email,
+            password: data.password,
+          })
+            .then((res) => {
+              if (res.success) {
+                message.success("Berhasil terdaftar & masuk ke dalam sistem");
+                cookies.set("dsk-mddlwr", encryptObject("true", "dsk-mddlwr"));
+                navigate("/dashboard");
+              }
+            })
+            .catch((err) => message.error((err as Error).message));
+        }
       })
       .catch((err) => message.error((err as Error).message));
   };
@@ -47,7 +66,7 @@ const SignupForm = () => {
             color="primary"
             className="w-full"
             htmlType="submit"
-            loading={signUpIsPending}
+            loading={signUpIsPending || signInIsPending}
             onClick={formMethods.handleSubmit(onSubmit)}
           >
             Buat Akun
