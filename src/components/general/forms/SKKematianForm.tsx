@@ -4,6 +4,7 @@ import FormInput from "@/components/atoms/input/FormInput";
 import GenderSelectInput from "@/components/general/select/GenderSelectInput";
 import ReligionSelectInput from "@/components/general/select/ReligionSelectInput";
 import { Col, Row, Space } from "antd";
+import MaritalStatusSelectInput from "../select/MaritalStatusSelectInput";
 
 const SKKematianForm = () => {
   return (
@@ -56,8 +57,24 @@ const SKKematianForm = () => {
       </Row>
 
       <Row gutter={[16, 16]}>
-        <Col span={24}>
+        <Col span={8}>
           <ReligionSelectInput isRequired name="religion" label="Agama" />
+        </Col>
+        <Col span={8}>
+          <MaritalStatusSelectInput
+            isRequired
+            name="marital_status"
+            label="Status Pernikahan"
+          />
+        </Col>
+
+        <Col span={8}>
+          <FormInput
+            isRequired
+            name="work"
+            label="Pekerjaan"
+            placeholder="Masukkan pekerjaan"
+          />
         </Col>
       </Row>
 
